@@ -14,21 +14,21 @@ _czc.push(["_setAccount", "1260076959"]);
 //_czc.push(["_trackEvent", "车险分期首页", "点击次数", "", "", "车险报价按钮"]);
 
 
-////录入报价信息页面打开的次数（https://mobile.qianduan.com/CarInsuranceQuote/QuoteInfo）
+////录入报价信息页面打开的次数（https://mobile.qianduan.com/PaymentQuote/QuoteInfo）
 
 //_czc.push(["_trackEvent", "录入报价信息页", "点击次数", "", "", "立即报价按钮"]);
 
-////报价结果页面打开的次数（https://mobile.qianduan.com/CarInsuranceQuote/QuoteResult）
+////报价结果页面打开的次数（https://mobile.qianduan.com/PaymentQuote/QuoteResult）
 
 //_czc.push(["_trackEvent", "报价结果页", "点击次数", "", "", "确认投保按钮"]);
 
-////投保单页面打开的次数（https://mobile.qianduan.com/CarInsuranceQuote/ApplicationForm）
+////投保单页面打开的次数（https://mobile.qianduan.com/PaymentQuote/ApplicationForm）
 
 //_czc.push(["_trackEvent", "投保单页", "点击次数", "", "", "修改分期"]);
 
 //_czc.push(["_trackEvent", "投保单页", "点击次数", "", "", "确认提交"]);
 
-////选择分期方式页面打开的次数（https://mobile.qianduan.com/CarInsuranceQuote/Installment）
+////选择分期方式页面打开的次数（https://mobile.qianduan.com/PaymentQuote/Installment）
 
 //_czc.push(["_trackEvent", "选择分期方式页", "点击次数", "", "", "立即分期按钮"]);
 

@@ -53,8 +53,8 @@ namespace Max.BUS.Message
         public const string MallOrderPayAndRefund_Exchange = "ex.log.MallOrderPayAndRefund";
 
         //车险
-        public const string CarInsurance_Queue = "log.CarInsurance";
-        public const string CarInsurance_Exchange = "ex.log.CarInsurance";
+        public const string Payment_Queue = "log.Payment";
+        public const string Payment_Exchange = "ex.log.Payment";
 
         public const string CarRefundScan_Queue = "log.CarRefundScan";
         public const string CarRefundScan_Exchange = "ex.log.CarRefundScan";

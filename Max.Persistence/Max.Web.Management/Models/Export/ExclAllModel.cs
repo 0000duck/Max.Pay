@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Max.Models.CarInsurance.Common;
+using Max.Models.Payment.Common;
 
 namespace Max.Web.Management.Models.Export
 {

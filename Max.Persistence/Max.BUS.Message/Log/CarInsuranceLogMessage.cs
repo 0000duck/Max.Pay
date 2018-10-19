@@ -12,15 +12,15 @@ namespace Max.BUS.Message.Log
     /// <summary>
     /// 车险接口日志
     /// </summary>
-    [Queue(MQConfig.CarInsurance_Queue, ExchangeName = MQConfig.CarInsurance_Exchange)]
-    public class CarInsuranceLogMessage : MongoEntity, ICarInsuranceMessage
+    [Queue(MQConfig.Payment_Queue, ExchangeName = MQConfig.Payment_Exchange)]
+    public class PaymentLogMessage : MongoEntity, IPaymentMessage
     {
         /// <summary>
         /// 保险公司 1华安 2阳光
         /// </summary>
         public int CompanyType { get; set; }
 
-        public CarInsuranceLogUserData UserData { get; set; }
+        public PaymentLogUserData UserData { get; set; }
 
         /// <summary>
         /// 保险公司
@@ -90,7 +90,7 @@ namespace Max.BUS.Message.Log
         public string ResponseEncryptXml { get; set; }
     }
 
-    public class CarInsuranceLogUserData
+    public class PaymentLogUserData
     {
         /// <summary>
         /// 订单编号

@@ -7,8 +7,8 @@ using EasyNetQ;
 
 namespace Max.BUS.Message.Log
 {
-    [Queue(MQConfig.CarInsurance_Queue, ExchangeName = MQConfig.CarInsurance_Exchange)]
-    public interface ICarInsuranceMessage
+    [Queue(MQConfig.Payment_Queue, ExchangeName = MQConfig.Payment_Exchange)]
+    public interface IPaymentMessage
     {
         /// <summary>
         /// 业务模块名称

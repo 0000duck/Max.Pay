@@ -12,8 +12,8 @@ namespace Max.BUS.Message.Log
     /// <summary>
     /// 车险业务日志实体
     /// </summary>
-    [Queue(MQConfig.CarInsurance_Queue, ExchangeName = MQConfig.CarInsurance_Exchange)]
-    public class CarBusinessLogMessage : MongoEntity, ICarInsuranceMessage
+    [Queue(MQConfig.Payment_Queue, ExchangeName = MQConfig.Payment_Exchange)]
+    public class CarBusinessLogMessage : MongoEntity, IPaymentMessage
     {
         /// <summary>
         /// 日志类型 99 代表车险业务日志

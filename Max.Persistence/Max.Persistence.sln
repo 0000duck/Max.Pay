@@ -31,15 +31,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.OpenApi", "Max.Web.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 单元测试", "07 单元测试", "{3D157A19-F077-4FAE-B28E-BF58F87EDE80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Service.CarInsurance", "Max.Service.CarInsurance\Max.Service.CarInsurance.csproj", "{63EB3AFC-8C88-4E48-8E27-E7E112FAF8D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Service.Payment", "Max.Service.Payment\Max.Service.Payment.csproj", "{63EB3AFC-8C88-4E48-8E27-E7E112FAF8D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Models.CarInsurance", "Max.Models.CarInsurance\Max.Models.CarInsurance.csproj", "{A9FCC92C-154E-469E-9F7D-683FF421C9CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Models.Payment", "Max.Models.Payment\Max.Models.Payment.csproj", "{A9FCC92C-154E-469E-9F7D-683FF421C9CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Job.CarInsurance", "Max.Job.CarInsurance\Max.Job.CarInsurance.csproj", "{62F73C47-9C1F-4F04-A359-4105F4CD5D37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Job.Payment", "Max.Job.Payment\Max.Job.Payment.csproj", "{62F73C47-9C1F-4F04-A359-4105F4CD5D37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 缓存服务", "02 缓存服务", "{6560CE91-2507-4E68-B9D1-95F69FDDAF03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.BUS.CarInsuranceLog", "Max.BUS.CarInsuranceLog\Max.BUS.CarInsuranceLog.csproj", "{A550DDD7-39A5-4633-9353-EC0C77166931}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.BUS.PaymentLog", "Max.BUS.PaymentLog\Max.BUS.PaymentLog.csproj", "{A550DDD7-39A5-4633-9353-EC0C77166931}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08 组件工具", "08 组件工具", "{E4C6EF40-2A59-42A0-BCFE-71BA1D27D032}"
 EndProject
