@@ -68,7 +68,9 @@
     <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="__entity.xml" />
+    <Content Include="__entity.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
