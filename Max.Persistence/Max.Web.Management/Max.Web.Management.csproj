@@ -1024,23 +1024,12 @@
     <Content Include="Content\Style\custom.css" />
     <Content Include="Content\Style\lightbox.css" />
     <Content Include="Custom\Error.html" />
-    <Content Include="Files\WinSCP.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.autocomplete.js" />
     <Content Include="Scripts\echarts.common.min.js" />
     <Content Include="Scripts\echarts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Content\File\银行编码表0524.doc" />
-    <Content Include="Files\白名单.xlsx" />
-    <Content Include="Files\企业开户导入模版.xlsx" />
-    <Content Include="Files\CarLoanFinance\base\productInfo.docx" />
-    <Content Include="Files\CarLoanFinance\base\zqzrht.docx" />
-    <Content Include="Content\File\银行编码表.pdf" />
-    <Content Include="Files\支行管理导入模版.xlsx" />
-    <Content Include="Files\工作日导入模版.xlsx" />
     <None Include="Properties\PublishProfiles\137-Max.Web.Management.pubxml" />
     <None Include="Properties\PublishProfiles\aa.pubxml" />
     <None Include="Properties\PublishProfiles\admin.qianduan.com.pubxml" />
