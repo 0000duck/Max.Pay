@@ -1074,6 +1074,7 @@
     <Compile Include="App_Start\PermissionUtil.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\MongoController.cs" />
     <Compile Include="Helpers\BaseHelper.cs" />
     <Compile Include="Helpers\CarLoanFinanceApplyHeper.cs" />
@@ -1242,7 +1243,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Layout\global\plugins\jquery-validation\js\localization\" />
-    <Folder Include="Files\Temp\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Max.BUS.Message\Max.BUS.Message.csproj">

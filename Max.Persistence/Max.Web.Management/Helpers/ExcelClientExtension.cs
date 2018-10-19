@@ -43,7 +43,7 @@ namespace Max.Web.Management.Helpers
                 var sh = (XSSFSheet)wb.CreateSheet(sheetName);
 
                 POIXMLProperties props = wb.GetProperties();
-                props.CoreProperties.Creator = "广东钱端商务服务有限公司";
+                props.CoreProperties.Creator = "MAX";
                 props.CoreProperties.Created = DateTime.Now;
 
                 var properties = key.GetProperties().ToList();

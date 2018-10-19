@@ -52,7 +52,7 @@ namespace Max.Service.Payment
         /// <param name="pageSize"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public PageList<Bank> GetPageList(int pageIndex, int pageSize, Expression<Func<Bank, bool>> predicate)
+        public PageList<Bank> GetPageList(Expression<Func<Bank, bool>> predicate,int pageIndex, int pageSize)
         {
             return this._BankReps.PageList(predicate, c => c.Desc(o => o.BankName), pageIndex, pageSize);
         }
@@ -82,6 +82,14 @@ namespace Max.Service.Payment
             this._BankReps.Update(model);
 
             return result.IsSucceed("编辑卡券成功");
+
+        }
+        public ServiceResult Delete(Expression<Func<Bank, bool>> predicate)
+        {
+            var result = new ServiceResult();
+            this._BankReps.Delete(predicate);
+
+            return result.IsSucceed("删除成功");
 
         }
 
