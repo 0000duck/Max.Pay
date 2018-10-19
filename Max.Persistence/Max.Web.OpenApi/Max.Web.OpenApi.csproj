@@ -199,13 +199,13 @@
       <Project>{B2598D15-347F-4BBE-9E9C-F3ED70A7485B}</Project>
       <Name>Max.Common.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Max.Models.CarInsurance\Max.Models.CarInsurance.csproj">
+    <ProjectReference Include="..\Max.Models.Payment\Max.Models.Payment.csproj">
       <Project>{a9fcc92c-154e-469e-9f7d-683ff421c9cd}</Project>
-      <Name>Max.Models.CarInsurance</Name>
+      <Name>Max.Models.Payment</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Max.Service.CarInsurance\Max.Service.CarInsurance.csproj">
+    <ProjectReference Include="..\Max.Service.Payment\Max.Service.Payment.csproj">
       <Project>{63eb3afc-8c88-4e48-8e27-e7e112faf8d0}</Project>
-      <Name>Max.Service.CarInsurance</Name>
+      <Name>Max.Service.Payment</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

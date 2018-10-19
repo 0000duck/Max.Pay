@@ -52,9 +52,6 @@
     <Reference Include="Max.Framework">
       <HintPath>..\Libs\Max.Framework\Max.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Max.Framework.Id">
-      <HintPath>..\Libs\Max.Framework\Max.Framework.Id.dll</HintPath>
-    </Reference>
     <Reference Include="Max.Framework.MongoDb">
       <HintPath>..\Libs\Max.Framework.MongoDb\Max.Framework.MongoDb.dll</HintPath>
     </Reference>

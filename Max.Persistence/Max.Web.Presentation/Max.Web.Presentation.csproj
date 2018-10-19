@@ -169,7 +169,6 @@
   <ItemGroup>
     <Content Include="Error.html" />
     <Content Include="favicon.ico" />
-    <Content Include="Content\Styles\activities_0129.css" />
     <Content Include="Content\Styles\style.css" />
     <Content Include="Global.asax" />
     <Content Include="H5\Rule\DepositRule.html" />
@@ -183,7 +182,6 @@
     <Content Include="Scripts\jquery.qrcode.min.js" />
     <Content Include="Scripts\jweixin-1.0.0.js" />
     <Content Include="Scripts\main.js" />
-    <Content Include="Scripts\Max.validate.js" />
     <Content Include="Scripts\QQshare.js" />
     <Content Include="Scripts\template.js" />
     <Content Include="Scripts\template.min.js" />
@@ -276,17 +274,17 @@
       <Project>{93BF893D-0AD5-4EB7-A290-C9A746C80EE9}</Project>
       <Name>Max.BUS.Message</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Max.Models.CarInsurance\Max.Models.CarInsurance.csproj">
+    <ProjectReference Include="..\Max.Models.Payment\Max.Models.Payment.csproj">
       <Project>{a9fcc92c-154e-469e-9f7d-683ff421c9cd}</Project>
-      <Name>Max.Models.CarInsurance</Name>
+      <Name>Max.Models.Payment</Name>
     </ProjectReference>
     <ProjectReference Include="..\Max.Service.Auth\Max.Service.Auth.csproj">
       <Project>{A928AC0E-01CD-4FC7-A21D-468971203AB8}</Project>
       <Name>Max.Service.Auth</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Max.Service.CarInsurance\Max.Service.CarInsurance.csproj">
+    <ProjectReference Include="..\Max.Service.Payment\Max.Service.Payment.csproj">
       <Project>{63eb3afc-8c88-4e48-8e27-e7e112faf8d0}</Project>
-      <Name>Max.Service.CarInsurance</Name>
+      <Name>Max.Service.Payment</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

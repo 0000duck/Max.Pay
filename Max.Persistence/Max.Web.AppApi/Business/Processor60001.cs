@@ -12,7 +12,7 @@ using log4net;
 namespace Max.Web.AppApi.Business
 {
     /// <summary>
-    /// 车险支付接口
+    /// 
     /// </summary>
     public class Processor60001 : IProcessor
     {

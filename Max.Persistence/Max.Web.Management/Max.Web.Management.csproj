@@ -1264,9 +1264,9 @@
       <Project>{b2598d15-347f-4bbe-9e9c-f3ed70a7485b}</Project>
       <Name>Max.Common.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Max.Models.CarInsurance\Max.Models.CarInsurance.csproj">
+    <ProjectReference Include="..\Max.Models.Payment\Max.Models.Payment.csproj">
       <Project>{a9fcc92c-154e-469e-9f7d-683ff421c9cd}</Project>
-      <Name>Max.Models.CarInsurance</Name>
+      <Name>Max.Models.Payment</Name>
     </ProjectReference>
     <ProjectReference Include="..\Max.Models.System\Max.Models.System.csproj">
       <Project>{888e5cd2-e331-4370-86a9-f445ac3185e0}</Project>
@@ -1276,9 +1276,9 @@
       <Project>{a928ac0e-01cd-4fc7-a21d-468971203ab8}</Project>
       <Name>Max.Service.Auth</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Max.Service.CarInsurance\Max.Service.CarInsurance.csproj">
+    <ProjectReference Include="..\Max.Service.Payment\Max.Service.Payment.csproj">
       <Project>{63eb3afc-8c88-4e48-8e27-e7e112faf8d0}</Project>
-      <Name>Max.Service.CarInsurance</Name>
+      <Name>Max.Service.Payment</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
