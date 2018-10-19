@@ -1,0 +1,67 @@
+﻿@model SYS_Action
+@{
+    var POST_Action = (Model != null && !Model.ActionId.IsNullOrEmpty()) ? "EditForAjax" : "AddForAjax";
+    var TITLE = (Model != null && !Model.ActionId.IsNullOrEmpty()) ? "编辑菜单" : "新增菜单";
+}
+@using (Html.BeginForm(POST_Action, "Menu", FormMethod.Post, new { id = "addOrEditMenuForm", @class = "form-horizontal form-bordered" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> @TITLE</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered">
+        @Html.HiddenFor(m => m.ActionId)
+        @Html.HiddenFor(m=>m.CreateTime)
+        <div class="form-group margin-top-15 display-hide">
+            <label class="control-label col-md-3">系统类型</label>
+            <div class="col-md-8">
+                @Html.SelectFor(m => m.SystemId, typeof(Max.Models.System.Common.SystemType))
+                @Html.ValidationMessageFor(m => m.SystemId)
+            </div>
+        </div>
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">菜单名称</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.ActionName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ActionName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">父菜单</label>
+            <div class="col-md-8">
+                @Html.DropDownListFor(m => m.ParentId, (IEnumerable<SelectListItem>)ViewBag.MenuList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">URL</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Url)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">图标样式</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.IconClass, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IconClass)
+            </div>
+        </div>
+        <div class="form-group last">
+            <label class="control-label col-md-3">排序</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Sort, new { @class = "form-control input-small" })
+                @Html.ValidationMessageFor(m => m.Sort)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> @TITLE</button>
+    </div>
+    
+    <script>
+        $(document).ready(function () {
+            $("#SystemId").val($("#Params_SystemId").val());
+        });
+    </script>
+}

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="robots" content="index,follow" />
+    <script src="/content/credit/js/hotcss.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- 启用 WebApp 全屏模式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="full-screen" content="yes"> <!-- UC强制全屏 -->
+    <meta name="x5-fullscreen" content="true"> <!-- QQ强制全屏 -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta content="email=no" name="format-detection" />
+    <title>@ViewBag.Title</title>
+    @RenderSection("header", false)
+</head>
+<body @Html.Raw(ViewBag.BodyStyle)>
+    @RenderBody()
+    @RenderSection("footer", false)
+    @*<script src="~/Scripts/tongji.js"></script>不用百度统计*@
+    <div style="display: none;">
+        @*<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1258710156'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1258710156' type='text/javascript'%3E%3C/script%3E"));</script>*@
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1260076991'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1260076991' type='text/javascript'%3E%3C/script%3E"));</script>
+        <script>
+            //声明_czc对象:
+            var _czc = _czc || [];
+            //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+            _czc.push(["_setAccount", "1260076991"]);
+        </script>
+    </div>
+</body>
+</html>

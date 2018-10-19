@@ -1,0 +1,43 @@
+﻿@model Query<SYS_User, Max.Web.Management.Models.Account.ListParams>
+<table class="table loading table-bordered margin-top-10 margin-bottom-5">
+    <thead>
+        <tr>
+            <th width="30">#</th>
+            <th width="30"><input type="checkbox" selectall="true" /></th>
+            <th width="50">帐号</th>
+            <th>姓名</th>
+            <th>邮箱</th>
+            <th>帐号类型</th>
+            <th>手机号码</th>
+            <th>帐号状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var index = 0; }
+        @foreach (var item in Model.ItemList)
+        {
+            <tr>
+                <td>@Model.RowNumber(++index)</td>
+                <td><input type="checkbox" value="@item.SystemUserId" selectitem="true" name="idList" /></td>
+                <td>@item.UserName</td>
+                <td>@item.RealName</td>
+                <td>@item.Email</td>
+                <td>@((Max.Models.System.Common.UserType)item.UserType)</td>
+                <td>@item.Mobile</td>
+                <td>@((Max.Models.System.Common.UserStatus)item.Status)</td>
+                <td>@item.CreateTime</td>
+                <td align="center" class="clearfix">
+                    <a itemId="@item.SystemUserId" class="edit btn btn-primary btn-sm" data-toggle="tooltip" permid="@PermCode.编辑管理员.Code()"><i class="fa fa-edit"></i> 编辑</a>
+                    <a itemId="@item.SystemUserId" itemName="@item.UserName" class="delete btn btn-danger btn-sm" permid="@PermCode.删除管理员.Code()"><i class="fa fa-trash-o"></i> 删除</a>
+                    <a itemid="@item.SystemUserId" class="roles btn purple btn-sm" permid="@PermCode.编辑管理员所属角色.Code()"><i class="fa fa-child"></i> 设置角色</a>
+                    <a itemid="@item.SystemUserId" class="perms btn purple btn-sm" permid="@PermCode.查看管理员权限.Code()">查看权限</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.GridPager(Model)
+
+

@@ -1,0 +1,66 @@
+﻿@model List<Max.Web.Management.Models.Mongo.MongoDatabaseModel>
+@{
+    ViewBag.Title = "mongodb管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-user"></i> mongodb-database管理</div>
+    </div>
+    <div class="portlet-body">
+        <table class="table loading table-bordered margin-top-10 margin-bottom-5">
+            <thead>
+                <tr>
+                    <th width="30" class="bg-f1">#</th>               
+                    <th>name</th>
+                    <th>sizeOnDisk(GB)</th>
+                    <th>empty</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 0; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="bg-f7">@(++index)</td>                       
+                        <td>@item.name</td>
+                        <td>@((Math.Round(item.sizeOnDisk / (float)(1024 * 1024 * 1024), 3)).ToString("0.000"))  </td>              
+                        <td>@item.empty</td>
+                        <td><a db="@item.name" permid="@PermCode.Mongo缓存清除.Code()" class="btnDelete btn btn-danger"><i class="fa fa-trash-o fa-fw"></i> 删除</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section footer{
+<script type="text/javascript">
+    $(function () {
+        $(".btnDelete").live("click", function () {
+            $btn = $(this);
+            App.Confirm("是否删除 " + $btn.attr("db") + "？", function (e) {
+                if (e) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Mongo/DeleteDBForAjax",
+                        data: { dbname: $btn.attr("db") }
+                    }).done(function (data) {
+                        if (data.Success) {
+                            App.Notify(data.Message);
+                            $btn.parent().parent().remove();
+                        } else {
+                            App.Alert(data.Message);
+                        }
+                    })
+                }
+            })
+
+        });
+    });
+    </script>
+}

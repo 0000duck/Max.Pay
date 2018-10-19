@@ -1,0 +1,28 @@
+﻿@using MongoDB.Bson
+@model Query<object, Max.Web.Management.Models.Mongo.MongoParams>
+<div class="myStyleOver">
+    <div style="width:3000px;">
+        <table class="table loading table-bordered margin-top-10 margin-bottom-5">
+            <thead>
+                <tr>
+                    <th width="30" class="bg-f1">#</th>
+                    <th>内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 0; }
+                @if (Model.ItemList != null)
+                {
+                    foreach (var item in Model.ItemList)
+                    {
+                        <tr>
+                            <td class="bg-f7">@Model.RowNumber(++index)</td>
+                            <td>@item.ToBsonDocument().ToString()</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.GridPager(Model)

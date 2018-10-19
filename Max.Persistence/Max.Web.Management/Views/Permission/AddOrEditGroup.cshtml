@@ -1,0 +1,28 @@
+﻿@model SYS_PermissionGroup
+@{
+    var POST_Action = (Model != null && !Model.GroupId.IsNullOrEmpty()) ? "EditGroupForAjax" : "AddGroupForAjax";
+    var TITLE = (Model != null && !Model.GroupId.IsNullOrEmpty()) ? "编辑权限组" : "新增权限组";
+}
+@using (Html.BeginForm(POST_Action, "Permission", FormMethod.Post, new { id = "AddOrEditGroupForm", @class = "form-horizontal form-bordered" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> @TITLE</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered">
+        @Html.HiddenFor(m => m.GroupId)
+        @Html.HiddenFor(m => m.CreateTime)
+        @Html.HiddenFor(m=>m.Permissions)
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">权限组名称</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.GroupName)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> @TITLE</button>
+    </div>
+}

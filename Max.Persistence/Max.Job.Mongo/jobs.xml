@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<quartz>
+  <service>APP日志索引任务</service>
+  <namespace>Max.Job.Mongo.Jobs.{0}</namespace>
+  <jobs>
+    <!--创建AppApi日志索引, 每天凌晨2点执行-->
+    <job name="AppApiLogMongoIndexJob">0 0/2 * * * ? </job>
+  </jobs>
+</quartz>

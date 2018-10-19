@@ -1,0 +1,28 @@
+﻿@model Query<V_UserRoles, Max.Web.Management.Models.Roles.UserInRoleParam>
+<table class="table table-bordered table-hover margin-top-10 margin-bottom-5 loading">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>角色名称</th>
+            <th>用户姓名</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{var index = 0;}
+        @foreach (var item in Model.ItemList)
+        {
+            <tr>
+                <td>@Model.RowNumber(++index)</td>
+                <td>@item.RoleName</td>
+                <td>@item.UserName</td>
+                <td>@item.CreateTime</td>
+                <td class="clearfix">
+                    <a itemid="@item.SystemUserId" itemid2="@item.SystemRoleId" itemname="@item.UserName" class="delete btn btn-danger btn-sm">删除</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.GridPager(Model)

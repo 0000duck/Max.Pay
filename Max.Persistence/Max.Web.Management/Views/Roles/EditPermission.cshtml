@@ -1,0 +1,63 @@
+﻿@model Max.Web.Management.Models.Roles.RolePermissionModel
+
+@using (Html.BeginForm("EditPermissionForAjax", "Roles", FormMethod.Post, new { id = "EditPermissionForm", @class = "form-horizontal form-bordered" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> 设置角色权限     [@Model.RoleName] </h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered margin-left-10 margin-right-10">
+        @Html.HiddenFor(m => m.SystemRoleId)
+
+        <table class="table table-bordered table-hover margin-top-10">
+            <thead>
+                <tr>
+                    <th width="160">权限组</th>
+                    <th>权限</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var group in (List<Max.Models.System.SYS_PermissionGroup>)ViewBag.GroupList)
+                {
+                    var permArray = group.Permissions.IsNullOrEmpty() ? new int[0] : group.Permissions.Split(',').Select(s => int.Parse(s));
+                    <tr>
+                        <td>
+                            <label><input itemid="@group.GroupId" itemname="@group.GroupName" class="groupchecker" type="checkbox" />@group.GroupName</label>
+                        </td>
+                        <td>
+                            @foreach (var perm in permArray)
+                            {
+                                var permCode = ((Max.Service.QianTu.Common.PermCode)perm);
+                                var urls = PermissionUtil.PermissionCode[perm.ToString()].Select(p => p.Key.Substring(0, p.Key.LastIndexOf('/')));
+                                var checkedFlag = Model.Permissions.Contains(perm.ToString());
+                                <label>
+                                    <input name="Permissions" value="@perm" itemid="@perm" @(checkedFlag ? "checked" : "") type="checkbox" /><span class="label  @(checkedFlag ? "label-primary" : "label-default")">@(permCode)</span>
+                                </label>
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> 保存</button>
+    </div>
+    <script>
+
+        // 全选、反选
+        $(".groupchecker").live("click", function () {
+            var boxes = $(this).closest("td").next().find("input");
+            if ($(this).attr("checked"))
+                boxes.attr("checked", "checked");
+            else
+                boxes.removeAttr("checked");
+            boxes.uniform();
+        });
+
+    </script>
+}

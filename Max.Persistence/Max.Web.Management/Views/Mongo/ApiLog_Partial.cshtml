@@ -1,0 +1,88 @@
+﻿@model Query<Max.Web.Management.Models.Mongo.ApiLogModel, Max.Web.Management.Models.Mongo.MongoApiLogParams>
+
+<div class="myStyleOver">
+    <div style="overflow-x:auto;white-space: nowrap;">
+        <table class="table loading table-bordered margin-top-10 margin-bottom-5">
+            <thead>
+                <tr>
+                    <th class="bg-f1">#</th>
+                    <th>请求流水</th>
+                    <th>用户ID</th>
+                    @*<th>E+账户ID</th>*@
+                    <th>身份证号</th>
+                    @*<th>机构号</th>*@
+                    <th>手机号码</th>
+                    <th>真实姓名</th>
+                    @*<th>昵称</th>
+                    <th>Usrnbr</th>*@
+                    <th>时间</th>
+                    <th>耗时(毫秒)</th>
+                    <th>是否出错</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 0; }
+                @if (Model.ItemList != null)
+                {
+                    foreach (var item in Model.ItemList)
+                    {
+                        if (item.UserData != null)
+                        {
+                            <tr>
+                                <td class="bg-f7">@Model.RowNumber(++index)</td>
+                                <td>@item.RequestId</td>
+                                <td>@item.UserData.UserId</td>
+                                @*<td>@item.UserData.EPlusAccountId</td>*@
+                                <td>@item.UserData.IDCard</td>
+                                @*<td>@item.UserData.InstitutionNo</td>*@
+                                <td>@item.UserData.Mobile</td>
+                                <td>@item.UserData.RealName</td>
+                                @*<td>@item.UserData.NickName</td>
+                                <td>@item.UserData.Usrnbr</td>*@
+                                <td>@item.LogTime</td>
+                                <td>@((int)item.Duration)</td>
+                                <td>@(item.IsError?"是":"否")</td>
+                                <td>
+                                    <input type="hidden" name="RequestDataStr" value="@item.RequestDataStr" />
+                                    <input type="hidden" name="RequestJson" value="@item.RequestJson" />
+                                    <input type="hidden" name="Response" value="@item.Response" />
+                                    <input type="hidden" name="UserDataStr" value="@item.UserDataStr" />
+                                    <input type="hidden" name="UserData" value="@item.UserData" />
+                                    <a name="ShowDetails" class="btn purple btn-sm">详情</a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="bg-f7">@(++index)</td>
+                                <td>--</td>
+                                <td>--</td>
+                                @*<td>--</td>*@
+                                <td>--</td>
+                                @*<td>--</td>*@
+                                <td>--</td>
+                                <td>--</td>
+                                @*<td>--</td>
+                                <td>--</td>*@
+                                <td>@item.LogTime</td>
+                                <td>@((int)item.Duration)</td>
+                                <td>@(item.IsError ? "是" : "否")</td>
+                                <td>
+                                    <input type="hidden" name="RequestDataStr" value="@item.RequestDataStr" />
+                                    <input type="hidden" name="RequestJson" value="@item.RequestJson" />
+                                    <input type="hidden" name="Response" value="@item.Response" />
+                                    <input type="hidden" name="UserDataStr" value="@item.UserDataStr" />
+                                    <input type="hidden" name="UserData" value="@item.UserData.ToJson()" />
+                                    <a name="ShowDetails" class="btn purple btn-sm">详情</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.GridPager(Model)

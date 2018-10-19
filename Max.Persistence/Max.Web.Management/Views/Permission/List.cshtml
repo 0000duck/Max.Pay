@@ -1,0 +1,173 @@
+﻿@model List<SYS_PermissionGroup>
+@{
+    ViewBag.Title = "权限管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-lock"></i> 权限组管理</div>
+    </div>
+    <div class="portlet-body">
+        <div class="form form-inline">
+            <a id="btnAddGroup" permid="@PermCode.添加权限组.Code()" class="btn btn-success"><i class="fa fa-plus"></i> 新增权限组</a>
+        </div>
+        <div id="groupList">
+            @{Html.RenderPartial("List_Partial", Model);}
+        </div>
+    </div>
+</div>
+
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-bank"></i> 枚举中定义了但没被控制器标记的权限</div>
+    </div>
+    <div class="portlet-body">
+        @foreach (var item in ViewBag.Unused)
+        {
+            <label class="label label-danger">@((PermCode)item)(@item)</label>
+        }
+    </div>
+</div>
+
+<div id="addOrEditGroup" class="modal fade-in-up"></div>
+<div id="modalDemo" class="modal fade-in-up"></div>
+
+@section footer{
+    <script type="text/javascript">
+       
+
+        $(function () {
+
+            $("#btnAddGroup").click(function () {
+                App.LoadModal("#addOrEditGroup", "/Permission/AddOrEditGroup");
+            });
+
+            // 全选、反选
+            $(".groupchecker").live("click", function () {
+                var boxes = $(this).closest("td").next().find("input");
+                if ($(this).attr("checked"))
+                    boxes.attr("checked", "checked");
+                else
+                    boxes.removeAttr("checked");
+                boxes.uniform();
+            });
+
+            // 添加到权限组
+            $("#groupList a.addto").live("click", function () {
+                $btn = $(this);
+                var boxes = $(this).closest("td").prev().find("input");
+                var checked = [];
+                var checkedName = [];
+                var groupId = $("#permGroup").val();
+                var groupName = $("#permGroup").find("option:selected").text()
+                $.each(boxes, function (index, val) {
+                    if ($(val).attr("checked")) {
+                        checked.push($(val).attr("itemId"));
+                        checkedName.push("<label class='margin-top-5'><span class='label label-primary'>"+$(boxes[index]).closest("div").next().html()+"</span></label>");
+                    }
+                })
+
+                if (checked.length <= 0) {
+                    App.Alert("请选择需要添加到权限组 <b>“"+groupName+"”</b> 的权限");
+                    return;
+                }
+
+                App.Confirm("<p>是否将<p><p>"+checkedName.join(" ")+"</p>添加到权限组 <b>“"+groupName+"”</b>", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Permission/AddToGroupAjax",
+                            data: { groupId: groupId, permissions: checked}
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#groupList").loadHtml("/Permission/List");
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            })
+
+            // 从权限组中删除
+            $("#groupList a.remove").live("click", function () {
+                $btn = $(this);
+                var boxes = $(this).closest("td").prev().find("input");
+                var checked = [];
+                var checkedName = [];
+                var $group = $(this).closest("td").prev().prev().find("input");
+                var groupId = $group.attr("itemId");
+                var groupName = $group.attr("itemName");
+                $.each(boxes, function (index, val) {
+                    if ($(val).attr("checked")) {
+                        checked.push($(val).attr("itemId"));
+                        checkedName.push("<label class='margin-top-5'><span class='label label-primary'>" + $(boxes[index]).closest("div").next().html() + "</span></label>");
+                    }
+                })
+
+                if (checked.length <= 0) {
+                    App.Alert("请选择需要需要从权限组 <b>“" + groupName + "”</b> 中移除的权限");
+                    return;
+                }
+
+                App.Confirm("<p>是否将<p><p>" + checkedName.join(" ") + "</p>从权限组 <b>“" + groupName + "”</b> 中移除？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Permission/DeleteFromGroupAjax",
+                            data: { groupId: groupId, permissions: checked }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#groupList").loadHtml("/Permission/List");
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+
+            // 添加、编辑权限组
+            $.done("#AddOrEditGroupForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditGroup").modal("hide");
+                    App.Notify(data.Message);
+                    $("#groupList").loadHtml("/Permission/List");
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+            $("#groupList a.edit").live("click", function () {
+                App.LoadModal("#addOrEditGroup", "/Permission/AddOrEditGroup", { groupId: $(this).attr("itemid") });
+            });
+
+            $("#groupList a.delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除权限组 "+$btn.attr("itemName")+"？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type:"POST",
+                            url: "/Permission/DeleteGroupAjax",
+                            data:{ groupId : $btn.attr("itemId")}
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#groupList").loadHtml("/Permission/List");
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+
+            
+        })
+    </script>
+
+}
+

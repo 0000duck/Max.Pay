@@ -1,0 +1,126 @@
+﻿@model Query<SYS_Role, Max.Web.Management.Models.Roles.RoleParams>
+@{
+    ViewBag.Title = "角色管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-users"></i> 角色管理</div>
+    </div>
+    <div class="portlet-body">
+        @using (Html.PageView("List", "Roles", "queryRoleForm", "roleList", "List_Partial", Model))
+        {
+            <div class="form-inline">
+                @Html.TextBoxFor(m => m.Params.RoleName, new { @class = "form-control", placeholder = "角色名称" })
+                <button type="submit" class="btn blue"><i class="fa fa-search"></i> 查询</button>
+                <button type="reset" class="btn yellow"><i class="fa fa-undo"></i> 重置</button>
+                <a id="btnAdd" permid="@PermCode.添加角色.Code()" class="btn green pull-right"><i class="fa fa-plus"></i> 新增角色</a>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="addOrEditRole" class="modal fade-in-up"></div>
+<div id="userInRoleModal" class="modal fade-in-up"></div>
+<div id="actionsInRoleModal" class="modal fade-in-up"></div>
+
+@section footer{
+    <script type="text/javascript">
+        $(function () {
+
+            $("#btnAdd").click(function () {
+                App.LoadModal("#addOrEditRole", "/Roles/AddOrEditRole");
+            });
+
+            $("#roleList .edit").live("click", function () {
+                App.LoadModal("#addOrEditRole", "/Roles/AddOrEditRole", { roleId: $(this).attr("itemId") });
+
+            });
+            $("#roleList .setpermission").live("click", function () {
+                App.LoadModal("#addOrEditRole", "/Roles/EditPermission", { roleId: $(this).attr("itemId") }, { width: 1000 });
+
+            });
+
+            $("#roleList .userinrole").live("click", function () {
+                App.LoadModal("#userInRoleModal", "/Roles/UsersInRole", { roleId: $(this).attr("itemId"), roleName: $(this).attr("itemName") }, { width: 900 });
+            });
+
+            $("#roleList .actionsinrole").live("click", function () {
+                App.LoadModal("#actionsInRoleModal", "/Roles/ActionsInRole", { roleId: $(this).attr("itemId"), systemId: $(this).attr("systemid") }, { width: 1200, height: 600 });
+            });
+
+            $("#roleList .delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除角色 " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Roles/DeleteForAjax",
+                            data: { roleid: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#queryRoleForm").submit()
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+            $("#userInRoleContainer .delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除角色成员 " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Roles/DeleteUserForAjax",
+                            data: { userid: $btn.attr("itemId"), roleid: $btn.attr("itemId2") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#queryUserRoleForm").submit();
+
+
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+            $.done("#AddOrEditRoleForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditRole").modal("hide");
+                    App.Notify(data.Message);
+                    $("#queryRoleForm").submit()
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+            $.done("#EditPermissionForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditRole").modal("hide");
+                    App.Notify(data.Message);
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+            $.done("#queryUserRoleForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditRole").modal("hide");
+                    App.Notify(data.Message);
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+        })
+    </script>
+
+}
+

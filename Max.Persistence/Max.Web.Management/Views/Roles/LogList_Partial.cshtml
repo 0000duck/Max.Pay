@@ -1,0 +1,28 @@
+﻿@model Query<Sys_Log, Max.Web.Management.Models.Roles.LogParams>
+    <table class="table table-bordered table-hover margin-top-10 margin-bottom-5 loading">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>类型</th>
+                <th width="50%">操作说明</th>
+                <th>用户/角色名称</th>
+                <th>操作人</th>
+                <th>操作时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{var index = 0;}
+            @foreach (var item in Model.ItemList)
+            {
+                <tr>
+                    <td>@(++index)</td>
+                    <td>@((Max.Models.System.Common.SystemLogType)item.LogType)</td>
+                    <td>@item.Remark</td>
+                    <td>@item.KeyWord</td>
+                    <td>@item.CreatedBy</td>
+                    <td>@item.CreateTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+@Html.GridPager(Model)

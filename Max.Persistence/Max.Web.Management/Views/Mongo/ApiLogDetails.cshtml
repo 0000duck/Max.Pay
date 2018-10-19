@@ -1,0 +1,28 @@
+﻿@model Max.Web.Management.Models.Mongo.ApiLogModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title"><i class="fa fa-bars"></i> 日志详情</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                <h3>请求参数</h3>
+                @Html.TextAreaFor(m => m.RequestJson, new { @class = "form-control", @style = "height:150px" })
+                <h3>接口返回</h3>
+                @Html.TextAreaFor(m => m.Response, new { @class = "form-control", @style = "height:150px" })
+            </td>
+            <td>
+                <h3>请求报文</h3>
+                @Html.TextAreaFor(m => m.RequestDataStr, new { @class = "form-control", @style = "height:150px" })
+                <h3>用户信息报文</h3>
+                @Html.TextAreaFor(m => m.UserDataStr, new { @class = "form-control", @style = "height:150px" })
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-primary">关闭</button>
+</div>

@@ -1,0 +1,59 @@
+﻿@{
+    var permCodes = ViewData["PermCodes"] as List<KeyValuePair<int, string>>;
+    var oldPermCodes = (ViewData["OldPermCodes"] as string).Split(',');
+    var others = ViewData["OtherPermCodes"] as List<SYS_Permission>;
+}
+@using (Html.BeginForm("PermModify", "Menu", FormMethod.Post, new { id = "PermModifyForm", @class = "form-horizontal form-bordered" }))
+{
+    <input type="hidden" value="@ViewData["MenuId"]" name="menuId" />
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> 菜单权限</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered" style="height:100px">
+        @{
+    foreach (var kv in permCodes)
+    {
+        if (oldPermCodes.Contains(kv.Key.ToString()))
+        {
+            <label><input type="checkbox" name="permCodes" value="@kv.Key" checked />@kv.Value</label>
+        }
+        else
+        {
+            <label><input type="checkbox" name="permCodes" value="@kv.Key" />@kv.Value</label>
+        }
+    }
+        }
+        <br />
+        <button type="button" class="btn blue" onclick="$('#others').toggle()">其它</button>
+        <div id="others" style="height:300px ; overflow:auto; display:none">
+            @{
+    foreach (var kv in others)
+    {
+        if (!permCodes.Contains(new KeyValuePair<int, string>(kv.PermCode, kv.PermName)))
+        {
+            if (oldPermCodes.Contains(kv.PermCode.ToString()))
+            {
+                <label>
+                    <input type="checkbox" value="@kv.PermCode" name="permCodes" checked />
+                    @kv.PermName
+                </label>
+            }
+            else
+            {
+                <label>
+                    <input type="checkbox" value="@kv.PermCode" name="permCodes" />
+                    @kv.PermName
+                </label>
+            }
+        }
+    }
+            }
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> 保存</button>
+    </div>
+}

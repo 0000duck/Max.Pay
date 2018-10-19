@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta content="telephone=no, email=no" name="format-detection">
+    <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="/Content/CarLoan/style/style.css">
+
+    <title>@ViewBag.Title</title>
+    <script src="https://g.alicdn.com/sj/lib/zepto/zepto.min.js"></script>
+    @RenderSection("header", false)
+    <script>$.config = { router: false }</script>
+
+    <script type="text/javascript" src="/Scripts/jweixin-1.0.0.js?201607071927"></script>
+    <script type="text/javascript" src="/Scripts/WxConfig.js?201607071927"></script>
+    <script type="text/javascript">
+        wxShareData = {
+            title: '钱端购车分期，利率低至4%',
+            desc: '钱端车贷首付30%起，可办理12、24、36期分期付款，申请门槛低，最快7天放款！',
+            link: '@("Domain".ValueOfAppSetting())' + '/carloan/index',
+            imgUrl: '@("Domain".ValueOfAppSetting())' + '/content/Carloan/images/share.jpg',
+            trigger: function (res) {
+                //alert('用户点击发送给朋友');
+            },
+            success: function (res) {
+                //alert('已分享');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                // alert(JSON.stringify(res));
+            }
+        };
+
+
+    </script>
+
+</head>
+<body onpaste="return false" @Html.Raw(ViewBag.BodyStyle)>
+    <script src="https://g.alicdn.com/msui/sm/0.6.2/js/sm.js"></script>
+    <script src="/Content/CarLoan/js/common.js"></script>
+    @RenderBody()
+
+    @RenderSection("footer", false)
+    <div style="display: none;">
+
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1260574145'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260574145' type='text/javascript'%3E%3C/script%3E"));</script>
+        <script>
+            //声明_czc对象:
+            var _czc = _czc || [];
+            //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+            _czc.push(["_setAccount", "1260574145"]);
+        </script>
+    </div>
+</body>
+</html>

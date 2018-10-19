@@ -1,0 +1,31 @@
+﻿@model Query<Sys_Log, Max.Web.Management.Models.Roles.LogParams>
+@{
+    ViewBag.Title = "权限变更日志";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-users"></i> 角色管理</div>
+    </div>
+    <div class="portlet-body">
+        @using (Html.PageView("LogList", "Roles", "queryRoleForm", "roleList", "LogList_Partial", Model))
+        {
+            <div class="form-inline">
+                @Html.SelectFor(m => m.Params.LogType, typeof(Max.Models.System.Common.SystemLogType), "--日志类型--")
+                @Html.TextBoxFor(m => m.Params.Keyword, new { @class = "form-control", placeholder = "用户/角色名称" })
+                @Html.TextBoxFor(m => m.Params.CreatedBy, new { @class = "form-control", placeholder = "操作人" })
+                创建时间：@Html.DayTimePickerFor(m => m.Params.CreateTimeStart, "", 2) - @Html.DayTimePickerFor(m => m.Params.CreateTimeEnd, "", 2)
+                <button type="submit" class="btn blue"><i class="fa fa-search"></i> 查询</button>
+                <button type="reset" class="btn yellow"><i class="fa fa-undo"></i> 重置</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section footer{
+    <script type="text/javascript">
+          
+    </script>
+
+}
+

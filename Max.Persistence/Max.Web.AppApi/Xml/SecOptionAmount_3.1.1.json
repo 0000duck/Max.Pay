@@ -1,0 +1,6 @@
+﻿[ { "Id": 1, "Amount": 30, "Name": "实名认证" },
+  { "Id": 2, "Amount": 20, "Name": "肖像认证" },
+  { "Id": 3, "Amount": 20, "Name": "支付密码" },
+  { "Id": 4, "Amount": 20, "Name": "登录密码" },
+  { "Id": 5, "Amount": 10, "Name": "手势密码" }
+]

@@ -1,0 +1,37 @@
+﻿@model Query<SYS_Role, Max.Web.Management.Models.Roles.RoleParams>
+<table class="table table-bordered table-hover margin-top-10 margin-bottom-5 loading">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>角色名称</th>
+            <th>状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{var index = 0;}
+        @foreach (var item in Model.ItemList)
+        {
+            <tr>
+                <td>@(++index)</td>
+                <td>@item.RoleName</td>
+                <td>@((Max.Models.System.Common.RoleStatus)item.Status)</td>
+                <td>@item.CreateTime</td>
+                <td class="clearfix">
+                    <a itemid="@item.SystemRoleId" permid="@PermCode.编辑角色.Code()" class="edit btn btn-primary btn-sm" data-toggle="tooltip" title="编辑">编辑</a>
+                    <a itemid="@item.SystemRoleId" permid="@PermCode.编辑角色.Code()" itemname="@item.RoleName" class="delete btn btn-danger btn-sm">删除</a>
+                    <a itemid="@item.SystemRoleId" permid="@PermCode.编辑角色权限.Code()" class="setpermission btn purple btn-sm hide"><i class="fa fa-unlock-alt"></i> 设置权限</a>
+                    <a itemid="@item.SystemRoleId" permid="@PermCode.编辑角色用户.Code()" itemname="@item.RoleName" class="userinrole btn purple btn-sm"><i class="fa fa-user"></i> 角色包含的用户</a>
+                    @{
+            foreach (var value in Enum.GetValues(typeof(Max.Models.System.Common.SystemType)))
+            {
+                <a itemid="@item.SystemRoleId" systemid="@((int)value)" permid="@PermCode.编辑角色菜单.Code()" itemname="@item.RoleName" class="actionsinrole btn purple btn-sm"><i class="fa fa-folder"></i> @((Max.Models.System.Common.SystemType)value)菜单</a>
+            }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.GridPager(Model)

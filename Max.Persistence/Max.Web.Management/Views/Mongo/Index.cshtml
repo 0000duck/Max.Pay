@@ -1,0 +1,88 @@
+﻿@model Query<object, Max.Web.Management.Models.Mongo.MongoParams>
+@{
+    ViewBag.Title = "Mongodb管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-database"></i> Mongodb管理</div>
+        <div class="tools"></div>
+    </div>
+    <div class="portlet-body">
+
+        @using (Html.PageView("index", "Mongo", "MongoForm", "MongoContainer", "Mongo_Partial", Model))
+        {
+
+            <div class="form-inline">
+                <select onchange="return getCollection(this)" name="Params.database" class="form-control">
+                    <option value="">-- Databases --</option>
+                    @foreach (var database in ViewBag.ListDatabases)
+                    {
+                        <option value="@database">@database</option>
+                    }
+                </select>
+
+                <select name="Params.collection" class="form-control">
+                    <option value="">-- Collections --</option>
+                </select>
+            </div>
+
+            <div class="form-inline">
+                @Html.TextAreaFor(m => m.Params.json, new { @class = "form-control", placeholder = "查询Json",@style="width:1000px;" })
+
+                <button type="submit" onclick="return SubmitCheck()" class="btn blue"><i class="fa fa-search"></i> 查询</button>
+                <button type="reset" class="btn yellow"><i class="fa fa-undo"></i> 重置</button>
+            </div>
+                }
+
+            </div>
+</div>
+
+@section footer{
+    <script type="text/javascript">
+        function getCollection(obj) {
+            var db = $(obj).val();
+            var $sel = $("select[name='Params.collection']")
+            if (db != "") {
+                $sel.html("");
+                $.ajax({
+                    type: "POST",
+                    url: "/Mongo/ListConnectionsForAjax",
+                    data: { database: db },
+                    success: function (data, textStatus) {
+                        var optionHtml;
+                        $.each(data, function (i, item) {
+                            optionHtml += "<option value=" + item + ">" + item + "</option>";
+                        });
+                        $sel.html(optionHtml);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        App.Alert("error");
+                    }
+                })
+            } else { $sel.html(""); }
+        }
+
+        function SubmitCheck() {
+            var $sel_db = $("select[name='Params.database']");
+            var $sel_collection = $("select[name='Params.collection']");
+            var $json = $("input[name='Params.json']");
+            if ($sel_db.val() == "") {
+                App.Alert('请选择database！');
+                return false;
+            }
+            if ($sel_collection.val() == "") {
+                App.Alert('请选择collection！');
+                return false;
+            }
+            if ($json.val() != "") {
+                if (!$json.val().match("^\{(.+:.+,*){1,}\}$")) {
+                    App.Alert('请输入正确的json！');
+                    return false;
+                }
+            }
+        }
+    </script>
+}
+
+

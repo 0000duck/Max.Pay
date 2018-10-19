@@ -1,0 +1,57 @@
+﻿@model List<SYS_PermissionGroup>
+<table class="table table-bordered table-hover margin-top-10">
+    <thead>
+        <tr>
+            <th width="30">#</th>
+            <th width="160">权限组</th>
+            <th>权限</th>
+            <th width="290">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model)
+        {
+            var permArray = group.Permissions.IsNullOrEmpty() ? new int[0] : group.Permissions.Split(',').Select(s => int.Parse(s));
+            <tr>
+                <td></td>
+                <td>
+                    <label><input itemid="@group.GroupId" itemName="@group.GroupName" class="groupchecker" type="checkbox" />@group.GroupName</label>
+                </td>
+                <td>
+                    @foreach (var perm in permArray)
+                    {
+                        var permCode = ((PermCode)perm);
+                        var urls = PermissionUtil.PermissionCode[perm.ToString()].Select(p => p.Key.Substring(0, p.Key.LastIndexOf('/')));
+                        <label>
+                            <input itemid="@perm" type="checkbox" /><span class="label label-primary">@(permCode)</span>
+                        </label>
+                    }
+                </td>
+                <td class="form-inline">
+                    @if (group.GroupId.IsNullOrEmpty())
+                    {
+                        @Html.DropDownList("permGroup", Model.Where(g=>!g.GroupId.IsNullOrEmpty()).Select(g => new SelectListItem
+                                {
+                                    Text = g.GroupName,
+                                    Value = g.GroupId
+                                }), new { @class = "form-control input-sm " })
+                        <a class="addto btn btn-primary btn-sm" permid="@PermCode.添加权限到权限组.Code()"><i class="fa fa-plus"></i> 加入权限组</a>
+                    }
+                    else
+                    {
+                        <div class="btn-group">
+                            <button permid="@PermCode.编辑权限组.Code()" class="btn purple-plum dropdown-toggle btn-sm" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                                权限组 <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a itemid="@group.GroupId" class="edit"><i class="fa fa-edit"></i> 重命名</a></li>
+                                <li><a itemid="@group.GroupId" itemName="@group.GroupName" class="delete"><i class="fa fa-trash-o"></i> 删除权限组</a></li>
+                            </ul>
+                        </div>
+                        <a class="remove btn btn-danger btn-sm" permid="@PermCode.从权限组中删除权限.Code()"><i class="fa fa-trash-o"></i> 从组中移除</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@model Query<Max.BUS.Message.Log.InternalApiLogMessage, Max.Web.Management.Models.InternalApiLog.InternalApiLogParams>
+<table class="table loading table-bordered margin-top-10 margin-bottom-5">
+    <thead>
+        <tr>
+            <th width="30" class="bg-f1">#</th>
+            <th>记录_Id</th>
+            <th width="430">API编号</th>
+            <th>请求时间</th>
+            <th width="170">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var index = 0;}
+        @if (Model.ItemList != null)
+        {
+            foreach (var item in Model.ItemList)
+            {
+                <tr>
+                    <td class="bg-f7">@(++index)</td>
+                    <td>@item._id</td>
+                    <td>@(item.Cmd ?? "--")</td>
+                    <td>@item.LogTime</td>
+                    <td style="text-align:center"><a name="ShowDetails" rid="@item._id" class="btn logDetail purple btn-sm">详情</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+@Html.GridPager(Model)

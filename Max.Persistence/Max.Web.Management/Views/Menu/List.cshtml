@@ -1,0 +1,90 @@
+﻿@model Query<SYS_Action, Max.Web.Management.Models.Menu.MenuParams>
+@{
+    ViewBag.Title = "菜单管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-puzzle"></i> 菜单管理</div>
+    </div>
+    <div class="portlet-body">
+        @using (Html.PageView("List", "Menu", "queryMenuForm", "menuList", "List_Partial", Model))
+        {
+            <div class="form-inline">
+                @Html.TextBoxFor(m => m.Params.Name, new { @class = "form-control", placeholder = "菜单名称" })
+                @Html.TextBoxFor(m => m.Params.Url, new { @class = "form-control input-large", placeholder = "URL" })
+                系统类型：@Html.SelectFor(m => m.Params.SystemId, typeof(Max.Models.System.Common.SystemType))
+                <button type="submit" class="btn blue"><i class="fa fa-search"></i> 查询</button>
+                <button type="reset" class="btn yellow"><i class="fa fa-undo"></i> 重置</button>
+                <a id="btnAdd" permid="@PermCode.新增菜单.Code()" class="btn green pull-right"><i class="fa fa-plus"></i> 新增菜单</a>
+                @Html.ExportFileFor("queryMenuForm", "Menu", "ExportMenuPerms")
+            </div>
+        }
+    </div>
+</div>
+
+<div id="addOrEditMenu" class="modal fade-in-up"></div>
+<div id="permModify" class="modal fade-in-up" data-backdrop="static"></div>
+@section footer{
+    <script type="text/javascript">
+        $(function () {
+            $("#Params_SystemId").change(function () {
+                $("#queryMenuForm").submit();
+            });
+
+            $("#btnAdd").click(function () {
+                App.LoadModal("#addOrEditMenu", "/Menu/AddOrEdit?systemId=" + $("#Params_SystemId").val());
+            });
+
+            $("#menuList .btnPerm").live("click", function () {
+                App.LoadModal("#permModify", "/Menu/PermModify?menuId=" + $(this).attr("itemid"), null, { width: 600, height: 400 });
+            });
+
+            $.done("#addOrEditMenuForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditMenu").modal("hide");
+                    App.Notify(data.Message);
+                    $("#queryMenuForm").submit()
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+            $.done("#PermModifyForm", function (data) {
+                if (data.Success) {
+                    $("#permModify").modal("hide");
+                    App.Notify(data.Message);
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+            $("#menuList a.edit").live("click", function () {
+                App.LoadModal("#addOrEditMenu", "/Menu/AddOrEdit", { menuId: $(this).attr("itemid"), systemId: $("#Params_SystemId").val() });
+            });
+            $("#menuList .delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除菜单 " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Menu/DeleteForAjax",
+                            data: { menuId: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#queryMenuForm").submit()
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+        })
+    </script>
+
+}
+

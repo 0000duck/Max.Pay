@@ -1,0 +1,62 @@
+﻿{
+    "AvailableShakeTimes": 3,
+    "ShareInterest": 0.1,
+    "NoAccountHighChance": 1,
+    "ShakeRepeat": "网络不给力，稍后再摇！",
+    "NoResult": {
+        "Title": "没抽中",
+        "Description": [
+            "一定是你摇的姿势不对~还是要再摇摇的，万一中了呢",
+            "差一点就中了，还是要再摇摇的，万一中了呢",
+            "啥也没摇中，人品不够，攒够再来！"
+        ]
+    },
+    "UnAvailableResult": {
+         "ShowBtn": false,
+        "ShowShareBtn": false,
+        "Title": "今天你没有摇奖机会了啊",
+        "Description": "过度摇摆，请注意休息！明天见哦~",
+        "btnInfo": {
+            "AssetNo": "2",
+            "IsNeedLogin": false,
+            "btnTitle": "按钮标题",
+            "Type": 1,
+            "LinkAddr": "链接地址"
+        },
+        "SharebtnTitle": "增加摇一摇次数",
+        "AfterShareBtnTitle": "按钮标题",
+        "shareId": "",
+        "ImagUrl": "http://mobile.qianduan.com/Content/Rule/images/y_img_1.png"
+    },
+    "NoBalanceResult": {    
+        "Title": "摇中可加息到{0}%",
+        "Description": "您当前余额为0，无法享受本次加息，赶紧存入再摇！",
+         "MainTitle": "当前余额加息0元#存入明天再摇可享受更多收益哦"
+
+    },
+    "HighProfitResult": {
+        "Title": "摇中了高收益券",
+        "BtnTitle": "高收益券",
+        "Description": "摇中专享高收益特权券，最高收益达7%"
+    },
+    "ProductResult": {
+        "Description": "专享抄底特惠价，你值得拥有"
+    },
+    "FirstShakeResult": {
+        "InterestTitle": "摇中可加息到{0}%",
+        "InterestDescription": "手气不错哟，当前余额加息到{0}%",
+        "ShareInterestTitle": "分享再拿+{0}%",
+        "ShareInterestDescription": "分享再拿+{0}%"
+    },
+    "ShareResult": {
+        "MainTitle": "分享奖励，当前余额再+{0}%加息，要每天坚持哦！",
+        "SubTitle": "加息仅限当天，稍后可到账！",
+        "Title": "摇中可加息到{0}%",
+        "Description": "再加息{0}%"
+    },
+	"NotAllowShake": {
+        "Start": "2016/2/6 00:00:00",
+        "Stop": "2016/2/13 00:00:00",
+        "Description": "您好，受春节假期影响2月6日-2月13日摇一摇功能暂停服务，2月14日正常开启。祝您新春愉快。"
+    }
+}

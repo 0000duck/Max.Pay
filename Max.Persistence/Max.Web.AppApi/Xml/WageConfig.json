@@ -1,0 +1,22 @@
+﻿{
+    "MinDepositAmount": 100,
+    "TotalProtocolTitle": "《钱端相关协议》",
+    "Protocols": [
+        {
+            "ProtocolTitle": "自动划款授权书",
+            "ProtocolUrl": "Https://mobile.qianduan.com/Contract/AutoTransferContractBySalaryDeposit"
+                
+        },
+        {
+            "ProtocolTitle": "投融资平台收益权转让服务协议",
+            "ProtocolUrl": "https://mobile.qianduan.com/Contract/ProfitContractNew"
+
+        },
+        {
+            "ProtocolTitle": "自动投资协议",
+            "ProtocolUrl": "https://mobile.qianduan.com/Contract/AutoInvestContract"
+
+        }
+
+    ]
+}

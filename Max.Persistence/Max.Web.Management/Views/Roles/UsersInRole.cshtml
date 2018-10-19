@@ -1,0 +1,19 @@
+﻿@model Query<V_UserRoles, Max.Web.Management.Models.Roles.UserInRoleParam>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title"><i class="fa fa-bars"></i> 角色 @ViewBag.RoleName 包含的用户</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.PageView("UsersInRole", "Roles", "queryUserRoleForm", "userInRoleContainer", "UsersInRole_Partial", Model))
+            {
+                <input type="hidden" name="roleId" value="@ViewBag.RoleId" />
+                <input type="hidden" name="roleName" value="@ViewBag.RoleName" />
+            }
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+</div>

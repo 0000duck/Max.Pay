@@ -1,0 +1,105 @@
+﻿@{
+    var allPerms = ViewData["AllPerms"] as List<SYS_Permission>;
+    var roles = ViewData["Roles"] as List<SYS_Role>;
+    var permList = new List<Max.Web.Management.Models.Account.AccountPermsModel>();
+    if (roles != null)
+    {
+        foreach (var role in roles)
+        {
+            if (role.Permissions.IsNullOrWhiteSpace())
+            {
+                continue;
+            }
+            var arr1 = role.Permissions.Split('|');
+            foreach (var str in arr1)
+            {
+                var systemType = str.Split('#')[0];
+                var perms = str.Split('#')[1].Split(',');
+                foreach (var perm in perms)
+                {
+                    var item = allPerms.FirstOrDefault(p => p.PermCode == int.Parse(perm));
+                    permList.Add(new Max.Web.Management.Models.Account.AccountPermsModel
+                    {
+                        PermCode = perm,
+                        PermName = item != null ? item.PermName : perm,
+                        RoleName = role.RoleName,
+                        SystemType = int.Parse(systemType)
+                    });
+                }
+            }
+        }
+        permList.OrderBy(p => p.SystemType).ThenBy(p => p.RoleName).ThenBy(p => p.PermName);
+    }
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title"><i class="fa fa-bars"></i>【@ViewBag.UserName】 权限</h4>
+</div>
+<div class="modal-body form form-horizontal form-bordered margin-left-10 margin-right-10 margin-top-10">
+    <div class="portlet-body">
+        <div class="form-inline">
+            <select id="selRoleName" class="form-control">
+                <option value="">--所属角色--</option>
+                @foreach (var r in roles)
+                {
+                    <option value="@r.RoleName">@r.RoleName</option>
+                }
+            </select>
+            <input type="text" id="txtPermName" class="form-control" placeholder="权限名称" />
+            <input type="button" value="查询" class="btn blue" id="btnQuery" />
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover margin-top-10 " id="tablePermList">
+        <thead>
+            <tr>
+                <th>所属平台</th>
+                <th>所属角色</th>
+                <th>权限名称</th>
+                <th>权限值</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (permList != null)
+            {
+                foreach (var p in permList)
+                {
+                    <tr>
+                        <td>@(((Max.Models.System.Common.SystemType)p.SystemType).ToString())</td>
+                        <td>@p.RoleName</td>
+                        <td>@p.PermName</td>
+                        <td>@p.PermCode</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default">确定</button>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#btnQuery").click(function () {
+            var roleName = $("#selRoleName").val();
+            var permName = $("#txtPermName").val();
+            $("#tablePermList").find("tbody tr").show();
+            if (roleName)
+            {
+                $("#tablePermList").find("tbody tr").each(function () {
+                    if ($($(this).find("td")[1]).text().indexOf(roleName) < 0)
+                        $(this).hide();
+                });
+            }
+            if (permName) {
+                $("#tablePermList").find("tbody tr").each(function () {
+                    if ($($(this).find("td")[2]).text().indexOf(permName) < 0)
+                        $(this).hide();
+                });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,36 @@
+﻿@model Query<SYS_Action, Max.Web.Management.Models.Menu.MenuParams>
+<table class="table loading table-bordered table-hover margin-top-10 margin-bottom-5">
+    <thead>
+        <tr>
+            <th width="30" class="bg-f1">#</th>
+            <th width="50" align="center">图标</th>
+            <th>菜单名称</th>
+            <th>路径</th>
+            <th>排序</th>
+            <th width="140">创建时间</th>
+            <th width="250">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var index = 0;}
+        @foreach (var item in Model.ItemList)
+        {
+            <tr>
+                <td class="bg-f7">@(++index)</td>
+                <td align="center"><i class="@item.IconClass" style="font-size:18px"></i></td>
+                <td>@item.ActionName</td>
+                <td>@item.Url</td>
+                <td>@item.Sort</td>
+                <td>@item.CreateTime</td>
+                <td align="center" class="clearfix">
+                    <a itemid="@item.ActionId" permid="@PermCode.编辑菜单.Code()" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                    <a itemid="@item.ActionId" permid="@PermCode.删除菜单.Code()" itemname="@(item.ActionName.Trim().Replace("|--", ""))" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+                    @if (item.Url.Contains("/") && item.Url.Length > 2)
+                    {
+                        <a itemid="@item.ActionId" permid="@PermCode.菜单权限.Code()" class="btnPerm btn btn-primary btn-sm"><i class="fa fa-folder"></i> 权限</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

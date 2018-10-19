@@ -1,0 +1,169 @@
+﻿@model Max.Web.Management.Models.Account.LoginViewModel 
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>钱端后台 - 用户登录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="qianduan.com" />
+    <meta content="" name="hxz" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="~/content/layout/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/global/plugins/uniform/css/uniform.default.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="~/content/layout/global/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/pages/css/login-soft.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="~/content/layout/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/layout/admin/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/content/layout/admin/css/themes/blue.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/Style/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="login">
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a href="index.html">
+            <img src="~/content/layout/admin/img/logo-default.png" alt="" />
+        </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    <div class="menu-toggler sidebar-toggler">
+    </div>
+    <!-- END SIDEBAR TOGGLER BUTTON -->
+    <!-- BEGIN LOGIN -->
+    <div class="content">
+        <!-- BEGIN LOGIN FORM -->
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id="loginForm",  @class = "login-form" }))
+        {
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+            @Html.ValidationSummary(true)
+            <div class="form-group margin-top-20">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">Username</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control placeholder-no-fix", placeholder = "账号", autocomplete = "off" })
+                    @Html.ValidationMessageFor(m=>m.UserName)
+                </div>
+            </div>
+            <div class="form-group margin-bottom-5">
+                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control placeholder-no-fix", autocomplete = "off", placeholder = "密码" })
+                    @Html.ValidationMessageFor(m=>m.Password)
+                </div>
+            </div>
+            <div class="form-actions">
+                <label class="checkbox">
+                    <!--<input type="checkbox" name="remember" value="1" /> 记住账号-->
+                </label>
+                <button type="submit" class="btn btn-primary pull-right">
+                    登录 <i class="fa fa-arrow-circle-right"></i>
+                </button>
+                <button type="reset" class="btn btn-warning pull-left" style="margin-left:0px"><i class="fa  fa-rotate-left"></i> 重置</button>
+            </div>
+            <div class="forget-password display-none">
+                <h4>忘记密码？</h4>
+                <p>
+                    点击 <a href="javascript:;" id="forget-password">这里</a> 重置密码
+                </p>
+            </div>
+        }
+        <!-- END LOGIN FORM -->
+        <!-- BEGIN FORGOT PASSWORD FORM -->
+        <form class="forget-form" action="index.html" method="post">
+            <h3>忘记密码？</h3>
+            <p>
+                输入邮箱地址找回密码
+            </p>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="fa fa-envelope"></i>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="back-btn" class="btn green">
+                    <i class="m-icon-swapleft"></i> 返回
+                </button>
+                <button type="submit" class="btn blue pull-right"> 提交 <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+
+            </div>
+        </form>
+        <!-- END FORGOT PASSWORD FORM -->
+    </div>
+    <!-- END LOGIN -->
+    <!-- BEGIN COPYRIGHT -->
+    <div class="copyright">
+        &copy;@DateTime.Now.Year 钱端
+    </div>
+    <!-- END COPYRIGHT -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="~/content/layout/global/plugins/respond.min.js"></script>
+    <script src="~/content/layout/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/content/Scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/content/layout/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/content/layout/global/plugins/select2/select2.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/content/layout/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="~/content/layout/admin/scripts/layout.js" type="text/javascript"></script>
+    <script src="~/content/layout/admin/scripts/demo.js" type="text/javascript"></script>
+    <script src="~/content/layout/pages/scripts/login-soft.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+    <script src="~/Content/Layout/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/Content/Layout/global/plugins/jquery-validation/js/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    <script src="~/Content/Layout/global/plugins/jquery.form.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+    <script src="~/content/layout/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+
+    <script src="~/Content/Scripts/App.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script src="~/Content/Scripts/login.js" type="text/javascript"></script>
+    <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

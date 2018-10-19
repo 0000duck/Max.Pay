@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" @Html.Raw(ViewBag.HtmlStyle)>
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    <script>(function (window, document) { (function () { var viewportEl = document.querySelector('meta[name="viewport"]'), hotcssEl = document.querySelector('meta[name="hotcss"]'), dpr = window.devicePixelRatio || 1; if (hotcssEl) { var hotcssCon = hotcssEl.getAttribute("content"); if (hotcssCon) { var initialDpr = hotcssCon.match(/initial\-dpr=([\d\.]+)/); if (initialDpr) { dpr = parseFloat(initialDpr[1]) } } } var scale = 1 / dpr, content = "width=device-width, initial-scale=" + scale + ", minimum-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no"; if (viewportEl) { viewportEl.setAttribute("content", content) } else { viewportEl = document.createElement("meta"); viewportEl.setAttribute("name", "viewport"); viewportEl.setAttribute("content", content); document.head.appendChild(viewportEl) } })(); var hotcss = {}; hotcss.px2rem = function (px, designWidth) { if (!designWidth) { designWidth = parseInt(hotcss.designWidth, 10) } return parseInt(px, 10) * 320 / designWidth / 20 }; hotcss.mresize = function () { var innerWidth = window.innerWidth; if (!innerWidth) { return false } document.documentElement.style.fontSize = (innerWidth * 20 / 320) + "px" }; hotcss.mresize(); window.addEventListener("resize", hotcss.mresize, false); window.addEventListener("load", hotcss.mresize, false); setTimeout(function () { hotcss.mresize() }, 300); window.hotcss = hotcss })(window, document);</script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta content="telephone=no, email=no" name="format-detection">
+    <link rel="stylesheet" href="/Content/Loan/style/style.css?20170216">
+    <link href="~/Content/Loan/style/swiper-3.3.1.min.css" rel="stylesheet" />
+    <script src="/Content/Loan/js/lib/zepto.min.js"></script>
+    <script src="/Content/Loan/js/lib/touch.js"></script>
+    <script src="~/Content/Loan/js/urlRouet.js?t=2017-05-31 17:34"></script>
+    <title>@ViewBag.Title</title>
+    @RenderSection("header", false)
+</head>
+<body onpaste="return false" @Html.Raw(ViewBag.BodyStyle)>
+    @RenderBody()
+
+    <script src="/Content/Loan/js/main.js"></script>
+    @RenderSection("footer", false)
+    <div style="display: none;">
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1260574053'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1260574053' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+</body>
+</html>
