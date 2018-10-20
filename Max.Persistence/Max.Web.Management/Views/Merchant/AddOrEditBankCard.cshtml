@@ -1,0 +1,99 @@
+﻿@model MerchantBankAccount
+@{
+    var POST_Action = (Model != null && !Model.AccountId.IsNullOrEmpty()) ? "EditBankForAjax" : "AddBankForAjax";
+    var TITLE = (Model != null && !Model.AccountId.IsNullOrEmpty()) ? "编辑商户银行卡" : "新增商户银行卡";
+}
+@using (Html.BeginForm(POST_Action, "Merchant", FormMethod.Post, new { id = "addOrEditBankForm", @class = "form-horizontal form-bordered" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> @TITLE</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered">
+        @Html.HiddenFor(m => m.AccountId)
+        @Html.HiddenFor(m => m.MerchantId)
+
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">银行名称</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.BankName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.BankName)
+            </div>
+        </div>
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">银行代码</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.BankCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.BankCode)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">姓名</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.AccountName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.AccountName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">卡号</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.AccountNumber)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">手机号</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Mobile)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">身份证号</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.IdCardNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IdCardNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">支行</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.BankBranchName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.BankBranchName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">省份</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Province, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Province)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">城市</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.City)
+            </div>
+        </div>
+        <div class="form-group margin-top-15 display-hide">
+            <label class="control-label col-md-3">状态</label>
+            <div class="col-md-8">
+                @Html.SelectFor(m => m.Status, typeof(Max.Models.Payment.Common.Enums.BankStatus))
+                @Html.ValidationMessageFor(m => m.Status)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">备注</label>
+            <div class="col-md-8">
+                @Html.TextAreaFor(m => m.Remark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Remark)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> @TITLE</button>
+    </div>
+
+}

@@ -136,5 +136,10 @@ namespace Max.Models.Payment
         [Display(Name="是否删除")]
         public int Isdelete{ get; set; }
 
+        [Required]
+        [CharacterLength(50)]
+        [Display(Name="MerchantId")]
+        public string MerchantId{ get; set; }
+
     }
 }

@@ -2,6 +2,7 @@
 using Max.Framework;
 using Max.Web.Management.Infrastructure.Razor;
 using System.Text;
+using Max.Framework.Authorization;
 
 namespace Max.Web.Management.Infrastructure
 {
@@ -10,6 +11,7 @@ namespace Max.Web.Management.Infrastructure
     [GlobalAuthorize]
     public abstract class BaseController : Controller
     {
+        public SystemUser CurrentSysUser { get { return AuthorizeHelper.GetCurrentUser(); } }
 
         protected ActionResult RedirectToLocal(string returnUrl)
         {
@@ -76,7 +78,7 @@ namespace Max.Web.Management.Infrastructure
                 }
             }
             return builder.ToString();
-        } 
+        }
 
     }
 }

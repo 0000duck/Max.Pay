@@ -72,7 +72,7 @@ namespace Max.Service.Payment
             var result = new ServiceResult();
             this._BankReps.Add(model);
 
-            return result.IsSucceed("新增卡券成功");
+            return result.IsSucceed("新增银行成功");
 
         }
 
@@ -81,7 +81,7 @@ namespace Max.Service.Payment
             var result = new ServiceResult();
             this._BankReps.Update(model);
 
-            return result.IsSucceed("编辑卡券成功");
+            return result.IsSucceed("编辑银行成功");
 
         }
         public ServiceResult Delete(Expression<Func<Bank, bool>> predicate)

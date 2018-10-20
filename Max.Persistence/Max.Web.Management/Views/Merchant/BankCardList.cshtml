@@ -1,0 +1,60 @@
+﻿@model List<MerchantBankAccount>
+@{
+    ViewBag.Title = "商户银行卡管理";
+}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> 商户银行卡管理</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered">
+        <div class="form-inline portlet-title margin-bottom-10 margin-top-10 margin-left-10" style="height:30px;">
+            <a id="btnAddcard" permid="@PermCode.新增商户银行卡.Code()" onclick="aadcard('@ViewBag.merchantId')" class="btn green pull-left"><i class="fa fa-plus"></i> 新增银行卡</a>
+        </div>
+
+        <table class="table loading table-bordered table-hover margin-top-10 margin-bottom-5">
+            <thead>
+                <tr>
+                    <th width="30" class="bg-f1">#</th>
+                    <th>银行</th>
+                    <th>账户名称</th>
+                    <th>银行卡号</th>
+                    <th>电话</th>
+                    <th>创建时间</th>
+                    <th>备注</th>
+                    <th>状态</th>
+                    <th width="250">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var index = 0;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="bg-f7">@(++index)</td>
+                        <td>@item.BankName</td>
+                        <td>@item.AccountName</td>
+                        <td>@item.AccountNumber</td>
+                        <td>@item.Mobile</td>
+                        <td>@item.CreateTime</td>
+                        <td>@item.Remark</td>
+                        <td>@((Max.Models.Payment.Common.Enums.BankStatus)item.Status)</td>
+                        <td class="clearfix">
+                            <a itemid="@item.AccountId" permid="@PermCode.编辑商户银行卡.Code()" onclick="editcard('@item.AccountId')" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+
+                            <a itemid="@item.AccountId" permid="@PermCode.删除商户银行卡.Code()" onclick="deletecard('@item.AccountId','@item.MerchantId','@item.AccountName')" itemname="@(item.AccountName)" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="modal-footer">
+            <form id="SureImportForm" method="post">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button type="submit" id="SureSubmit" style="display:none" class="btn btn-primary"><i class="fa fa-check"></i> 确定</button>
+            </form>
+        </div>
+    </div>
+
+

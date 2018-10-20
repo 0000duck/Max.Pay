@@ -11,6 +11,11 @@ namespace Max.Models.Payment
     public class MerchantPayService 
     {
 
+        [Required]
+        [CharacterLength(50)]
+        [Display(Name="PayChannelId")]
+        public string PayChannelId{ get; set; }
+
         /// <summary>
         /// 主键ID
         /// </summary>

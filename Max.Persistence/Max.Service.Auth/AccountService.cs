@@ -77,10 +77,10 @@ namespace Max.Service.Auth
         public ServiceResult Add(SYS_User user)
         {
             var result = new ServiceResult();
-            if (!user.Email.IsEmail())
-            {
-                return result.IsFailed("邮件地址不合法。");
-            }
+            //if (!user.Email.IsEmail())
+            //{
+            //    return result.IsFailed("邮件地址不合法。");
+            //}
 
             var ret = this.userRepository.Query<int, int, int>(
                 @"SELECT COUNT(1) FROM SYS_User WHERE UserName = @userName;
@@ -92,11 +92,11 @@ namespace Max.Service.Auth
             if (ret[0].Cast<int>().First() > 0)
                 return result.IsFailed("添加失败，已存在用户名相同的管理员");
 
-            if (ret[1].Cast<int>().First() > 0)
-                return result.IsFailed("添加失败，已存在邮箱相同的管理员");
+            //if (ret[1].Cast<int>().First() > 0)
+            //    return result.IsFailed("添加失败，已存在邮箱相同的管理员");
 
-            if (ret[2].Cast<int>().First() > 0)
-                return result.IsFailed("添加失败，已存在手机号相同的管理员");
+            //if (ret[2].Cast<int>().First() > 0)
+            //    return result.IsFailed("添加失败，已存在手机号相同的管理员");
 
             this.userRepository.Add(user);
 

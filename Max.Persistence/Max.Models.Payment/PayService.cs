@@ -24,9 +24,8 @@ namespace Max.Models.Payment
         /// 产品类型
         /// </summary>
         [Required]
-        [CharacterLength(50)]
         [Display(Name="产品类型")]
-        public string ServiceType{ get; set; }
+        public int ServiceType{ get; set; }
 
         /// <summary>
         /// 产品代码

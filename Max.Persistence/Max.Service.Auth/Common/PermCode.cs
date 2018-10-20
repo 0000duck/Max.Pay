@@ -50,7 +50,7 @@ namespace Max.Service.Auth.Common
 
         #endregion
 
-       
+
         #region 运维系统 199 开头
 
         Redis缓存查询 = 1991,
@@ -62,7 +62,32 @@ namespace Max.Service.Auth.Common
         Memcache缓存查询 = 1995,
         Memcache缓存清除 = 1996,
         #endregion
-        
+
+        #region 支付管理 200开头
+        银行列表 = 2001,
+        新增银行 = 2002,
+        编辑银行 = 2003,
+        删除银行 = 2004,
+        导出银行列表 = 2005,
+
+        商户列表 = 2006,
+        新增商户 = 2007,
+        编辑商户 = 2008,
+        删除商户 = 2009,
+        导出商户列表 = 20010,
+        新增商户银行卡 = 20011,
+        编辑商户银行卡 = 20012,
+        删除商户银行卡 = 20013,
+        设置商户银行卡=20014,
+
+        支付产品列表 = 20015,
+        新增支付产品 = 20016,
+        编辑支付产品 = 20017,
+        删除支付产品 = 20018,
+        导出支付产品列表 = 20019,
+
+        #endregion
+
     }
 
     public static class PermCodeExtensions

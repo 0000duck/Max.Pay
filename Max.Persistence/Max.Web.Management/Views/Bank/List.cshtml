@@ -1,0 +1,76 @@
+﻿@model Query<Bank, Max.Web.Management.Models.Payment.BankParams>
+@{
+    ViewBag.Title = "银行管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-puzzle"></i> 银行管理</div>
+    </div>
+    <div class="portlet-body">
+        @using (Html.PageView("List", "Bank", "queryForm", "listContainer", "List_Partial", Model))
+        {
+            <div class="form-inline">
+                @Html.TextBoxFor(m => m.Params.BankName, new { @class = "form-control", placeholder = "银行名称" })
+                @Html.TextBoxFor(m => m.Params.BankCode, new { @class = "form-control", placeholder = "银行代码" })
+                状态：@Html.SelectFor(m => m.Params.Status, typeof(Max.Models.Payment.Common.Enums.BankStatus),"-- 全部 --")
+                <button type="submit" class="btn blue"><i class="fa fa-search"></i> 查询</button>
+                <button type="reset" class="btn yellow"><i class="fa fa-undo"></i> 重置</button>
+                <a id="btnAdd" permid="@PermCode.新增银行.Code()" class="btn green pull-right"><i class="fa fa-plus"></i> 新增银行</a>
+                @Html.ExportFileFor("queryForm", "Bank", "ExportBanks")
+            </div>
+        }
+    </div>
+</div>
+
+<div id="addOrEditModal" class="modal fade-in-up"></div>
+@section footer{
+    <script type="text/javascript">
+        $(function () {
+          
+
+            $("#btnAdd").click(function () {
+                App.LoadModal("#addOrEditModal", "/Bank/AddOrEdit");
+            });
+            $("#listContainer a.edit").live("click", function () {
+                App.LoadModal("#addOrEditModal", "/Bank/AddOrEdit", { bankId: $(this).attr("itemid")});
+            });
+        
+
+            $.done("#addOrEditForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditModal").modal("hide");
+                    App.Notify(data.Message);
+                    $("#queryForm").submit()
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+     
+            
+            $("#listContainer .delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除  " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Bank/DeleteForAjax",
+                            data: { bankId: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#queryForm").submit()
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+        })
+    </script>
+
+}
+

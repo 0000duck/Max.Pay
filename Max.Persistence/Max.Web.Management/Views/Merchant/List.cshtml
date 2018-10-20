@@ -1,0 +1,128 @@
+﻿@model Query<Merchant, Max.Web.Management.Models.Payment.MerchantParams>
+@{
+    ViewBag.Title = "商户管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-puzzle"></i> 商户管理</div>
+    </div>
+    <div class="portlet-body">
+        @using (Html.PageView("List", "Merchant", "queryForm", "listContainer", "List_Partial", Model))
+        {
+            <div class="form-inline">
+                @Html.TextBoxFor(m => m.Params.MerchantName, new { @class = "form-control", placeholder = "商户名称" })
+                @Html.TextBoxFor(m => m.Params.MerchantNo, new { @class = "form-control", placeholder = "商户代码" })
+                状态：@Html.SelectFor(m => m.Params.Status, typeof(Max.Models.Payment.Common.Enums.BankStatus), "-- 全部 --")
+                <button type="submit" class="btn blue"><i class="fa fa-search"></i> 查询</button>
+                <button type="reset" class="btn yellow"><i class="fa fa-undo"></i> 重置</button>
+                <a id="btnAdd" permid="@PermCode.新增商户.Code()" class="btn green pull-right"><i class="fa fa-plus"></i> 新增商户</a>
+                @Html.ExportFileFor("queryForm", "Merchant", "ExportBanks",PermCode.导出商户列表.Code())
+            </div>
+        }
+    </div>
+</div>
+
+<div id="addOrEditModal" class="modal fade-in-up"></div>
+<div id="bankCardModal" class="modal fade-in-up"></div>
+<div id="addOrEditBankCardModal" class="modal fade-in-up"></div>
+@section footer{
+    <script type="text/javascript">
+        $(function () {
+
+
+            $("#btnAdd").click(function () {
+                App.LoadModal("#addOrEditModal", "/Merchant/AddOrEdit");
+            });
+            $("#listContainer a.edit").live("click", function () {
+                App.LoadModal("#addOrEditModal", "/Merchant/AddOrEdit", { merchantId: $(this).attr("itemid") });
+            });
+
+            //设置银行卡
+            $("#listContainer a.setBankCard").live("click", function () {
+                App.LoadModal("#bankCardModal", "/Merchant/BankCardList", { merchantId: $(this).attr("itemid") }, { width: 1000 });
+            });
+
+            $.done("#addOrEditForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditModal").modal("hide");
+                    App.Notify(data.Message);
+                    $("#queryForm").submit()
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+
+
+            $("#listContainer .delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除  " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Merchant/DeleteForAjax",
+                            data: { merchantId: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#queryForm").submit()
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+        })
+
+
+        function aadcard(merchantId) {
+            $("#bankCardModal").modal("hide");
+            App.LoadModal("#addOrEditBankCardModal", "/Merchant/AddOrEditBankCard", { merchantId: merchantId });
+        }
+        function editcard(accountId) {
+            $("#bankCardModal").modal("hide");
+            App.LoadModal("#addOrEditBankCardModal", "/Merchant/AddOrEditBankCard", { accountId: accountId });
+        }
+        function deletecard(accountId,merchantId,accountName) {
+
+            $btn = $(this);
+            App.Confirm("是否删除  " + accountName + "？", function (e) {
+                if (e) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Merchant/DeleteBankForAjax",
+                        data: { accountId: accountId }
+                    }).done(function (data) {
+                        if (data.Success) {
+                            $("#bankCardModal").modal("hide");
+                            App.Notify(data.Message);
+                            App.LoadModal("#bankCardModal", "/Merchant/BankCardList", { merchantId: merchantId }, { width: 1000});
+                        } else {
+                            App.Alert(data.Message);
+                        }
+                    })
+                }
+            })
+        }
+        $.done("#addOrEditBankForm", function (data) {
+            if (data.Success) {
+                $("#addOrEditBankCardModal").modal("hide");
+                App.Notify(data.Message);
+                App.LoadModal("#bankCardModal", "/Merchant/BankCardList", { merchantId: data.Data.MerchantId }, { width: 1000 });
+            }
+            else {
+                App.Alert(data.Message);
+            }
+        });
+
+
+
+    </script>
+
+}
+
+
+

@@ -1074,6 +1074,8 @@
     <Compile Include="App_Start\PermissionUtil.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\PayProductController.cs" />
+    <Compile Include="Controllers\MerchantController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\MongoController.cs" />
     <Compile Include="Helpers\BaseHelper.cs" />
@@ -1122,6 +1124,9 @@
     <Compile Include="Models\Export\ExclAllModel.cs" />
     <Compile Include="Models\Import\ImportAllModel.cs" />
     <Compile Include="Models\Log\LogParams.cs" />
+    <Compile Include="Models\Payment\PayProductParams.cs" />
+    <Compile Include="Models\Payment\MerchantParams.cs" />
+    <Compile Include="Models\Payment\BankParams.cs" />
     <Compile Include="Models\Menu\MenuParams.cs" />
     <Compile Include="Models\Mongo\MongoModel.cs" />
     <Compile Include="Models\Roles\ActionsInRoleParam.cs" />
@@ -1233,6 +1238,17 @@
     <Content Include="Views\Mongo\DBlist.cshtml" />
     <Content Include="Views\Mongo\Index.cshtml" />
     <Content Include="Views\Mongo\Mongo_Partial.cshtml" />
+    <Content Include="Views\Bank\AddOrEdit.cshtml" />
+    <Content Include="Views\Bank\List.cshtml" />
+    <Content Include="Views\Bank\List_Partial.cshtml" />
+    <Content Include="Views\Merchant\AddOrEdit.cshtml" />
+    <Content Include="Views\Merchant\List.cshtml" />
+    <Content Include="Views\Merchant\List_Partial.cshtml" />
+    <Content Include="Views\Merchant\AddOrEditBankCard.cshtml" />
+    <Content Include="Views\Merchant\BankCardList.cshtml" />
+    <Content Include="Views\PayProduct\AddOrEdit.cshtml" />
+    <Content Include="Views\PayProduct\List.cshtml" />
+    <Content Include="Views\PayProduct\List_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

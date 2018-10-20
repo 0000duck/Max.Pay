@@ -1,0 +1,38 @@
+﻿@model Query<PayService, Max.Web.Management.Models.Payment.PayProductParams>
+<table class="table loading table-bordered table-hover margin-top-10 margin-bottom-5">
+    <thead>
+        <tr>
+            <th width="30" class="bg-f1">#</th>
+            <th>产品名称</th>
+            <th>产品代码</th>
+            <th>产品类型</th>
+            <th>状态</th>
+            <th>备注</th>
+            <th>创建时间</th>
+            <th width="250">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var index = 0;}
+        @foreach (var item in Model.ItemList)
+        {
+        <tr>
+            <td class="bg-f7">@(++index)</td>
+            <td>@item.ServiceName</td>
+            <td>@item.ServiceCode</td>
+            <td>@((Max.Models.Payment.Common.Enums.ServiceType)item.ServiceType)</td>
+            <td>@((Max.Models.Payment.Common.Enums.CommonStatus)item.Status)</td>
+            <td>@item.Remark</td>
+            <td>@item.CreateTime</td>
+            <td class="clearfix">
+                <a itemid="@item.ServiceId" permid="@PermCode.编辑支付产品.Code()" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                <a itemid="@item.ServiceId" permid="@PermCode.删除支付产品.Code()" itemname="@(item.ServiceName)" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@Html.GridPager(Model)
+
