@@ -1074,6 +1074,8 @@
     <Compile Include="App_Start\PermissionUtil.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MerchantPayController.cs" />
+    <Compile Include="Controllers\PayChannelController.cs" />
     <Compile Include="Controllers\PayProductController.cs" />
     <Compile Include="Controllers\MerchantController.cs" />
     <Compile Include="Controllers\BankController.cs" />
@@ -1249,6 +1251,13 @@
     <Content Include="Views\PayProduct\AddOrEdit.cshtml" />
     <Content Include="Views\PayProduct\List.cshtml" />
     <Content Include="Views\PayProduct\List_Partial.cshtml" />
+    <Content Include="Views\Merchant\PayService.cshtml" />
+    <Content Include="Views\MerchantPay\AddOrEdit.cshtml" />
+    <Content Include="Views\MerchantPay\List.cshtml" />
+    <Content Include="Views\MerchantPay\List_Partial.cshtml" />
+    <Content Include="Views\PayChannel\AddOrEdit.cshtml" />
+    <Content Include="Views\PayChannel\List.cshtml" />
+    <Content Include="Views\PayChannel\List_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

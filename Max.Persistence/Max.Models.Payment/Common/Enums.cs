@@ -71,5 +71,15 @@ namespace Max.Models.Payment.Common
             银联钱包 = 5,
             快捷支付 = 5,
         }
+
+        /// <summary>
+        /// 商户支付产品开通状态
+        /// </summary>
+        public enum IsOpen
+        {
+            已开通 = 1,
+            未开通 = 0
+        }
+
     }
 }

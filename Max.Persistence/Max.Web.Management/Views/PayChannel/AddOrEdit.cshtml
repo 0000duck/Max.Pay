@@ -1,0 +1,98 @@
+﻿@model PayChannel
+@{
+    var POST_Action = (Model != null && !Model.ChannelId.IsNullOrEmpty()) ? "EditForAjax" : "AddForAjax";
+    var TITLE = (Model != null && !Model.ChannelId.IsNullOrEmpty()) ? "编辑" : "新增";
+}
+@using (Html.BeginForm(POST_Action, "PayChannel", FormMethod.Post, new { id = "addOrEditForm", @class = "form-horizontal form-bordered" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> @TITLE</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered">
+        @Html.HiddenFor(m => m.ChannelId)
+
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">名称</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.ChannelName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ChannelName)
+            </div>
+        </div>
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">渠道类型</label>
+            <div class="col-md-8">
+                @Html.SelectFor(m => m.ChannelType, typeof(Max.Models.Payment.Common.Enums.ServiceType))
+                @Html.ValidationMessageFor(m => m.ChannelType)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">商户号</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.MerchantNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MerchantNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">商户秘钥</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.MerchantKey, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MerchantKey)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">最小金额</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.MinOrderAmount, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MinOrderAmount)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">最大金额</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.MaxOrderAmount, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MaxOrderAmount)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">费率</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.FeeRate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FeeRate)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">结算模式</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.SettleMode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SettleMode)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">支付站点</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.PaySite, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PaySite)
+            </div>
+        </div>
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">状态</label>
+            <div class="col-md-8">
+                @Html.SelectFor(m => m.Status, typeof(Max.Models.Payment.Common.Enums.BankStatus))
+                @Html.ValidationMessageFor(m => m.Status)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">备注</label>
+            <div class="col-md-8">
+                @Html.TextAreaFor(m => m.Remark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Remark)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> @TITLE</button>
+    </div>
+
+}

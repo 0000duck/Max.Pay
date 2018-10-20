@@ -22,12 +22,14 @@ namespace Max.Web.Management.Controllers
     {
         private MerchantService _merchantService;
         private MerchantBankService _merchantBankService;
+        private V_MerchantPayService _vMerchantPayService;
         private IExcelClient excelClient;
-        public MerchantController(MerchantService merchantService, MerchantBankService merchantBankService, IExcelClient excelClient)
+        public MerchantController(MerchantService merchantService, MerchantBankService merchantBankService, V_MerchantPayService vMerchantPayService, IExcelClient excelClient)
         {
             this._merchantService = merchantService;
             this.excelClient = excelClient;
             this._merchantBankService = merchantBankService;
+            this._vMerchantPayService = vMerchantPayService;
         }
 
         [Permission(PermCode.商户列表)]
@@ -170,6 +172,14 @@ namespace Max.Web.Management.Controllers
 
         #endregion
 
+
+        #region 商户支付产品
+        public ActionResult PayService(string merchantId)
+        {
+            var model = this._vMerchantPayService.GetList(c => true);
+            return View(model);
+        }
+        #endregion
         [Permission(PermCode.导出商户列表)]
         public void ExportBanks(Query<Merchant, MerchantParams> query)
         {

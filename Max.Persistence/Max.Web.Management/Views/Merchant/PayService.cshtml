@@ -1,0 +1,113 @@
+﻿@model List<V_MerchantPayProduct>
+@{
+    ViewBag.Title = "商户支付产品管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-puzzle"></i> [@Request["merchantName"]]支付管理</div>
+    </div>
+    <table class="table loading table-bordered table-hover margin-top-10 margin-bottom-5">
+        <thead>
+            <tr>
+                <th width="30" class="bg-f1">#</th>
+                <th>产品名称</th>
+                <th>产品代码</th>
+                <th>渠道名称</th>
+                <th>代理费率</th>
+                <th>商户费率</th>
+                <th>备注</th>
+                <th>创建时间</th>
+                <th>产品状态</th>
+                <th>是否开通</th>
+                <th width="250">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var index = 0;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="bg-f7">@(++index)</td>
+                    <td>@item.ServiceName</td>
+                    <td>@item.ServiceCode</td>
+                    <td>@item.ChannelName</td>
+                    <td>@item.AgentFeeRate</td>
+                    <td>@item.MerchantFeeRate</td>
+                    <td>@item.Remark</td>
+                    <td>@item.CreateTime</td>
+                    <td>@((Max.Models.Payment.Common.Enums.CommonStatus)item.Status.TryInt(0))</td>
+                    <td>@((Max.Models.Payment.Common.Enums.IsOpen)item.IsOpen)</td>
+                    <td class="clearfix">
+                        @if (item.IsOpen == (int)Max.Models.Payment.Common.Enums.IsOpen.未开通)
+                        {
+                            <a itemid="@item.MerchantPayServiceId" serviceType="@item.ServiceType" permid="@PermCode.编辑商户.Code()" class="btnAdd btn btn-primary btn-sm"><i class="fa icon-eye-open"></i>开通</a>
+                        }
+                        else
+                        {
+                            <a itemid="@item.MerchantPayServiceId" permid="@PermCode.编辑商户.Code()" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+
+                            <a itemid="@item.MerchantPayServiceId" permid="@PermCode.删除商户.Code()" itemname="@(item.MerchantName)" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="addOrEditModal" class="modal fade-in-up"></div>
+@section footer{
+    <script type="text/javascript">
+        $(function () {
+
+            $(".btnAdd").click(function () {
+                App.LoadModal("#addOrEditModal", "/MerchantPay/AddOrEdit", { merchantId:'@Request["merchantId"]', merchantPayServiceId: $(this).attr("itemid"), serviceType: $(this).attr("serviceType") });
+            });
+            $("#listContainer a.edit").live("click", function () {
+                App.LoadModal("#addOrEditModal", "/MerchantPay/AddOrEdit", { merchantPayServiceId: $(this).attr("itemid"), serviceType: $(this).attr("serviceType") });
+            });
+
+
+
+            $.done("#addOrEditForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditModal").modal("hide");
+                    App.Notify(data.Message);
+                    window.location.reload();
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+
+
+            $("#listContainer .delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除  " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/MerchantPay/DeleteForAjax",
+                            data: { merchantPayServiceId: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#queryForm").submit()
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+        })
+
+
+    </script>
+
+}
+
+
+

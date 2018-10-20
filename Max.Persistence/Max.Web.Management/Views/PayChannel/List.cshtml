@@ -1,0 +1,77 @@
+﻿@model Query<PayChannel, Max.Web.Management.Models.Payment.PayProductParams>
+@{
+    ViewBag.Title = "支付渠道管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-puzzle"></i> 支付渠道管理</div>
+    </div>
+    <div class="portlet-body">
+        @using (Html.PageView("List", "PayChannel", "queryForm", "listContainer", "List_Partial", Model))
+        {
+            <div class="form-inline">
+                @Html.TextBoxFor(m => m.Params.ServiceName, new { @class = "form-control", placeholder = "渠道名称" })
+                @Html.TextBoxFor(m => m.Params.ServiceCode, new { @class = "form-control", placeholder = "渠道代码" })
+                类型：@Html.SelectFor(m => m.Params.ServiceType, typeof(Max.Models.Payment.Common.Enums.ServiceType), "-- 全部 --")
+                状态：@Html.SelectFor(m => m.Params.Status, typeof(Max.Models.Payment.Common.Enums.CommonStatus), "-- 全部 --")
+                <button type="submit" class="btn blue"><i class="fa fa-search"></i> 查询</button>
+                <button type="reset" class="btn yellow"><i class="fa fa-undo"></i> 重置</button>
+                <a id="btnAdd" permid="@PermCode.新增支付渠道.Code()" class="btn green pull-right"><i class="fa fa-plus"></i> 新增渠道</a>
+                @Html.ExportFileFor("queryForm", "PayChannel", "ExportBanks")
+            </div>
+        }
+    </div>
+</div>
+
+<div id="addOrEditModal" class="modal fade-in-up"></div>
+@section footer{
+    <script type="text/javascript">
+        $(function () {
+
+
+            $("#btnAdd").click(function () {
+                App.LoadModal("#addOrEditModal", "/PayChannel/AddOrEdit");
+            });
+            $("#listContainer a.edit").live("click", function () {
+                App.LoadModal("#addOrEditModal", "/PayChannel/AddOrEdit", { payChannelId: $(this).attr("itemid") });
+            });
+
+
+            $.done("#addOrEditForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditModal").modal("hide");
+                    App.Notify(data.Message);
+                    $("#queryForm").submit()
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+
+
+            $("#listContainer .delete").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除  " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/PayChannel/DeleteForAjax",
+                            data: { payChannelId: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                $("#queryForm").submit()
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+        })
+    </script>
+
+}
+

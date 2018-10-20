@@ -17,7 +17,7 @@ namespace Max.Models.Payment
         [Key]
         [Required]
         [Display(Name="支付渠道ID")]
-        public int ChannelId{ get; set; }
+        public string ChannelId{ get; set; }
 
         /// <summary>
         /// 支付渠道类型
@@ -25,7 +25,7 @@ namespace Max.Models.Payment
         [Required]
         [CharacterLength(50)]
         [Display(Name="支付渠道类型")]
-        public string ChannelType{ get; set; }
+        public int ChannelType{ get; set; }
 
         /// <summary>
         /// 渠道名称

@@ -12,7 +12,7 @@
             <th>创建时间</th>
             <th>备注</th>
             <th>状态</th>
-            <th width="250">操作</th>
+            <th width="350">操作</th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +33,7 @@
                 <td class="clearfix">
                     <a itemid="@item.MerchantId" permid="@PermCode.编辑商户.Code()" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
                     <a itemid="@item.MerchantId" permid="@PermCode.编辑商户银行卡.Code()" class="setBankCard btn btn-primary btn-sm"><i class="fa fa-edit"></i>设置银行卡</a>
+                    <a href="/Merchant/PayService?merchantId=@item.MerchantId&merchantName=@item.MerchantName" itemid="@item.MerchantId" permid="@PermCode.编辑商户银行卡.Code()" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>支付产品</a>
                     <a itemid="@item.MerchantId" permid="@PermCode.删除商户.Code()" itemname="@(item.MerchantName)" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
 
                 </td>

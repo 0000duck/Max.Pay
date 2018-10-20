@@ -104,5 +104,9 @@ namespace Max.Models.Payment
         [Display(Name="是否删除")]
         public int Isdelete{ get; set; }
 
+        [Required]
+        [Display(Name = "产品类型")]
+        public int ServiceType { get; set; }
+
     }
 }
