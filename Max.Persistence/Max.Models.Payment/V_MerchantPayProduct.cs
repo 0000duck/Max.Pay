@@ -13,6 +13,8 @@ namespace Max.Models.Payment
 
         public string MerchantPayServiceId{ get; set; }
 
+        public int IsOpen{ get; set; }
+
         public int? Status{ get; set; }
 
         public string PayChannelId{ get; set; }
@@ -31,7 +33,7 @@ namespace Max.Models.Payment
 
         public string Remark{ get; set; }
 
-        public int IsOpen{ get; set; }
+        public decimal? FeeRate{ get; set; }
 
         public string ServiceCode{ get; set; }
 

@@ -23,13 +23,15 @@ namespace Max.Web.Management.Controllers
         private MerchantService _merchantService;
         private MerchantBankService _merchantBankService;
         private V_MerchantPayService _vMerchantPayService;
+        private PayProductService _payProductService;
         private IExcelClient excelClient;
-        public MerchantController(MerchantService merchantService, MerchantBankService merchantBankService, V_MerchantPayService vMerchantPayService, IExcelClient excelClient)
+        public MerchantController(MerchantService merchantService, MerchantBankService merchantBankService, V_MerchantPayService vMerchantPayService, IExcelClient excelClient, PayProductService payProductService)
         {
             this._merchantService = merchantService;
             this.excelClient = excelClient;
             this._merchantBankService = merchantBankService;
             this._vMerchantPayService = vMerchantPayService;
+            this._payProductService = payProductService;
         }
 
         [Permission(PermCode.商户列表)]
@@ -57,6 +59,18 @@ namespace Max.Web.Management.Controllers
             return PageView(query);
 
         }
+
+        [Permission(PermCode.商户详情)]
+        public ActionResult Details(string merchantId)
+        {
+            MerchantDetailsModel model = new MerchantDetailsModel();
+            model.Merchant = this._merchantService.Get(c=>c.MerchantId==merchantId);
+            model.MerchantBankList = this._merchantBankService.GetList(c=>c.MerchantId==merchantId);
+            model.MerchantPayProductList = this._vMerchantPayService.GetList(c=>c.MerchantId==merchantId);
+            model.PayProductList = this._payProductService.GetList(c=>c.Isdelete==(int)Enums.IsDelete.否);
+            return View(model);
+        }
+
 
         #region 新增/编辑/删除商户
 
@@ -173,13 +187,6 @@ namespace Max.Web.Management.Controllers
         #endregion
 
 
-        #region 商户支付产品
-        public ActionResult PayService(string merchantId)
-        {
-            var model = this._vMerchantPayService.GetList(c => true);
-            return View(model);
-        }
-        #endregion
         [Permission(PermCode.导出商户列表)]
         public void ExportBanks(Query<Merchant, MerchantParams> query)
         {

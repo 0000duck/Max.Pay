@@ -33,51 +33,20 @@ namespace Max.Web.Management.Controllers
             this._payProductService = payProductService;
         }
 
-        #region 支付产品管理
 
-        [Permission(PermCode.支付产品列表)]
-        public ActionResult List(Query<MerchantPayService, PayProductParams> query)
+
+        #region 新增/编辑/删除商户支付产品
+
+
+        public ActionResult AddOrEdit(string merchantId, string serviceId, string merchantPayServiceId, int serviceType = 0)
         {
-            var where = PredicateBuilder.True<MerchantPayService>();
-            var param = query.Params;
-            //if (!param.ServiceName.IsNullOrWhiteSpace())
-            //{
-            //    where = where.And(c => c.ServiceName.Contains(param.ServiceName));
-            //}
-            //if (!param.ServiceCode.IsNullOrWhiteSpace())
-            //{
-            //    where = where.And(c => c.ServiceCode.Contains(param.ServiceCode));
-            //}
-            //if (param.ServiceType.HasValue)
-            //{
-            //    where = where.And(c => c.ServiceType == param.ServiceType.Value);
-            //}
-            if (param.Status.HasValue)
-            {
-                where = where.And(c => c.Status == param.Status.Value);
-            }
-            var pageList = this._mpService.GetPageList(where, query.__pageIndex, query.__pageSize);
-
-            pageList.UpdateQuery(query);
-
-            return PageView(query);
-
-        }
-
-        #endregion
-
-        #region 新增/编辑/删除支付产品
-
-
-        public ActionResult AddOrEdit(string merchantId, string merchantPayServiceId, int serviceType = 0)
-        {
-            var model = merchantPayServiceId.IsNullOrWhiteSpace() ? new MerchantPayService() { MerchantId= merchantId, ServiceType = serviceType } : this._mpService.Get(c => c.MerchantPayServiceId == merchantPayServiceId);
+            var model = merchantPayServiceId.IsNullOrWhiteSpace() ? new MerchantPayService() { MerchantId = merchantId, ServiceType = serviceType, ServiceId = serviceId } : this._mpService.Get(c => c.MerchantPayServiceId == merchantPayServiceId);
             ViewData["PayProduct"] = GetPayProductDropdownList(model.ServiceType, model.ServiceId);
             ViewData["PayChannel"] = GetPayChannelDropdownList(model.ServiceType, model.PayChannelId);
             return View(model);
         }
 
-        [Permission(PermCode.新增支付产品)]
+        [Permission(PermCode.开通商户支付产品)]
         [HttpPost]
         public ActionResult AddForAjax(MerchantPayService model)
         {
@@ -87,7 +56,7 @@ namespace Max.Web.Management.Controllers
             return Json(this._mpService.Add(model));
         }
 
-        [Permission(PermCode.编辑支付产品)]
+        [Permission(PermCode.编辑商户支付产品)]
         [HttpPost]
         public ActionResult EditForAjax(MerchantPayService model)
         {
@@ -102,7 +71,7 @@ namespace Max.Web.Management.Controllers
             }));
         }
 
-        [Permission(PermCode.删除支付产品)]
+        [Permission(PermCode.删除商户支付产品)]
         [HttpPost]
         public ActionResult DeleteForAjax(string merchantPayServiceId)
         {
@@ -111,27 +80,6 @@ namespace Max.Web.Management.Controllers
 
         #endregion
 
-        [Permission(PermCode.导出支付产品列表)]
-        public void ExportBanks(Query<MerchantPayService, PayProductParams> query)
-        {
-            var where = PredicateBuilder.True<MerchantPayService>();
-
-            var list = this._mpService.GetList(where).OrderBy(m => m.PayChannelId).ToList();
-
-
-            var exportList = new List<ExportBank>();
-            foreach (var item in list)
-            {
-
-                var model = new ExportBank();
-                //model.BankName = item.BankName;
-                //model.BankCode = item.BankCode;
-                //model.SeqNo = item.SeqNo;
-                exportList.Add(model);
-
-            }
-            excelClient.HttpExport(exportList, "支付产品列表" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-        }
 
 
         public List<SelectListItem> GetPayChannelDropdownList(int channelType = 0, string channelId = "")

@@ -12,18 +12,20 @@
     <div class="modal-body form form-horizontal form-bordered">
         @Html.HiddenFor(m => m.MerchantPayServiceId)
         @Html.HiddenFor(m => m.MerchantId)
+        @Html.HiddenFor(m => m.ServiceId)
+        @Html.HiddenFor(m => m.ServiceType)
 
         <div class="form-group margin-top-15">
             <label class="control-label col-md-3">产品类型</label>
             <div class="col-md-8">
-                @Html.SelectFor(m => m.ServiceType, typeof(Max.Models.Payment.Common.Enums.ServiceType), true)
+                @Html.SelectFor(m => m.ServiceType, typeof(Max.Models.Payment.Common.Enums.ServiceType), true, null, new { @disabled = "disabled" })
                 @Html.ValidationMessageFor(m => m.ServiceType)
             </div>
         </div>
         <div class="form-group margin-top-15">
             <label class="control-label col-md-3">支付产品</label>
             <div class="col-md-8">
-                @Html.DropDownListFor(m => m.ServiceId, ViewData["PayProduct"] as List<SelectListItem>, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.ServiceId, ViewData["PayProduct"] as List<SelectListItem>, new { @class = "form-control", @disabled = "disabled" })
                 @Html.ValidationMessageFor(m => m.ServiceId)
             </div>
         </div>

@@ -1,0 +1,260 @@
+﻿@model Max.Web.Management.Models.Payment.MerchantDetailsModel
+
+@{
+    ViewBag.Title = "商户详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-header">
+    <h1 class="inline">商户详情 <small> </small></h1>
+</div>
+@if (Model != null && Model.Merchant != null)
+{
+
+    <!--商户信息-->
+    if (Model.Merchant != null)
+    {
+        <h3 class="panel-title margin-right-10 margin-left-5 inline">商户基本信息</h3>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 margin-bottom-10 ">商户名称：@Model.Merchant.MerchantName</div>
+                    <div class="col-md-6 margin-bottom-10">电话：@Model.Merchant.Mobile</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 margin-bottom-10">商户号： @Model.Merchant.MerchantNo</div>
+                    <div class="col-md-6 margin-bottom-10">QQ： @Model.Merchant.QQ</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 margin-bottom-10">商户秘钥：@Model.Merchant.Md5Key</div>
+                    <div class="col-md-6 margin-bottom-10">Email：@Model.Merchant.Email</div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <!--银行卡信息-->
+
+    <h3 class="panel-title margin-right-10 margin-left-5 inline">银行卡信息</h3>
+    <div id="merchantBankDiv" class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <a id="btnAddcard" permid="@PermCode.新增商户银行卡.Code()" class="btn btn-sm green  pull-left margin-left-5"><i class="fa fa-plus"></i> 新增银行卡</a>
+            </div>
+            <div class="row">
+                <table class="table table-bordered  margin-top-5 margin-bottom-5">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>提现银行</th>
+                            <th>提现账号</th>
+                            <th>姓名</th>
+                            <th>身份证号</th>
+                            <th>手机号</th>
+                            <th>操作</th>
+                    </thead>
+                    <tbody>
+                        @if (Model.MerchantBankList.Any())
+                        {
+                            var index = 0;
+                            foreach (var item in Model.MerchantBankList)
+                            {
+                                <tr>
+                                    <td>@(++index)</td>
+                                    <td>@item.BankName</td>
+                                    <td>@item.AccountNumber</td>
+                                    <td>@item.AccountName</td>
+                                    <td>@item.IdCardNo</td>
+                                    <td>@item.Mobile</td>
+                                    <td>
+                                        <a itemid="@item.AccountId" permid="@PermCode.编辑商户银行卡.Code()" class="editBankCard btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                                        <a itemid="@item.AccountId" permid="@PermCode.删除商户银行卡.Code()" itemname="@(item.AccountName)" class="deleteBankCard btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!--支付产品信息-->
+    if (Model.PayProductList.Any())
+    {
+        <h3 class="panel-title margin-right-10 margin-left-5 inline">支付产品信息</h3>
+        <div id="merchantPayDiv" class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+
+                    <table class="table table-bordered  margin-top-5 margin-bottom-5">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>产品名称</th>
+                                <th>产品代码</th>
+                                <th>渠道名称</th>
+                                <th>代理费率</th>
+                                <th>商户费率</th>
+                                <th>备注</th>
+                                <th>创建时间</th>
+                                <th>状态</th>
+                                <th>是否开通</th>
+                                <th width="250">操作</th>
+                        </thead>
+                        <tbody>
+                            @{ var index = 0;}
+                            @foreach (var product in Model.PayProductList)
+                            {
+                                var item = Model.MerchantPayProductList.FirstOrDefault(c => c.ServiceId == product.ServiceId);
+                                if (item.IsNull())
+                                {
+                                    item = new V_MerchantPayProduct()
+                                    {
+                                        ServiceName = product.ServiceName,
+                                        ServiceCode = product.ServiceCode,
+                                        ServiceType = product.ServiceType,
+                                        ServiceId = product.ServiceId,
+                                        IsOpen = (int)Max.Models.Payment.Common.Enums.IsOpen.未开通
+
+
+                                    };
+                                }
+
+                                <tr>
+                                    <td>@(++index)</td>
+                                    <td>@item.ServiceName</td>
+                                    <td>@item.ServiceCode</td>
+                                    <td>@(item.ChannelName.IsNullOrWhiteSpace() ? "" : item.ChannelName + " (费率：{0})".Fmt(item.FeeRate))</td>
+                                    <td>@item.AgentFeeRate</td>
+                                    <td>@item.MerchantFeeRate</td>
+                                    <td>@item.Remark</td>
+                                    <td>@item.CreateTime</td>
+                                    <td>@(item.Status.HasValue ? ((Max.Models.Payment.Common.Enums.CommonStatus)item.Status.Value).ToString() : "--")</td>
+                                    <td>@((Max.Models.Payment.Common.Enums.IsOpen)item.IsOpen)</td>
+                                    <td class="clearfix">
+                                        @if (item.IsOpen != (int)Max.Models.Payment.Common.Enums.IsOpen.已开通)
+                                        {
+                                            <a itemid="@item.ServiceId" serviceType="@item.ServiceType" permid="@PermCode.开通商户支付产品.Code()" class="btnOpenPay btn btn-primary btn-sm"><i class="fa icon-eye-open"></i>开通</a>
+                                        }
+                                        else
+                                        {
+                                            <a itemid="@item.MerchantPayServiceId" permid="@PermCode.编辑商户支付产品.Code()" class="editPay btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+
+                                            <a itemid="@item.MerchantPayServiceId" permid="@PermCode.删除商户支付产品.Code()" itemname="@(item.ServiceName)" class="deletePay btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+else
+{
+    <h3>商户不存在</h3>
+}
+
+
+<div id="addOrEditBankCardModal" class="modal fade-in-up"></div>
+<div id="addOrEditPayModal" class="modal fade-in-up"></div>
+@section footer{
+    <script type="text/javascript">
+        $(function () {
+            //新增提现银行卡
+            $("#merchantBankDiv #btnAddcard").click(function () {
+                App.LoadModal("#addOrEditBankCardModal", "/Merchant/AddOrEditBankCard", { merchantId: '@Request["merchantId"]' });
+            });
+            //编辑提现银行卡
+            $("#merchantBankDiv a.editBankCard").live("click", function () {
+                App.LoadModal("#addOrEditBankCardModal", "/Merchant/AddOrEditBankCard", {merchantId: '@Request["merchantId"]', accountId: $(this).attr("itemid") });
+            });
+            //删除提现银行卡
+            $("#merchantBankDiv a.deleteBankCard").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除  " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Merchant/DeleteBankForAjax",
+                            data: { accountId: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                window.location.reload();
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            })
+
+            //开通商户支付产品
+            $("#merchantPayDiv .btnOpenPay").click(function () {
+                App.LoadModal("#addOrEditPayModal", "/MerchantPay/AddOrEdit", { merchantId:'@Request["merchantId"]', serviceId: $(this).attr("itemid"), serviceType: $(this).attr("serviceType") });
+            });
+            //编辑商户支付产品
+            $("#merchantPayDiv a.editPay").live("click", function () {
+                App.LoadModal("#addOrEditPayModal", "/MerchantPay/AddOrEdit", { merchantPayServiceId: $(this).attr("itemid"), serviceType: $(this).attr("serviceType") });
+            });
+            //删除商户支付产品
+            $("#merchantPayDiv .deletePay").live("click", function () {
+                $btn = $(this);
+                App.Confirm("是否删除  " + $btn.attr("itemName") + "？", function (e) {
+                    if (e) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/MerchantPay/DeleteForAjax",
+                            data: { merchantPayServiceId: $btn.attr("itemId") }
+                        }).done(function (data) {
+                            if (data.Success) {
+                                App.Notify(data.Message);
+                                window.location.reload();
+                            } else {
+                                App.Alert(data.Message);
+                            }
+                        })
+                    }
+                })
+            });
+        })
+
+        //银行卡添加/编辑完成
+            $.done("#addOrEditBankForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditBankCardModal").modal("hide");
+                    App.Notify(data.Message);
+                    window.location.reload();
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+
+        //支付产品开通/编辑完成
+            $.done("#addOrEditForm", function (data) {
+                if (data.Success) {
+                    $("#addOrEditPayModal").modal("hide");
+                    App.Notify(data.Message);
+                    window.location.reload();
+                }
+                else {
+                    App.Alert(data.Message);
+                }
+            });
+    </script>
+
+}
+
+
+

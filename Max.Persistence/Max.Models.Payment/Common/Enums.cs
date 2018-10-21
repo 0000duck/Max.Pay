@@ -64,12 +64,16 @@ namespace Max.Models.Payment.Common
         public enum ServiceType
         {
 
-            支付宝 = 1,
-            微信 = 2,
-            QQ = 3,
-            网银在线 = 4,
-            银联钱包 = 5,
-            快捷支付 = 5,
+            支付宝扫码 = 1,
+            支付宝WAP = 2,
+            微信扫码 = 3,
+            微信WAP = 4,
+            QQ钱包扫码 = 5,
+            QQ钱包WAP = 6,
+            网银 = 7,
+            快捷支付 = 8,
+            银联钱包扫码 = 9,
+            京东 = 10,
         }
 
         /// <summary>

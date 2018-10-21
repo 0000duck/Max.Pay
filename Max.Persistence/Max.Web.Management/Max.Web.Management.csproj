@@ -1126,6 +1126,7 @@
     <Compile Include="Models\Export\ExclAllModel.cs" />
     <Compile Include="Models\Import\ImportAllModel.cs" />
     <Compile Include="Models\Log\LogParams.cs" />
+    <Compile Include="Models\Payment\MerchantDetailsModel.cs" />
     <Compile Include="Models\Payment\PayProductParams.cs" />
     <Compile Include="Models\Payment\MerchantParams.cs" />
     <Compile Include="Models\Payment\BankParams.cs" />
@@ -1251,13 +1252,11 @@
     <Content Include="Views\PayProduct\AddOrEdit.cshtml" />
     <Content Include="Views\PayProduct\List.cshtml" />
     <Content Include="Views\PayProduct\List_Partial.cshtml" />
-    <Content Include="Views\Merchant\PayService.cshtml" />
     <Content Include="Views\MerchantPay\AddOrEdit.cshtml" />
-    <Content Include="Views\MerchantPay\List.cshtml" />
-    <Content Include="Views\MerchantPay\List_Partial.cshtml" />
     <Content Include="Views\PayChannel\AddOrEdit.cshtml" />
     <Content Include="Views\PayChannel\List.cshtml" />
     <Content Include="Views\PayChannel\List_Partial.cshtml" />
+    <Content Include="Views\Merchant\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

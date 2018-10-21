@@ -100,14 +100,26 @@ namespace Max.Web.Management.Infrastructure.Razor
             return new MvcHtmlString(builder.ToString());
         }
 
-        public static MvcHtmlString SelectFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, bool disabled, string nullValue = null)
+        public static MvcHtmlString SelectFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, bool disabled, string nullValue = null, object htmlAttributes = null)
         {
             var keyValueList = dicEnum.GetOrAdd(enumType, GetKeyValueList);
             var modelProperty = GetExpressionValue(htmlHelper, expression);
             var idOrClass = modelProperty.Key.Replace(".", "_");
 
             var builder = new StringBuilder();
-            builder.AppendFormat("<select name={0} id={1} class=\"form-control {1}\" >", modelProperty.Key, idOrClass).AppendLine();
+            builder.AppendFormat("<select name={0} id={1} class=\"form-control {1}\" ", modelProperty.Key, idOrClass).AppendLine();
+            if (!htmlAttributes.IsNull())
+            {
+                var htmlAttrArray = htmlAttributes.GetType().GetProperties();
+                foreach (var item in htmlAttrArray)
+                {
+                    var val = item.GetValue(htmlAttributes, null);
+                    builder.AppendFormat(" {0}=\"{1}\" ", item.Name, val);
+                }
+            }
+
+            builder.Append(" >");
+
             if (!nullValue.IsNullOrEmpty())
                 builder.AppendFormat("<option value=\"\">{0}</option>", nullValue).AppendLine();
 
