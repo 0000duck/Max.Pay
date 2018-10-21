@@ -17,7 +17,7 @@ namespace Max.Web.OpenApi.Models.OpenApiModels
         {
 
             /// <summary>
-            /// 钱端订单号   varchar(36) Y 提交进件申请通过后由钱端系统返回的唯一订单号
+            /// MAX支付订单号   varchar(36) Y 提交进件申请通过后由MAX支付系统返回的唯一订单号
             /// </summary>
             public string OrderNo { get; set; }
 

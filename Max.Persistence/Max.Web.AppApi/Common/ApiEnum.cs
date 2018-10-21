@@ -600,7 +600,7 @@ namespace Max.Web.AppApi.Common
             根据城市推荐银行信息 = 55555,
             #endregion
 
-            #region 钱端自有数据统计相关接口
+            #region MAX支付自有数据统计相关接口
             [Description("Statistics.AdsVisit")]
             APP广告位点击统计接口 = 66666,
             #endregion

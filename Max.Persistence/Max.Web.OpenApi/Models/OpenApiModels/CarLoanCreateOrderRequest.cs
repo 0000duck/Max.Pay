@@ -19,7 +19,7 @@ namespace Max.Web.OpenApi.Models.OpenApiModels
         public int IncomingType { get; set; }
 
         /// <summary>
-        /// 钱端订单号，提交进件申请通过后由钱端系统返回，如进件类型为重新上传时，需上传钱端订单号
+        /// MAX支付订单号，提交进件申请通过后由MAX支付系统返回，如进件类型为重新上传时，需上传MAX支付订单号
         /// </summary>
         public string OrderNo { get; set; }
 
@@ -136,7 +136,7 @@ namespace Max.Web.OpenApi.Models.OpenApiModels
         [Required]
         public DateTime PaymentDate { get; set; }
         /// <summary>
-        /// 融资租赁公司id varchar(36) N 如线上不提供，依据钱端业务平台保险公司及融资租赁公司对应关系匹配订单融资租赁公司，需与线下提供进行校验；目前安邦保险对应联通租赁
+        /// 融资租赁公司id varchar(36) N 如线上不提供，依据MAX支付业务平台保险公司及融资租赁公司对应关系匹配订单融资租赁公司，需与线下提供进行校验；目前安邦保险对应联通租赁
         /// </summary>
         public string FinanceMerchantId { get; set; }
 
@@ -170,25 +170,25 @@ namespace Max.Web.OpenApi.Models.OpenApiModels
         public string SettlementAccountName { get; set; }
 
         /// <summary>
-        /// 结算账户银行名称    nvarchar(36)    Y 依据支付通道提供标准数据传输，钱端系统作校准
+        /// 结算账户银行名称    nvarchar(36)    Y 依据支付通道提供标准数据传输，MAX支付系统作校准
         /// </summary>
         [Required]
         public string SettlementBankName { get; set; }
 
         /// <summary>
-        /// 结算账户银行所在省 nvarchar(36)    Y 依据支付通道提供标准数据传输，钱端系统作校准
+        /// 结算账户银行所在省 nvarchar(36)    Y 依据支付通道提供标准数据传输，MAX支付系统作校准
         /// </summary>
         [Required]
         public string SettlementBankProvince { get; set; }
 
         /// <summary>
-        /// 结算账户银行所在市 nvarchar(36)    Y 依据支付通道提供标准数据传输，钱端系统作校准
+        /// 结算账户银行所在市 nvarchar(36)    Y 依据支付通道提供标准数据传输，MAX支付系统作校准
         /// </summary>
         [Required]
         public string SettlementBankCity { get; set; }
 
         /// <summary>
-        /// 结算银行支行名称 nvarchar(48)    Y 依据支付通道提供标准数据传输，钱端系统作校准
+        /// 结算银行支行名称 nvarchar(48)    Y 依据支付通道提供标准数据传输，MAX支付系统作校准
         /// </summary>
         [Required]
         public string SettlementBranchBankName { get; set; }

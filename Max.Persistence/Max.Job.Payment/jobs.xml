@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <quartz>
-  <service>钱端车险分期主服务</service>
+  <service>MAX支付车险分期主服务</service>
   <namespace>Max.Job.Payment.Jobs.{0}</namespace>
   <jobs>
     <!--<job name="MainJob">*/5 * * * * ?</job>-->

@@ -10,7 +10,7 @@ using Max.Framework;
 namespace Max.Web.AppApi.Business.Request.common
 {
     /// <summary>
-    /// 系统自带的手机判断方法未必跟钱端的一致，所以用钱端的判断方法
+    /// 系统自带的手机判断方法未必跟MAX支付的一致，所以用MAX支付的判断方法
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class QDMobileAttribute : ValidationAttribute

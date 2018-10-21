@@ -13,7 +13,7 @@ namespace Max.Web.OpenApi.Common.CarLoan
         //private const string CARLOAN_DES_SECRET_KET = "";
         private static readonly string CarLoanDesSecretKey = "CarLoanDesSecretKey".ValueOfAppSetting() ?? "12345678";
 
-        // 机构号（钱端提供给调用方，目前调用方只有安邦）
+        // 机构号（MAX支付提供给调用方，目前调用方只有安邦）
         private static readonly string CarLoanInstitutionNo = "CarLoanInstitutionNo_AnBang".ValueOfAppSetting() ?? "17000";
 
         /// <summary>

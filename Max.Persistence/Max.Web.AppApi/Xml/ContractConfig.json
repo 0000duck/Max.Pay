@@ -62,7 +62,7 @@
         "_comment_": "实名认证",
         "Type": "01",
         "ShowProtocol": 1,
-        "GroupTitle": "《钱端相关服务协议》",
+        "GroupTitle": "《MAX支付相关服务协议》",
         "TitleColor": "#F0B446",
         "Protocols": [
             {
@@ -79,11 +79,11 @@
         "_comment_": "注册",
         "Type": "02",
         "ShowProtocol": 1,
-        "GroupTitle": "《钱端许可及服务协议》",
+        "GroupTitle": "《MAX支付许可及服务协议》",
         "TitleColor": "#F0B446",
         "Protocols": [
             {
-                "ProtocolTitle": "《钱端许可及服务协议》",
+                "ProtocolTitle": "《MAX支付许可及服务协议》",
                 "ProtocolUrl": "https://mobile.qianduan.com/Contract/InvestContract"
             }
         ]
@@ -92,7 +92,7 @@
         "_comment_": "添加银行卡",
         "Type": "03",
         "ShowProtocol": 1,
-        "GroupTitle": "《钱端相关服务协议》",
+        "GroupTitle": "《MAX支付相关服务协议》",
         "TitleColor": "#F0B446",
         "Protocols": [
             {
@@ -148,7 +148,7 @@
         "_comment_": "公共支付控件-摇钱宝存入",
         "Type": "07",
         "ShowProtocol": 1,
-        "GroupTitle": "《钱端相关服务协议》",
+        "GroupTitle": "《MAX支付相关服务协议》",
         "TitleColor": "#F0B446",
         "Protocols": [
             {
@@ -191,11 +191,11 @@
         "_comment_": "我的-微信登录",
         "Type": "11",
         "ShowProtocol": 1,
-        "GroupTitle": "《钱端许可及服务协议》",
+        "GroupTitle": "《MAX支付许可及服务协议》",
         "TitleColor": "#F0B446",
         "Protocols": [
             {
-                "ProtocolTitle": "《钱端许可及服务协议》",
+                "ProtocolTitle": "《MAX支付许可及服务协议》",
                 "ProtocolUrl": "https://mobile.qianduan.com/Contract/InvestContract"
             }
         ]
@@ -204,7 +204,7 @@
         "_comment_": "智投宝",
         "Type": "12",
         "ShowProtocol": 1,
-        "GroupTitle": "《钱端投资相关协议》",
+        "GroupTitle": "《MAX支付投资相关协议》",
         "TitleColor": "#F0B446",
         "Protocols": [
             {

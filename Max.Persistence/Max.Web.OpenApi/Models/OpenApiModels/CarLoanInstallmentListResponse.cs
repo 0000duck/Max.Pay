@@ -13,7 +13,7 @@ namespace Max.Web.OpenApi.Models.OpenApiModels
         public class OrderInstallment
         {
             /// <summary>
-            /// 钱端订单号   varchar(36) Y 提交进件申请通过后由钱端系统返回
+            /// MAX支付订单号   varchar(36) Y 提交进件申请通过后由MAX支付系统返回
             /// </summary>
             public string OrderNo { get; set; }
 
@@ -28,42 +28,42 @@ namespace Max.Web.OpenApi.Models.OpenApiModels
             public string RepayDate { get; set; }
 
             /// <summary>
-            /// 本期应还本金  Y   钱端订单对应每期账单的本期应还本金
+            /// 本期应还本金  Y   MAX支付订单对应每期账单的本期应还本金
             /// </summary>
             public decimal PrincipalAmount { get; set; }
 
             /// <summary>
-            /// 本期应还利息 decimal Y   钱端订单对应每期账单的本期应还利息
+            /// 本期应还利息 decimal Y   MAX支付订单对应每期账单的本期应还利息
             /// </summary>
             public decimal InterestAmount { get; set; }
 
             /// <summary>
-            /// 实际还款金额 decimal Y   钱端订单对应每期账单的本期实际还款金额
+            /// 实际还款金额 decimal Y   MAX支付订单对应每期账单的本期实际还款金额
             /// </summary>
             public decimal ActualAmount { get; set; }
 
             /// <summary>
-            /// 逾期金额 decimal Y   钱端订单对应每期账单的待还金额
+            /// 逾期金额 decimal Y   MAX支付订单对应每期账单的待还金额
             /// </summary>
             public decimal OverdueAmount { get; set; }
 
             /// <summary>
-            /// 逾期天数 int Y   钱端订单对应每期账单的逾期天数
+            /// 逾期天数 int Y   MAX支付订单对应每期账单的逾期天数
             /// </summary>
             public int OverdueDays { get; set; }
 
             /// <summary>
-            /// 罚息金额 decimal Y   钱端订单对应每期账单的逾期金额
+            /// 罚息金额 decimal Y   MAX支付订单对应每期账单的逾期金额
             /// </summary>
             public decimal PunishAmount { get; set; }
 
             /// <summary>
-            /// 剩余还款金额 decimal Y   钱端订单对应每期账单的剩余还款金额
+            /// 剩余还款金额 decimal Y   MAX支付订单对应每期账单的剩余还款金额
             /// </summary>
             public decimal RemainAmount { get; set; }
 
             /// <summary>
-            /// 剩余期数 int Y   钱端订单对应账单总期数-当月账单期数
+            /// 剩余期数 int Y   MAX支付订单对应账单总期数-当月账单期数
             /// </summary>
             public int RemainPeriods { get; set; }
 

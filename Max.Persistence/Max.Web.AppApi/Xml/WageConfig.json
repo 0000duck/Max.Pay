@@ -1,6 +1,6 @@
 ﻿{
     "MinDepositAmount": 100,
-    "TotalProtocolTitle": "《钱端相关协议》",
+    "TotalProtocolTitle": "《MAX支付相关协议》",
     "Protocols": [
         {
             "ProtocolTitle": "自动划款授权书",
