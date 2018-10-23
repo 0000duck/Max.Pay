@@ -149,9 +149,8 @@ namespace Max.Models.Payment
         /// 渠道类型
         /// </summary>
         [Required]
-        [CharacterLength(50)]
         [Display(Name="渠道类型")]
-        public string ChannelType{ get; set; }
+        public int ChannelType{ get; set; }
 
         /// <summary>
         /// 渠道ID

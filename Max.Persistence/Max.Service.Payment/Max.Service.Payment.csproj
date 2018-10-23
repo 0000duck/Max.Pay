@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="MerchantPayProductService.cs" />
     <Compile Include="PayChannelService.cs" />
+    <Compile Include="PayOrderService.cs" />
     <Compile Include="V_MerchantPayService.cs" />
     <Compile Include="PayProductService.cs" />
     <Compile Include="MerchantBankService.cs" />

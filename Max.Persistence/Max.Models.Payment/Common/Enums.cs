@@ -48,7 +48,17 @@ namespace Max.Models.Payment.Common
             支付失败 = 3
 
         }
+        /// <summary>
+        /// 通知状态
+        /// </summary>
+        public enum NotifyStatus
+        {
 
+            未通知 = 0,
+            已通知 = 1,
+            通知失败 = 2
+
+        }
         /// <summary>
         /// 通用是否枚举
         /// </summary>

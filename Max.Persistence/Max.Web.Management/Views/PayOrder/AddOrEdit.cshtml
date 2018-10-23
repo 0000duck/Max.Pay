@@ -1,0 +1,52 @@
+﻿@model PayOrder
+@{
+    var POST_Action = (Model != null && !Model.OrderId.IsNullOrEmpty()) ? "EditForAjax" : "AddForAjax";
+    var TITLE = (Model != null && !Model.OrderId.IsNullOrEmpty()) ? "编辑" : "新增";
+}
+@using (Html.BeginForm(POST_Action, "PayOrder", FormMethod.Post, new { id = "addOrEditForm", @class = "form-horizontal form-bordered" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> @TITLE</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered">
+        @Html.HiddenFor(m => m.ServiceId)
+
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">平台订单号</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.OrderNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">商户订单号</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.MerchantOrderNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MerchantOrderNo)
+            </div>
+        </div>
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">支付状态</label>
+            <div class="col-md-8">
+                @Html.SelectFor(m => m.PayStatus, typeof(Max.Models.Payment.Common.Enums.PayStatus))
+                @Html.ValidationMessageFor(m => m.PayStatus)
+            </div>
+        </div>
+
+
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">通知状态</label>
+            <div class="col-md-8">
+                @Html.SelectFor(m => m.NotifyStatus, typeof(Max.Models.Payment.Common.Enums.NotifyStatus))
+                @Html.ValidationMessageFor(m => m.NotifyStatus)
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> @TITLE</button>
+    </div>
+
+}

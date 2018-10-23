@@ -1076,6 +1076,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MerchantPayController.cs" />
     <Compile Include="Controllers\PayChannelController.cs" />
+    <Compile Include="Controllers\PayOrderController.cs" />
     <Compile Include="Controllers\PayProductController.cs" />
     <Compile Include="Controllers\MerchantController.cs" />
     <Compile Include="Controllers\BankController.cs" />
@@ -1127,6 +1128,7 @@
     <Compile Include="Models\Import\ImportAllModel.cs" />
     <Compile Include="Models\Log\LogParams.cs" />
     <Compile Include="Models\Payment\MerchantDetailsModel.cs" />
+    <Compile Include="Models\Payment\PayOrderParams.cs" />
     <Compile Include="Models\Payment\PayProductParams.cs" />
     <Compile Include="Models\Payment\MerchantParams.cs" />
     <Compile Include="Models\Payment\BankParams.cs" />
@@ -1257,6 +1259,9 @@
     <Content Include="Views\PayChannel\List.cshtml" />
     <Content Include="Views\PayChannel\List_Partial.cshtml" />
     <Content Include="Views\Merchant\Details.cshtml" />
+    <Content Include="Views\PayOrder\AddOrEdit.cshtml" />
+    <Content Include="Views\PayOrder\List.cshtml" />
+    <Content Include="Views\PayOrder\List_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
