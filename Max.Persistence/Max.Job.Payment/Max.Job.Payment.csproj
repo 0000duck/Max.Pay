@@ -113,7 +113,7 @@
   <ItemGroup>
     <Compile Include="JobConfig.cs" />
     <Compile Include="Jobs\MainJob.cs" />
-    <Compile Include="Jobs\CancelOrderJob.cs" />
+    <Compile Include="Jobs\PayOrderQueryJob.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

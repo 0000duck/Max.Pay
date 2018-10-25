@@ -1,40 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <quartz>
-  <service>MAX支付车险分期主服务</service>
+  <service>MAX支付主服务</service>
   <namespace>Max.Job.Payment.Jobs.{0}</namespace>
   <jobs>
     <!--<job name="MainJob">*/5 * * * * ?</job>-->
-    <!--<job name="RepaymentJob">*/5 * * * * ?</job>-->
-    <!--<job name="RepaymentJob">0 0/5 11,20 * * ?</job>-->
-
-    <!--<job name="RevokeOrderJob">*/5 * * * * ?</job>-->
-    <!--<job name="RefundJob">*/5 * * * * ?</job>-->
-
-    <!--<job name="GetPayNoForHuaAnJob">*/5 * * * * ?</job>-->
-    <!--<job name="GeneratePolicyForSunlightJob">*/5 * * * * ?</job>
-    <job name="QueryFailPolicyForSunlightJob">*/5 * * * * ?</job>
-
-    --><!--<job name="CancelOrderJob">*/5 * * * * ?</job>--><!--
-    --><!--<job name="CarPolicyQueryJob">*/5 * * * * ?</job>--><!--
-    --><!--<job name="RepayNotificationJob">0 0 8 * * ?</job>--><!--
-    --><!--<job name="RepaymentJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarDzClearJob">*/5 * * * * ?</job>
-    <job name="CarDzSettleJob">*/5 * * * * ?</job>
-    <job name="CarBfClearJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarBfSettleJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarGetZhongJinNoJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarZhongJinTimeOutJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarBfClearTimeOutJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarBfSettleTimeOutJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarPayCallBackTimeOutJob">*/5 * * * * ?</job>-->
-    <!--<job name="RepaymentJob">*/5 * * * * ?</job>-->
-    <!--<job name="QueryRepayingInstallmentBillListJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarBfSettleJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarOrderQueryJob">0 */30 * * * ?</job>-->
-    <!--<job name="CarZhongJinBindCardJob">40 22 14 7 3 ? 2017</job>-->
-    <!--<job name="CarZhongJinBindCardJob">*/5 * * * * ?</job>-->
-    <!--<job name="QuerySettlementJob">*/5 * * * * ?</job>-->
-    <!--<job name="CarZhongJinBindCardJob">*/5 * * * * ?</job>-->
-    <job name="CarDzClearJob">*/5 * * * * ?</job>
+   
+    <job name="PayOrderQueryJob">*/5 * * * * ?</job>
   </jobs>
 </quartz>

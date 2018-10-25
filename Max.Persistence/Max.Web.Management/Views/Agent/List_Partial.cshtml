@@ -1,0 +1,42 @@
+﻿@model Query<Agent, Max.Web.Management.Models.Payment.AgentParams>
+<table class="table loading table-bordered table-hover margin-top-10 margin-bottom-5">
+    <thead>
+        <tr>
+            <th width="30" class="bg-f1">#</th>
+            <th>代理名称</th>
+            <th>代理编号</th>
+            <th>手机</th>
+            <th>QQ</th>
+            <th>邮箱</th>
+            <th>状态</th>
+            <th>备注</th>
+            <th>创建时间</th>
+            <th width="250">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var index = 0;}
+        @foreach (var item in Model.ItemList)
+        {
+            <tr>
+                <td class="bg-f7">@(++index)</td>
+                <td>@item.AgentName</td>
+                <td>@item.AgentNo</td>
+                <td>@item.Mobile</td>
+                <td>@item.QQ</td>
+                <td>@item.Email</td>
+                <td>@((Max.Models.Payment.Common.Enums.CommonStatus)item.Status)</td>
+                <td>@item.Remark</td>
+                <td>@item.CreateTime</td>
+                <td class="clearfix">
+                    <a itemid="@item.AgentId" permid="@PermCode.编辑代理.Code()" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                    <a itemid="@item.AgentId" permid="@PermCode.删除代理.Code()" itemname="@(item.AgentName)" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.GridPager(Model)
+

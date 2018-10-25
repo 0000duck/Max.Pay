@@ -99,8 +99,7 @@ namespace Max.Job.Payment
                 var ic = c.Resolve<IComponentContext>();
                 return named => ic.ResolveNamed<IDbConnection>(named);
             });
-            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-            //builder.RegisterType<HuaAnInsuranceSupplier>().AsSelf().SingleInstance();      
+            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();   
             var execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var files = Directory.GetFiles(execDir, "Max.*.dll", SearchOption.TopDirectoryOnly);
             if (files.Length > 0)

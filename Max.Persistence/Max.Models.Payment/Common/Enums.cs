@@ -113,5 +113,15 @@ namespace Max.Models.Payment.Common
             未开通 = 0
         }
 
+
+        /// <summary>
+        /// 交易记录类型
+        /// </summary>
+        public enum TransType
+        {
+            支付=1,
+            结算=2
+
+        }
     }
 }

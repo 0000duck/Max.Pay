@@ -1,0 +1,70 @@
+﻿@model Agent
+@{
+    var POST_Action = (Model != null && !Model.AgentId.IsNullOrEmpty()) ? "EditForAjax" : "AddForAjax";
+    var TITLE = (Model != null && !Model.AgentId.IsNullOrEmpty()) ? "编辑" : "新增";
+}
+@using (Html.BeginForm(POST_Action, "Agent", FormMethod.Post, new { id = "addOrEditForm", @class = "form-horizontal form-bordered" }))
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"><i class="fa fa-bars"></i> @TITLE</h4>
+    </div>
+    <div class="modal-body form form-horizontal form-bordered">
+        @Html.HiddenFor(m => m.AgentId)
+
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">代理名称</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.AgentName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.AgentName)
+            </div>
+        </div>
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">代理编号</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.AgentNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.AgentNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">手机</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Mobile)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">QQ</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.QQ, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.QQ)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">邮箱</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="form-group margin-top-15">
+            <label class="control-label col-md-3">状态</label>
+            <div class="col-md-8">
+                @Html.SelectFor(m => m.Status, typeof(Max.Models.Payment.Common.Enums.BankStatus))
+                @Html.ValidationMessageFor(m => m.Status)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">备注</label>
+            <div class="col-md-8">
+                @Html.TextAreaFor(m => m.Remark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Remark)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> @TITLE</button>
+    </div>
+
+}

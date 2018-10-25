@@ -11,6 +11,7 @@
             <th>所得金额</th>
             <th>审核状态</th>
             <th>结算状态</th>
+            <th>通知状态</th>
             <th width="250">操作</th>
         </tr>
     </thead>
@@ -18,23 +19,23 @@
         @{ var index = 0;}
         @foreach (var item in Model.ItemList)
         {
-            <tr>
-                <td class="bg-f7">@(++index)</td>
-                <td>@item.OrderNo</td>
-                <td>@item.MerchantOrderNo</td>
-                <td>@item.CreateTime</td>
-                <td>@item.OrderAmount</td>
-                <td>@item.TransFee</td>
-                <td>@item.TransAmount</td>
-                <td>@((Max.Models.Payment.Common.Enums.PayStatus)item.AuditStatus)</td>
-                <td>@((Max.Models.Payment.Common.Enums.NotifyStatus)item.SettleStatus)</td>
+        <tr>
+            <td class="bg-f7">@(++index)</td>
+            <td>@item.OrderNo</td>
+            <td>@item.MerchantOrderNo</td>
+            <td>@item.CreateTime</td>
+            <td>@item.OrderAmount</td>
+            <td>@item.TransFee</td>
+            <td>@item.TransAmount</td>
+            <td>@((Max.Models.Payment.Common.Enums.SettleAuditStatus)item.AuditStatus)</td>
+            <td>@((Max.Models.Payment.Common.Enums.SettleStatus)item.SettleStatus)</td>
+            <td>@((Max.Models.Payment.Common.Enums.NotifyStatus)item.CallbackStatus)</td>
+            <td class="clearfix">
+                <a itemid="@item.OrderId" permid="@PermCode.编辑结算订单.Code()" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                <a itemid="@item.OrderId" permid="@PermCode.删除结算订单.Code()" itemname="@(item.OrderNo)" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
 
-                <td class="clearfix">
-                    <a itemid="@item.OrderId" permid="@PermCode.编辑结算订单.Code()" class="edit btn btn-primary btn-sm"><i class="fa fa-edit"></i> 编辑</a>
-                    <a itemid="@item.OrderId" permid="@PermCode.删除结算订单.Code()" itemname="@(item.OrderNo)" class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
-
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
