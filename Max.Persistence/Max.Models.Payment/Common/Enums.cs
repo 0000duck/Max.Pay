@@ -49,6 +49,24 @@ namespace Max.Models.Payment.Common
 
         }
         /// <summary>
+        /// 结算状态
+        /// </summary>
+        public enum SettleStatus
+        {
+            待结算 = 0,
+            处理中 = 1,
+            结算成功 = 2,
+            结算失败 = 3
+        }
+        /// <summary>
+        /// 结算审核状态
+        /// </summary>
+        public enum SettleAuditStatus
+        {
+            待审核 = 0,
+            已审核 = 1
+        }
+        /// <summary>
         /// 通知状态
         /// </summary>
         public enum NotifyStatus

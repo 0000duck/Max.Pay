@@ -1081,6 +1081,7 @@
     <Compile Include="Controllers\MerchantController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\MongoController.cs" />
+    <Compile Include="Controllers\SettlementController.cs" />
     <Compile Include="Helpers\BaseHelper.cs" />
     <Compile Include="Helpers\CarLoanFinanceApplyHeper.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
@@ -1134,6 +1135,7 @@
     <Compile Include="Models\Payment\BankParams.cs" />
     <Compile Include="Models\Menu\MenuParams.cs" />
     <Compile Include="Models\Mongo\MongoModel.cs" />
+    <Compile Include="Models\Payment\SettlementParams.cs" />
     <Compile Include="Models\Roles\ActionsInRoleParam.cs" />
     <Compile Include="Models\Roles\RoleActionsModel.cs" />
     <Compile Include="Models\Roles\RoleModel.cs" />
@@ -1262,6 +1264,9 @@
     <Content Include="Views\PayOrder\AddOrEdit.cshtml" />
     <Content Include="Views\PayOrder\List.cshtml" />
     <Content Include="Views\PayOrder\List_Partial.cshtml" />
+    <Content Include="Views\Settlement\AddOrEdit.cshtml" />
+    <Content Include="Views\Settlement\List.cshtml" />
+    <Content Include="Views\Settlement\List_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

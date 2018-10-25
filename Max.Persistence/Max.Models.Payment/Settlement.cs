@@ -143,9 +143,8 @@ namespace Max.Models.Payment
         /// 结算状态
         /// </summary>
         [Required]
-        [CharacterLength(50)]
         [Display(Name="结算状态")]
-        public string Status{ get; set; }
+        public int SettleStatus{ get; set; }
 
         /// <summary>
         /// 查询次数

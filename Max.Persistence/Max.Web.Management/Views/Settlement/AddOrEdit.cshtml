@@ -1,9 +1,9 @@
-﻿@model PayOrder
+﻿@model Settlement
 @{
     var POST_Action = (Model != null && !Model.OrderId.IsNullOrEmpty()) ? "EditForAjax" : "AddForAjax";
     var TITLE = (Model != null && !Model.OrderId.IsNullOrEmpty()) ? "编辑" : "新增";
 }
-@using (Html.BeginForm(POST_Action, "PayOrder", FormMethod.Post, new { id = "addOrEditForm", @class = "form-horizontal form-bordered" }))
+@using (Html.BeginForm(POST_Action, "Settlement", FormMethod.Post, new { id = "addOrEditForm", @class = "form-horizontal form-bordered" }))
 {
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -27,19 +27,19 @@
             </div>
         </div>
         <div class="form-group margin-top-15">
-            <label class="control-label col-md-3">支付状态</label>
+            <label class="control-label col-md-3">结算状态</label>
             <div class="col-md-8">
-                @Html.SelectFor(m => m.PayStatus, typeof(Max.Models.Payment.Common.Enums.PayStatus))
-                @Html.ValidationMessageFor(m => m.PayStatus)
+                @Html.SelectFor(m => m.SettleStatus, typeof(Max.Models.Payment.Common.Enums.PayStatus))
+                @Html.ValidationMessageFor(m => m.SettleStatus)
             </div>
         </div>
 
 
         <div class="form-group margin-top-15">
-            <label class="control-label col-md-3">通知状态</label>
+            <label class="control-label col-md-3">审核状态</label>
             <div class="col-md-8">
-                @Html.SelectFor(m => m.NotifyStatus, typeof(Max.Models.Payment.Common.Enums.NotifyStatus))
-                @Html.ValidationMessageFor(m => m.NotifyStatus)
+                @Html.SelectFor(m => m.AuditStatus, typeof(Max.Models.Payment.Common.Enums.NotifyStatus))
+                @Html.ValidationMessageFor(m => m.AuditStatus)
             </div>
         </div>
         
