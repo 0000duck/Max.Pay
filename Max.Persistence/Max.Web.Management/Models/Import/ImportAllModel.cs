@@ -14,7 +14,7 @@ namespace Max.Web.Management.Models.Import
 
     /// <summary>
     /// 导入手动发放券的白名单用户
-    /// <Author>李永涛</Author>
+    /// <Author>MAX</Author>
     /// </summary>
     public class ImportTicketWhiteUser
     {

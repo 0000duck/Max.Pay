@@ -23,7 +23,7 @@ namespace Max.Web.AppApi.Business.Tests
             {
                 UserId = "12405983-812b-404e-890e-342ff129c8ff",
                 Mobile = "13926021702",
-                RealName = "李永涛",
+                RealName = "MAX",
                 NickName = "P53407038",
                 IDCard = "44092119901122352X",
                 EPlusAccountId = "",

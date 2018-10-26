@@ -143,7 +143,7 @@ namespace Max.Service.Auth
 
 
         /// <summary>
-        /// 根据用户id获取角色  李永涛
+        /// 根据用户id获取角色  MAX
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
