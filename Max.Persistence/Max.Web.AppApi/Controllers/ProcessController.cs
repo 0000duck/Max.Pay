@@ -36,6 +36,8 @@ namespace Max.Web.AppApi.Controllers
             this.bus = bus;
         }
 
+
+
         [HttpPost]
         [HttpGet]
         public BaseResponse Index()
