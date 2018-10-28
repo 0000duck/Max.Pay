@@ -267,6 +267,7 @@ namespace Max.Web.AppApi.Controllers
                 return false;
             }
 
+            //支付方式验证
             var payProduct = this._payProductService.Get(c => c.ServiceCode == model.PayType);
             if (payProduct.IsNull() || payProduct.Status != (int)Max.Models.Payment.Common.Enums.CommonStatus.正常)
             {
@@ -274,6 +275,7 @@ namespace Max.Web.AppApi.Controllers
                 return false;
             }
 
+            //商户是否开通该支付方式
             var merchantPayProduct = this._merchantPayProductService.Get(c => c.MerchantId == merchant.MerchantId && c.ServiceId == payProduct.ServiceId);
             if (merchantPayProduct.IsNull() || merchantPayProduct.Status != (int)Max.Models.Payment.Common.Enums.CommonStatus.正常)
             {
@@ -281,6 +283,7 @@ namespace Max.Web.AppApi.Controllers
                 return false;
             }
 
+            //支付路由验证
             payChannel = this._payChannelService.Get(c => c.ChannelId == merchantPayProduct.PayChannelId);
             if (payChannel.IsNull() || payChannel.Status != (int)Max.Models.Payment.Common.Enums.CommonStatus.正常)
             {
