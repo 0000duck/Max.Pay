@@ -202,6 +202,7 @@
     <Compile Include="Common\UserInfo.cs" />
     <Compile Include="Common\VerifyResult.cs" />
     <Compile Include="Common\WebApi\JsonContentNegotiator.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProcessController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
