@@ -149,10 +149,15 @@ namespace Max.Web.AppApi.Models
     {
         [Required]
         public string MerchantNo { get; set; }
+        [Required]
         public string PayType { get; set; }
+        [Required]
         public string MerchantOrderNo { get; set; }
+        [Required]
         public string MerchantOrderTime { get; set; }
+        [Required]
         public string OrderAmount { get; set; }
+        [Required]
         public string NotifyUrl { get; set; }
         public string ReturnUrl { get; set; }
         public string DeviceType { get; set; }

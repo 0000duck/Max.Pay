@@ -78,8 +78,7 @@ namespace Max.Web.AppApi.Controllers
             PayChannel payChannel = null;
             try
             {
-                var requestKeys = HttpContext.Current.Request.Form.AllKeys;
-
+               
                 //验证参数
                 var errMsg = "";
                 if (!ModelVerify(model, out errMsg))
@@ -87,18 +86,18 @@ namespace Max.Web.AppApi.Controllers
                     response = BaseResponse.Create(ApiEnum.ResponseCode.参数不正确, errMsg, null, 0);
                     return response;
                 }
-
-                //验证签名
-                if (!VerifySign(model, model.Sign))
-                {
-                    response = BaseResponse.Create(ApiEnum.ResponseCode.解析报文错误, "签名不正确", null, 0);
-                    return response;
-                }
-
+                
                 //商户校验
                 if (!MerchantVerify(model, merchant, payChannel, out errMsg))
                 {
                     response = BaseResponse.Create(ApiEnum.ResponseCode.参数不正确, errMsg, null, 0);
+                    return response;
+                }
+
+                //验证签名
+                if (!VerifySign(model, merchant))
+                {
+                    response = BaseResponse.Create(ApiEnum.ResponseCode.解析报文错误, "签名不正确", null, 0);
                     return response;
                 }
                 var processor = this.factory.Create(payChannel.MerchantInfo);
@@ -219,7 +218,7 @@ namespace Max.Web.AppApi.Controllers
         /// <param name="model"></param>
         /// <param name="sign"></param>
         /// <returns></returns>
-        private bool VerifySign(RequestPayModel model, string sign)
+        private bool VerifySign(RequestPayModel model, Merchant merchant)
         {
             var t = model.GetType();
             var p = t.GetProperties();
@@ -239,10 +238,10 @@ namespace Max.Web.AppApi.Controllers
                 }
             }
 
-            var signStr = sb.AppendFormat("key={0}", "123456").ToString();
+            var signStr = sb.AppendFormat("key={0}", merchant.Md5Key).ToString();
             var md5sign = signStr.EncToMD5();
 
-            return md5sign == sign;
+            return md5sign.ToLower() == model.Sign.ToLower();
         }
 
         /// <summary>

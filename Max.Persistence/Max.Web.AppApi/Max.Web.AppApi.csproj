@@ -178,7 +178,6 @@
     <Compile Include="Business\Request\common\NumericCommaAttribute.cs" />
     <Compile Include="Business\Request\common\QDMobileAttribute.cs" />
     <Compile Include="Business\Request\Request60001.cs" />
-    <Compile Include="Business\Request\RequestLogin.cs" />
     <Compile Include="Business\Response\Response60001.cs" />
     <Compile Include="Common\AESUtil.cs" />
     <Compile Include="Common\AlgorithmUtility.cs" />
@@ -207,9 +206,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ShakeResult.cs" />
     <Compile Include="Models\RequestModels.cs" />
-    <Compile Include="Models\ShakeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
