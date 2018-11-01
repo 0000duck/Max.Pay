@@ -8,14 +8,12 @@ namespace Max.Web.AppApi.Business.Response
     /// <summary>
     /// 支付接口返回参数
     /// </summary>
-    public class Response20001
+    public class ResponsePayment
     {
         /// <summary>
         /// 订单号
         /// </summary>
         public string OrderNO { get; set; }
-
-        public decimal Amount { get; set; }
 
     }
 }

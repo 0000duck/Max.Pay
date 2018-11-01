@@ -165,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Content\FacePP\IDCard.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -176,33 +175,20 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Business\Processor20001.cs" />
     <Compile Include="Business\Processor10001.cs" />
-    <Compile Include="Business\Request\common\NumericCommaAttribute.cs" />
-    <Compile Include="Business\Request\common\QDMobileAttribute.cs" />
-    <Compile Include="Business\Request\Request20001.cs" />
-    <Compile Include="Business\Request\Request10001.cs" />
-    <Compile Include="Business\Response\Response20001.cs" />
-    <Compile Include="Business\Response\Response10001.cs" />
+    <Compile Include="Business\Request\RequestQuery.cs" />
+    <Compile Include="Business\Request\RequestPayment.cs" />
+    <Compile Include="Business\Response\ResponseQuery.cs" />
+    <Compile Include="Business\Response\ResponsePayment.cs" />
     <Compile Include="Common\AESUtil.cs" />
-    <Compile Include="Common\AlgorithmUtility.cs" />
-    <Compile Include="Common\AppVersionCompareUtil.cs" />
-    <Compile Include="Common\BankConfig.cs" />
+    <Compile Include="Common\MD5Util.cs" />
     <Compile Include="Common\Base64Utils.cs" />
     <Compile Include="Common\BaseRequest.cs" />
     <Compile Include="Common\BaseResponse.cs" />
     <Compile Include="Common\ApiEnum.cs" />
-    <Compile Include="Common\Common.cs" />
     <Compile Include="Common\DESUtil.cs" />
     <Compile Include="Common\IProcessor.cs" />
     <Compile Include="Common\IProcessorFactory.cs" />
-    <Compile Include="Common\ObjectNullExtension.cs" />
     <Compile Include="Common\ProcessorFactory.cs" />
-    <Compile Include="Common\PWDHelper.cs" />
-    <Compile Include="Common\RequestHelp.cs" />
-    <Compile Include="Common\FileResultResponse.cs" />
-    <Compile Include="Common\TagColorConfig.cs" />
-    <Compile Include="Common\UploadFile.cs" />
-    <Compile Include="Common\UserInfo.cs" />
-    <Compile Include="Common\VerifyResult.cs" />
     <Compile Include="Common\WebApi\JsonContentNegotiator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,27 +216,13 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Xml\SecOptionAmount.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Xml\YQBConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Xml\SecOptionAmount_3.1.1.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Xml\ProjectTipsConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Xml\WageConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Xml\ContractConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Max.BUS.Message\Max.BUS.Message.csproj">

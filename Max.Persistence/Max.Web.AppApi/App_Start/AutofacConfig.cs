@@ -54,7 +54,6 @@ namespace Max.Web.AppApi.App_Start
             builder.Register(c => redis).As<IRedisProxy>().SingleInstance();
             builder.Register(c => memcache).As<IMemcacheProxy>().SingleInstance();
             builder.RegisterType<ServiceBus>().As<IServiceBus>().SingleInstance();
-            //builder.RegisterType<HuaAnInsuranceSupplier>().AsSelf().SingleInstance();    
             var assemblies = BuildManager.GetReferencedAssemblies()
                 .Cast<Assembly>()
                 .Where(a => a.GetTypes().FirstOrDefault(t => t.GetInterfaces().Contains(typeof(IService))) != null)

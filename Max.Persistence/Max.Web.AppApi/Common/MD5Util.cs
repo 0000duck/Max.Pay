@@ -7,11 +7,11 @@ using System.Web;
 
 namespace Max.Web.AppApi.Common
 {
-    public static class AlgorithmUtility
+    public static class MD5Util
     {
         /// <summary>
         /// MD5加密
-        /// <Author>周维</Author>
+        /// <Author>MAX</Author>
         /// </summary>
         /// <param name="text">待加密文本</param>
         /// <param name="capital">加密后的文本是否大写，true：大写 false：小写</param>

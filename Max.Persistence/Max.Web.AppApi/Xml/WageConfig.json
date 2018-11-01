@@ -1,22 +1,17 @@
 ﻿{
-    "MinDepositAmount": 100,
-    "TotalProtocolTitle": "《MAX支付相关协议》",
-    "Protocols": [
-        {
-            "ProtocolTitle": "自动划款授权书",
-            "ProtocolUrl": "Https://mobile.qianduan.com/Contract/AutoTransferContractBySalaryDeposit"
-                
-        },
-        {
-            "ProtocolTitle": "投融资平台收益权转让服务协议",
-            "ProtocolUrl": "https://mobile.qianduan.com/Contract/ProfitContractNew"
+  "MinDepositAmount": 100,
+  "TotalProtocolTitle": "《MAX支付相关协议》",
+  "Protocols": [
+    {
+      "ProtocolTitle": "代扣协议",
+      "ProtocolUrl": ""
 
-        },
-        {
-            "ProtocolTitle": "自动投资协议",
-            "ProtocolUrl": "https://mobile.qianduan.com/Contract/AutoInvestContract"
+    },
+    {
+      "ProtocolTitle": "支付协议",
+      "ProtocolUrl": "http://max.pay.com"
 
-        }
+    }
 
-    ]
+  ]
 }

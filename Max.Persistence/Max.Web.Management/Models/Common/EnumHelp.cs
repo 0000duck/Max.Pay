@@ -8,7 +8,7 @@ namespace System.Web.Mvc
 {
     /// <summary>
     /// 提供站点常用数据但数据库中不存在的
-    /// <Author>周维</Author>
+    /// <Author>MAX</Author>
     /// </summary>
     public static class EnumHelp
     {

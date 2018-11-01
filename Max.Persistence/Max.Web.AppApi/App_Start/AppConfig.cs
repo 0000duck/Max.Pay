@@ -21,4 +21,11 @@ namespace Max.Web.AppApi.App_Start
         public const string DB = "2";
         public const string LOG4NET = "3";
     }
+
+    public static class PayAction
+    {
+        public const string Payment = "payment";
+        public const string Query = "query";
+        public const string Withholding = "withholding";
+    }
 }

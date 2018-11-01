@@ -20,7 +20,7 @@ namespace Max.Web.Presentation.Helpers
 
         /// <summary>
         /// DES加密
-        /// <Author>周维</Author>
+        /// <Author>MAX</Author>
         /// </summary>
         /// <param name="text">字符文本</param>
         /// <param name="key">秘钥Key</param>
@@ -49,7 +49,7 @@ namespace Max.Web.Presentation.Helpers
 
         /// <summary>
         /// DES解密
-        /// <Author>周维</Author>
+        /// <Author>MAX</Author>
         /// </summary>
         /// <param name="text">密文文本</param>
         /// <param name="key">秘钥Key</param>

@@ -1,4 +1,5 @@
-﻿using Max.Web.AppApi.Common;
+﻿using Max.Web.AppApi.App_Start;
+using Max.Web.AppApi.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,8 +12,8 @@ namespace Max.Web.AppApi.Business.Request
     /// <summary>
     /// 支付请求类
     /// </summary>
-    [Description("pay")]
-    public class Request10001 : BaseRequest
+    [Description(PayAction.Payment)]
+    public class RequestPayment : BaseRequest
     {
 
         [Required]

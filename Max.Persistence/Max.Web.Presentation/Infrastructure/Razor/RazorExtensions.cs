@@ -280,7 +280,7 @@ namespace Max.Web.Presentation.Infrastructure.Razor
 
         /// <summary>
         /// 时间控件,支持“hh:mm:ss”和“hh:mm”
-        /// <Author>周维</Author>
+        /// <Author>MAX</Author>
         /// </summary>
         /// <typeparam name="TModel">输入参数模型</typeparam>
         /// <typeparam name="TProperty">FC返回类型</typeparam>
@@ -325,7 +325,7 @@ namespace Max.Web.Presentation.Infrastructure.Razor
 
         /// <summary>
         /// 根据输入的时间格式进行相互转化，如：4:56:30 PM <=> 16:56:30
-        /// <Author>周维</Author>
+        /// <Author>MAX</Author>
         /// </summary>
         /// <param name="oriTime">原始时间</param>
         /// <returns>格式化后的时间</returns>

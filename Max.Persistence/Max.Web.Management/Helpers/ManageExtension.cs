@@ -8,13 +8,13 @@ namespace Max.Framework
 {
     /// <summary>
     /// 为Management提供扩展成员
-    /// <Author>周维</Author>
+    /// <Author>MAX</Author>
     /// </summary>
     public static class ManageExtension
     {
         /// <summary>
         /// Base64加密和Url编码
-        /// <Author>周维</Author>
+        /// <Author>MAX</Author>
         /// </summary>
         /// <param name="str">源字符串</param>
         /// <returns>处理后的字符串</returns>
