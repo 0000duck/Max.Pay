@@ -174,11 +174,14 @@
     <Compile Include="App_Start\AppConfig.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Business\Processor60001.cs" />
+    <Compile Include="Business\Processor20001.cs" />
+    <Compile Include="Business\Processor10001.cs" />
     <Compile Include="Business\Request\common\NumericCommaAttribute.cs" />
     <Compile Include="Business\Request\common\QDMobileAttribute.cs" />
-    <Compile Include="Business\Request\Request60001.cs" />
-    <Compile Include="Business\Response\Response60001.cs" />
+    <Compile Include="Business\Request\Request20001.cs" />
+    <Compile Include="Business\Request\Request10001.cs" />
+    <Compile Include="Business\Response\Response20001.cs" />
+    <Compile Include="Business\Response\Response10001.cs" />
     <Compile Include="Common\AESUtil.cs" />
     <Compile Include="Common\AlgorithmUtility.cs" />
     <Compile Include="Common\AppVersionCompareUtil.cs" />
@@ -202,7 +205,6 @@
     <Compile Include="Common\VerifyResult.cs" />
     <Compile Include="Common\WebApi\JsonContentNegotiator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProcessController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

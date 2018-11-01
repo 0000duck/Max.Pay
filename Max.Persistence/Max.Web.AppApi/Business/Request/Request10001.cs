@@ -1,27 +1,29 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Max.Web.AppApi.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Max.Web.AppApi.Models
+namespace Max.Web.AppApi.Business.Request
 {
-    public class RequestData
+    /// <summary>
+    /// 支付请求类
+    /// </summary>
+    [Description("pay")]
+    public class Request10001 : BaseRequest
     {
-        public string MerchantNo { get; set; }
-        public string Sign { get; set; }
-        public string Cmd { get; set; }
 
-
+        [Required]
         public string PayType { get; set; }
-
+        [Required]
         public string MerchantOrderNo { get; set; }
-
+        [Required]
         public string MerchantOrderTime { get; set; }
-
+        [Required]
         public string OrderAmount { get; set; }
-
+        [Required]
         public string NotifyUrl { get; set; }
         public string ReturnUrl { get; set; }
         public string DeviceType { get; set; }

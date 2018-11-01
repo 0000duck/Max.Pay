@@ -28,7 +28,7 @@ namespace Max.Web.AppApi
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { controller = "Process", action = "Index", id = RouteParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = RouteParameter.Optional }
             );
         }
     }

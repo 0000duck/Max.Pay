@@ -49,10 +49,13 @@ namespace Max.Web.AppApi.Common
             #region 车险
 
             [Description("kalapay")]
-            卡拉支付 = 60001,
+            卡拉支付 = 10001,
+
+            [Description("okpay")]
+            ok支付 = 20001,
 
             #endregion
-            
+
         }
 
         public enum AppCheckState

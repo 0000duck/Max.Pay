@@ -36,9 +36,21 @@ namespace Max.Web.AppApi.Common
         {
             try
             {
-                dicRequest = Assembly.GetExecutingAssembly().GetTypes()
-               .Where(t => regexRequest.IsMatch(t.Name))
-               .ToDictionary(t => regexBizCode.Match(t.Name).Value, t => t);
+               // dicRequest = Assembly.GetExecutingAssembly().GetTypes()
+               //.Where(t => regexRequest.IsMatch(t.Name))
+               //.ToDictionary(t => regexBizCode.Match(t.Name).Value, t => t);
+
+                var types = Assembly.GetAssembly(typeof(Max.Web.AppApi.Common.BaseRequest)).GetTypes()
+           .Where(t => t.IsSubclassOf(typeof(Max.Web.AppApi.Common.BaseRequest)));
+                foreach (var type in types)
+                {
+                    var description = (DescriptionAttribute[])type.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                    if (description.Length > 0)
+                    {
+                        dicRequest.Add(description[0].Description, type);
+                        //dicBizCode.Add(description[0].Description, type.Name);
+                    }
+                }
             }
             catch (Exception)
             {
