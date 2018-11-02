@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Service.Auth", "Max.Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Models.System", "Max.Models.System\Max.Models.System.csproj", "{888E5CD2-E331-4370-86A9-F445AC3185E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.AppApi", "Max.Web.AppApi\Max.Web.AppApi.csproj", "{8EBA9C96-A1D5-4775-B1EE-77C837F9D7AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.ApiGateway", "Max.Web.ApiGateway\Max.Web.ApiGateway.csproj", "{8EBA9C96-A1D5-4775-B1EE-77C837F9D7AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 消息实体", "04 消息实体", "{CCBF854A-3101-46D5-9E25-4CCE17365130}"
 EndProject
@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Common.Utils", "Max.Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Job.Mongo", "Max.Job.Mongo\Max.Job.Mongo.csproj", "{65AD80E7-AF90-4DE0-AD8F-E66504EC9CE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.AppApiTest", "Max.Web.AppApiTest\Max.Web.AppApiTest.csproj", "{E9863409-365E-46EE-A5A6-5A1BC095441B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.ApiGatewayTest", "Max.Web.ApiGatewayTest\Max.Web.ApiGatewayTest.csproj", "{E9863409-365E-46EE-A5A6-5A1BC095441B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
