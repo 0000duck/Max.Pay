@@ -31,31 +31,22 @@ namespace Max.Web.ApiGateway.Controllers
         private IServiceBus bus;
         private IProcessorFactory factory;
         private MerchantService _merchantService;
-        private PayProductService _payProductService;
-        private MerchantPayProductService _merchantPayProductService;
-        private PayChannelService _payChannelService;
 
         public HomeController(
             IProcessorFactory factory,
             IServiceBus bus,
-             MerchantService merchantService,
-             PayProductService payProductService,
-             MerchantPayProductService merchantPayProductService,
-             PayChannelService payChannelService
+             MerchantService merchantService
              )
         {
             this.factory = factory;
             this.bus = bus;
             this._merchantService = merchantService;
-            this._payProductService = payProductService;
-            this._merchantPayProductService = merchantPayProductService;
-            this._payChannelService = payChannelService;
         }
 
 
         [HttpGet]
         [HttpPost]
-        public BaseResponse Index([FromUri] RequestData model)
+        public BaseResponse Index([FromUri]RequestData model)
         {
             var watcher = new Stopwatch();
             watcher.Start();
@@ -74,16 +65,22 @@ namespace Max.Web.ApiGateway.Controllers
             var parmRequestData = string.Empty;
             BaseRequest baseRequest = null;
             Merchant merchant = null;
-            PayChannel payChannel = null;
             try
             {
                 if (model.IsNull() || model.Cmd.IsNullOrWhiteSpace())
                 {
-                    return BaseResponse.Create(ApiEnum.ResponseCode.参数不正确, "参数不正确", null, 0);
+                    return BaseResponse.Create(ApiEnum.ResponseCode.处理失败, "无效请求", null, 0);
                 }
                 bizCode = ProcessorUtil.GetBizCode(model.Cmd);
+                if (bizCode.IsNullOrWhiteSpace())
+                {
+                    return BaseResponse.Create(ApiEnum.ResponseCode.无效交易类型, "无效交易类型", null, 0);
+                }
                 baseRequest = ProcessorUtil.GetRequest(bizCode, model.ToJson());
-
+                if (baseRequest == null)
+                {
+                    return BaseResponse.Create(ApiEnum.ResponseCode.处理失败, "无效请求", null, 0);
+                }
                 //验证参数
                 var errMsg = "";
                 if (!ModelVerify(baseRequest, out errMsg))
@@ -93,36 +90,21 @@ namespace Max.Web.ApiGateway.Controllers
                 }
 
                 //商户校验
-                if (!MerchantVerify(baseRequest, out merchant, out payChannel, out errMsg))
+                if (!MerchantVerify(baseRequest, out merchant, out errMsg))
                 {
-                    response = BaseResponse.Create(ApiEnum.ResponseCode.参数不正确, errMsg, null, 0);
+                    response = BaseResponse.Create(ApiEnum.ResponseCode.处理失败, errMsg, null, 0);
                     return response;
                 }
 
                 //验证签名
                 if (!VerifySign(baseRequest, merchant))
                 {
-                    response = BaseResponse.Create(ApiEnum.ResponseCode.解析报文错误, "签名不正确", null, 0);
+                    response = BaseResponse.Create(ApiEnum.ResponseCode.无效调用凭证, "签名不正确", null, 0);
                     return response;
                 }
                 var processor = this.factory.Create(bizCode);
                 response = processor.Process(baseRequest);
-                //根据请求cmd处理支付、查询、代扣操作
-                //switch (model.Cmd)
-                //{
-                //    case PayAction.Payment:
-                //        response = processor.Process(baseRequest);
-                //        break;
-                //    case PayAction.Query:
-                //        response = processor.Query(baseRequest);
-                //        break;
-                //    case PayAction.Withholding:
-                //        response = processor.Deposit(baseRequest);
-                //        break;
-                //    default:
-                //        response = processor.Process(baseRequest);
-                //        break;
-                //}
+
             }
             catch (Exception ex)
             {
@@ -263,10 +245,9 @@ namespace Max.Web.ApiGateway.Controllers
         /// <param name="merchant"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        private bool MerchantVerify(BaseRequest model, out Merchant merchant, out PayChannel payChannel, out string msg)
+        private bool MerchantVerify(BaseRequest model, out Merchant merchant, out string msg)
         {
-            Request10001 payRequest = null;
-            payChannel = null;
+
             msg = "";
             var merchant1 = this._merchantService.Get(c => c.MerchantNo == model.MerchantNo);
             merchant = merchant1;
@@ -280,34 +261,7 @@ namespace Max.Web.ApiGateway.Controllers
                 msg = "商户不可用";
                 return false;
             }
-            if (model is Request10001)
-            {
-                payRequest = model as Request10001;
 
-                //支付方式验证
-                var payProduct = this._payProductService.Get(c => c.ServiceCode == payRequest.PayType);
-                if (payProduct.IsNull() || payProduct.Status != (int)Max.Models.Payment.Common.Enums.CommonStatus.正常)
-                {
-                    msg = "支付方式{0}不可用".Fmt(payRequest.PayType);
-                    return false;
-                }
-
-                //商户是否开通该支付方式
-                var merchantPayProduct = this._merchantPayProductService.Get(c => c.MerchantId == merchant1.MerchantId && c.ServiceId == payProduct.ServiceId);
-                if (merchantPayProduct.IsNull() || merchantPayProduct.Status != (int)Max.Models.Payment.Common.Enums.CommonStatus.正常)
-                {
-                    msg = "商户未开通该支付方式";
-                    return false;
-                }
-
-                //支付路由验证
-                payChannel = this._payChannelService.Get(c => c.ChannelId == merchantPayProduct.PayChannelId);
-                if (payChannel.IsNull() || payChannel.Status != (int)Max.Models.Payment.Common.Enums.CommonStatus.正常)
-                {
-                    msg = "支付渠道不可用";
-                    return false;
-                }
-            }
             return true;
         }
         #endregion

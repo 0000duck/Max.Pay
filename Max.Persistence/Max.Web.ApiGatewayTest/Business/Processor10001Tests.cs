@@ -13,7 +13,7 @@ using System.Linq;
 namespace Max.Web.ApiGateway.Business.Tests
 {
     [TestClass()]
-    public class Processor60001Tests
+    public class Processor10001Tests
     {
         [TestMethod()]
         public void ProcessTest()
@@ -31,10 +31,10 @@ namespace Max.Web.ApiGateway.Business.Tests
             dic.Add("OrderAmount", "100.00");
             dic.Add("NotifyUrl", "http://max.pay.notify.com");
             dic.Add("ReturnUrl", "");
-            dic.Add("DeviceType", "");
-            dic.Add("OrderDescription", "");
+            dic.Add("DeviceType", "web");
+            dic.Add("OrderDescription", "poc");
             dic.Add("ExtendField", "");
-            dic.Add("Ip", "");
+            dic.Add("Ip", "127.0.0.1");
 
             dic = dic.OrderBy(c => c.Key).ToDictionary(c => c.Key, o => o.Value);
             StringBuilder sb = new StringBuilder();

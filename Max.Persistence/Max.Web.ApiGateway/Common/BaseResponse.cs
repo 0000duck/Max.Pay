@@ -45,17 +45,5 @@ namespace Max.Web.ApiGateway.Common
     }
 
 
-    /// <summary>
-    /// 网金返回的响应
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class FundBaseResponse<T> {
-
-        public int  Code { get; set; }
-
-        public string Message { get; set; }
-
-        public T Body { get; set; }
-    
-    }
+  
 }

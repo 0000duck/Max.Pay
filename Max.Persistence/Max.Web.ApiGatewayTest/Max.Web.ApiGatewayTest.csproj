@@ -75,7 +75,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Business\Processor60001Tests.cs" />
+    <Compile Include="Business\Processor20001Tests.cs" />
+    <Compile Include="Business\Processor10001Tests.cs" />
     <Compile Include="Common\ObjectCopy.cs" />
     <Compile Include="Common\RandomInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
