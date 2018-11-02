@@ -1,0 +1,17 @@
+﻿{
+  "MinDepositAmount": 100,
+  "TotalProtocolTitle": "《MAX支付相关协议》",
+  "Protocols": [
+    {
+      "ProtocolTitle": "代扣协议",
+      "ProtocolUrl": ""
+
+    },
+    {
+      "ProtocolTitle": "支付协议",
+      "ProtocolUrl": "http://max.pay.com"
+
+    }
+
+  ]
+}
