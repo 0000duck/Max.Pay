@@ -175,10 +175,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Business\Processor20001.cs" />
     <Compile Include="Business\Processor10001.cs" />
-    <Compile Include="Business\Request\RequestQuery.cs" />
-    <Compile Include="Business\Request\RequestPayment.cs" />
-    <Compile Include="Business\Response\ResponseQuery.cs" />
-    <Compile Include="Business\Response\ResponsePayment.cs" />
+    <Compile Include="Business\Request\Request10001.cs" />
+    <Compile Include="Business\Request\Request20001.cs" />
+    <Compile Include="Business\Response\Response20001.cs" />
+    <Compile Include="Business\Response\Response10001.cs" />
     <Compile Include="Common\AESUtil.cs" />
     <Compile Include="Common\MD5Util.cs" />
     <Compile Include="Common\Base64Utils.cs" />

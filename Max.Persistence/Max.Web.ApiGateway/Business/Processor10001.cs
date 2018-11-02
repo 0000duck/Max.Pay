@@ -26,10 +26,10 @@ namespace Max.Web.ApiGateway.Business
         public BaseResponse Process(BaseRequest baseRequest)
         {
 
-            var request = baseRequest as RequestPayment;
+            var request = baseRequest as Request10001;
            
 
-            return BaseResponse.Create(ApiEnum.ResponseCode.处理成功, new ResponsePayment
+            return BaseResponse.Create(ApiEnum.ResponseCode.处理成功, new Response10001
             {
                 OrderNO = request.MerchantOrderNo,
             });

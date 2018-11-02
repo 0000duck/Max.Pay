@@ -81,8 +81,8 @@ namespace Max.Web.ApiGateway.Controllers
                 {
                     return BaseResponse.Create(ApiEnum.ResponseCode.参数不正确, "参数不正确", null, 0);
                 }
-
-                baseRequest = ProcessorUtil.GetRequest(model.Cmd, model.ToJson());
+                bizCode = ProcessorUtil.GetBizCode(model.Cmd);
+                baseRequest = ProcessorUtil.GetRequest(bizCode, model.ToJson());
 
                 //验证参数
                 var errMsg = "";
@@ -105,27 +105,24 @@ namespace Max.Web.ApiGateway.Controllers
                     response = BaseResponse.Create(ApiEnum.ResponseCode.解析报文错误, "签名不正确", null, 0);
                     return response;
                 }
-
-                //根据支付路由配置和版本号获取支付路由实例
-                var appVersion = "1.0";
-                bizCode = ProcessorUtil.GetBizCode(payChannel.MerchantInfo, appVersion) ?? "10001";
                 var processor = this.factory.Create(bizCode);
+                response = processor.Process(baseRequest);
                 //根据请求cmd处理支付、查询、代扣操作
-                switch (model.Cmd)
-                {
-                    case PayAction.Payment:
-                        response = processor.Process(baseRequest);
-                        break;
-                    case PayAction.Query:
-                        response = processor.Query(baseRequest);
-                        break;
-                    case PayAction.Withholding:
-                        response = processor.Deposit(baseRequest);
-                        break;
-                    default:
-                        response = processor.Process(baseRequest);
-                        break;
-                }
+                //switch (model.Cmd)
+                //{
+                //    case PayAction.Payment:
+                //        response = processor.Process(baseRequest);
+                //        break;
+                //    case PayAction.Query:
+                //        response = processor.Query(baseRequest);
+                //        break;
+                //    case PayAction.Withholding:
+                //        response = processor.Deposit(baseRequest);
+                //        break;
+                //    default:
+                //        response = processor.Process(baseRequest);
+                //        break;
+                //}
             }
             catch (Exception ex)
             {
@@ -268,7 +265,7 @@ namespace Max.Web.ApiGateway.Controllers
         /// <returns></returns>
         private bool MerchantVerify(BaseRequest model, out Merchant merchant, out PayChannel payChannel, out string msg)
         {
-            RequestPayment payRequest = null;
+            Request10001 payRequest = null;
             payChannel = null;
             msg = "";
             var merchant1 = this._merchantService.Get(c => c.MerchantNo == model.MerchantNo);
@@ -283,9 +280,9 @@ namespace Max.Web.ApiGateway.Controllers
                 msg = "商户不可用";
                 return false;
             }
-            if (model is RequestPayment)
+            if (model is Request10001)
             {
-                payRequest = model as RequestPayment;
+                payRequest = model as Request10001;
 
                 //支付方式验证
                 var payProduct = this._payProductService.Get(c => c.ServiceCode == payRequest.PayType);

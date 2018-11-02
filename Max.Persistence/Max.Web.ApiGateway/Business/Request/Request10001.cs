@@ -12,8 +12,7 @@ namespace Max.Web.ApiGateway.Business.Request
     /// <summary>
     /// 支付请求类
     /// </summary>
-    [Description(PayAction.Payment)]
-    public class RequestPayment : BaseRequest
+    public class Request10001 : BaseRequest
     {
 
         [Required]

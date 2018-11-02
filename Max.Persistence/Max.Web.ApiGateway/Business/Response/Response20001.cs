@@ -8,7 +8,7 @@ namespace Max.Web.ApiGateway.Business.Response
     /// <summary>
     /// 支付接口返回参数
     /// </summary>
-    public class ResponseQuery
+    public class Response20001
     {
         /// <summary>
         /// 订单号

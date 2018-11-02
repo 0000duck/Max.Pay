@@ -30,31 +30,18 @@ namespace Max.Web.ApiGateway.Common
         private static Regex regexRequest = new Regex("^Request[0-9]+$", RegexOptions.Compiled);
         private static Dictionary<string, Type> dicRequest = new Dictionary<string, Type>();
         private static Dictionary<string, string> dicBizCode = new Dictionary<string, string>();
-        private static Dictionary<string, string[]> dicApiAliasList = new Dictionary<string, string[]>();
 
         static ProcessorUtil()
         {
             try
             {
-               // dicRequest = Assembly.GetExecutingAssembly().GetTypes()
-               //.Where(t => regexRequest.IsMatch(t.Name))
-               //.ToDictionary(t => regexBizCode.Match(t.Name).Value, t => t);
-
-                var types = Assembly.GetAssembly(typeof(Max.Web.ApiGateway.Common.BaseRequest)).GetTypes()
-           .Where(t => t.IsSubclassOf(typeof(Max.Web.ApiGateway.Common.BaseRequest)));
-                foreach (var type in types)
-                {
-                    var description = (DescriptionAttribute[])type.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                    if (description.Length > 0)
-                    {
-                        dicRequest.Add(description[0].Description, type);
-                        //dicBizCode.Add(description[0].Description, type.Name);
-                    }
-                }
+                dicRequest = Assembly.GetExecutingAssembly().GetTypes()
+               .Where(t => regexRequest.IsMatch(t.Name))
+               .ToDictionary(t => regexBizCode.Match(t.Name).Value, t => t);
+                
             }
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -75,34 +62,7 @@ namespace Max.Web.ApiGateway.Common
                     dicBizCode.Add(desc.Description, enumDic[m.Name]);
             }
 
-            foreach (var k in dicBizCode.Keys)
-            {
-                var deconstruct = k.Split(new string[] { "[" }, StringSplitOptions.RemoveEmptyEntries);
-                if (deconstruct.Length == 0) continue;
-
-                var cmd = deconstruct[0];
-                if (dicApiAliasList.Keys.Contains(cmd)) continue;
-                var prefix = "{0}[".Fmt(cmd);
-                var apiAliasList = dicBizCode.Keys.Where(c => c.Equals(cmd, StringComparison.CurrentCultureIgnoreCase) || c.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase)).ToArray();
-
-                for (int i = 0; i < apiAliasList.Length; i++)
-                {
-                    for (int j = i + 1; j < apiAliasList.Length; j++)
-                    {
-                        var item1 = apiAliasList[i].Replace(cmd, "").Replace("[", "").Replace("]", "").Trim();
-                        var item2 = apiAliasList[j].Replace(cmd, "").Replace("[", "").Replace("]", "").Trim();
-
-                        if (CompareVersion(item1, item2) < 0)
-                        {
-                            var temp = apiAliasList[j];
-                            apiAliasList[j] = apiAliasList[i];
-                            apiAliasList[i] = temp;
-                        }
-                    }
-                }
-
-                dicApiAliasList.Add(cmd, apiAliasList);
-            }
+           
         }
 
         public static BaseRequest GetRequest(string bizCode, string json)
@@ -138,55 +98,13 @@ namespace Max.Web.ApiGateway.Common
             throw new Exception("IProcessor：{0} 的命名规则不正确".Fmt(type.Name));
         }
 
-        public static string GetBizCode(string cmd, string appVersion)
+        public static string GetBizCode(string cmd)
         {
-            if (!dicApiAliasList.Keys.Contains(cmd)) return null;
-
-            var apiAliasList = dicApiAliasList[cmd];
-            if (apiAliasList.Length == 1)
-            {
-                return dicBizCode[apiAliasList.First()];
-            }
-
-            // 当前业务编码存在多版本API
-            for (int i = 0; i < apiAliasList.Length; i++)
-            {
-                var apiAlias = apiAliasList[i];
-                var deconstruct = apiAlias.Split(new string[] { "[" }, StringSplitOptions.RemoveEmptyEntries);
-                if (deconstruct.Length == 0) continue;
-                var apiMapAppVersion = deconstruct.Length > 1 ? deconstruct[1].Replace("]", "").Trim() : appVersion;
-                if (CompareVersion(appVersion, apiMapAppVersion) < 0 == false)        // App的版本号 >= 接口映射App的版本号
-                {
-                    return dicBizCode[apiAlias];
-                }
-            }
-
-            return null;
+            if (!dicBizCode.Keys.Contains(cmd)) return null;
+            return dicBizCode[cmd];
         }
-
-        private static int CompareVersion(string version1, string version2)
-        {
-            if (version1.IsNullOrWhiteSpace() && version2.IsNullOrWhiteSpace()) return 1;
-
-            if (version1.IsNullOrWhiteSpace()) return -1;
-
-            if (version2.IsNullOrWhiteSpace()) return 1;
-
-            version1 = version1.ToUpper().Trim();
-            version2 = version2.ToUpper().Trim();
-
-            string[] varray1 = version1.Split(new string[] { ".", "." }, StringSplitOptions.RemoveEmptyEntries),
-                     varray2 = version2.Split(new string[] { ".", "." }, StringSplitOptions.RemoveEmptyEntries);
-
-            var minLength = Math.Min(varray1.Length, varray2.Length);
-            int index = 0, diff = 0;
-
-            while (index < minLength && (diff = varray1[index].Length - varray2[index].Length) == 0 && (diff = varray1[index].CompareTo(varray2[index])) == 0)
-            {
-                index++;
-            }
-
-            return diff != 0 ? diff : varray1.Length - varray2.Length;
-        }
+        
     }
+
+    
 }

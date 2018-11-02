@@ -25,10 +25,10 @@ namespace Max.Web.ApiGateway.Business
         public BaseResponse Process(BaseRequest baseRequest)
         {
 
-            var request = baseRequest as RequestQuery;
+            var request = baseRequest as Request20001;
 
 
-            return BaseResponse.Create(ApiEnum.ResponseCode.处理成功, new ResponseQuery
+            return BaseResponse.Create(ApiEnum.ResponseCode.处理成功, new Response20001
             {
                 OrderNO = request.MerchantOrderNo,
                 Amount = 18.52m
