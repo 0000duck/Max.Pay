@@ -173,8 +173,8 @@
     <Compile Include="App_Start\AppConfig.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Business\Processor20001.cs" />
-    <Compile Include="Business\Processor10001.cs" />
+    <Compile Include="Business\Processor_HuiZhongPay.cs" />
+    <Compile Include="Business\Processor_JuBaoPay.cs" />
     <Compile Include="Business\Request\Request10001.cs" />
     <Compile Include="Business\Request\Request20001.cs" />
     <Compile Include="Business\Response\Response20001.cs" />
@@ -218,9 +218,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Xml\WageConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

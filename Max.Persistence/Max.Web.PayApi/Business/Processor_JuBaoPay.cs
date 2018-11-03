@@ -18,9 +18,9 @@ namespace Max.Web.PayApi.Business
     /// 支付请求处理
     /// </summary>
     [Description("jubaopay")]
-    public class Processor10001 : IProcessor
+    public class Processor_JuBaoPay : IProcessor
     {
-        private static ILog log = LogManager.GetLogger(typeof(Processor10001));
+        private static ILog log = LogManager.GetLogger(typeof(Processor_JuBaoPay));
 
         private MerchantService _merchantService;
         private PayProductService _payProductService;
@@ -28,7 +28,7 @@ namespace Max.Web.PayApi.Business
         private PayChannelService _payChannelService;
         private PayOrderService _payOrderService;
 
-        public Processor10001(MerchantService merchantService,
+        public Processor_JuBaoPay(MerchantService merchantService,
              PayProductService payProductService,
              MerchantPayProductService merchantPayProductService,
              PayChannelService payChannelService,
@@ -50,7 +50,7 @@ namespace Max.Web.PayApi.Business
             {
                 return BaseResponse.Create(ApiEnum.ResponseCode.处理成功, new Response10001
                 {
-                    MerchantOrderNO = baseRequest.Cmd
+                    MerchantOrderNO = baseRequest.Order.OrderId
                 });
 
             }

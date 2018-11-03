@@ -16,13 +16,13 @@ namespace Max.Web.PayApi.Business
     /// <summary>
     /// 订单查询
     /// </summary>
-    [Description("huizongpay")]
-    public class Processor20001 : IProcessor
+    [Description("huizhongpay")]
+    public class Processor_HuiZhongPay : IProcessor
     {
-        private static ILog log = LogManager.GetLogger(typeof(Processor20001));
+        private static ILog log = LogManager.GetLogger(typeof(Processor_HuiZhongPay));
         private PayOrderService _payOrderService;
         private MerchantService _merchantService;
-        public Processor20001(PayOrderService payOrderService, MerchantService merchantService)
+        public Processor_HuiZhongPay(PayOrderService payOrderService, MerchantService merchantService)
         {
             this._payOrderService = payOrderService;
             this._merchantService = merchantService;

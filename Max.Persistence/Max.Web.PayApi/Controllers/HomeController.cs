@@ -30,17 +30,20 @@ namespace Max.Web.PayApi.Controllers
         private static ILog log = LogManager.GetLogger(typeof(HomeController));
         private IServiceBus bus;
         private IProcessorFactory factory;
-        private MerchantService _merchantService;
+        private PayChannelService _payChannelService;
+        private PayOrderService _payOrderService;
 
         public HomeController(
             IProcessorFactory factory,
             IServiceBus bus,
-             MerchantService merchantService
+             PayChannelService payChannelService,
+             PayOrderService payOrderService
              )
         {
             this.factory = factory;
             this.bus = bus;
-            this._merchantService = merchantService;
+            this._payChannelService = payChannelService;
+            this._payOrderService = payOrderService;
         }
 
 
@@ -63,39 +66,31 @@ namespace Max.Web.PayApi.Controllers
             var urlEncodedRequestData = string.Empty;
             var parmUserData = string.Empty;
             var parmRequestData = string.Empty;
-            BaseRequest baseRequest = new BaseRequest() {  Cmd=model.Cmd};
-            Merchant merchant = null;
+            BaseRequest baseRequest = null;
+            PayOrder order = null;
+            PayChannel payChannel = null;
             try
             {
-                if (model.IsNull() || model.Cmd.IsNullOrWhiteSpace())
+                if (model.IsNull() || model.RequestId.IsNullOrWhiteSpace())
                 {
                     return BaseResponse.Create(ApiEnum.ResponseCode.处理失败, "无效请求", null, 0);
                 }
-                //bizCode = ProcessorUtil.GetBizCode(model.Cmd);
-                bizCode = model.Cmd;
-                if (bizCode.IsNullOrWhiteSpace())
-                {
-                    return BaseResponse.Create(ApiEnum.ResponseCode.无效交易类型, "无效交易类型", null, 0);
-                }
-                //baseRequest = ProcessorUtil.GetRequest(bizCode, model.ToJson());
-                if (baseRequest == null)
-                {
-                    return BaseResponse.Create(ApiEnum.ResponseCode.处理失败, "无效请求", null, 0);
-                }
-                ////验证参数
-                //var errMsg = "";
-                //if (!ModelVerify(baseRequest, out errMsg))
-                //{
-                //    response = BaseResponse.Create(ApiEnum.ResponseCode.参数不正确, errMsg, null, 0);
-                //    return response;
-                //}
 
-                ////商户校验
-                //if (!MerchantVerify(baseRequest, out merchant, out errMsg))
-                //{
-                //    response = BaseResponse.Create(ApiEnum.ResponseCode.处理失败, errMsg, null, 0);
-                //    return response;
-                //}
+
+                //验证参数
+                var errMsg = "";
+                if (!ModelVerify(model, out errMsg))
+                {
+                    response = BaseResponse.Create(ApiEnum.ResponseCode.参数不正确, errMsg, null, 0);
+                    return response;
+                }
+
+                //订单校验
+                if (!OrderVerify(model, out order, out payChannel, out errMsg))
+                {
+                    response = BaseResponse.Create(ApiEnum.ResponseCode.处理失败, errMsg, null, 0);
+                    return response;
+                }
 
                 ////验证签名
                 //if (!VerifySign(baseRequest, merchant))
@@ -103,6 +98,17 @@ namespace Max.Web.PayApi.Controllers
                 //    response = BaseResponse.Create(ApiEnum.ResponseCode.无效调用凭证, "签名不正确", null, 0);
                 //    return response;
                 //}
+
+                bizCode = payChannel.ChannelName;
+                if (bizCode.IsNullOrWhiteSpace())
+                {
+                    return BaseResponse.Create(ApiEnum.ResponseCode.无效交易类型, "无效交易类型", null, 0);
+                }
+
+                if (!ProcessorUtil.BizCodeValid(bizCode))
+                {
+                    return BaseResponse.Create(ApiEnum.ResponseCode.无效交易类型, "支付标识和DescriptionAttribute不一致", null, 0);
+                }
                 var processor = this.factory.Create(bizCode);
                 response = processor.Process(baseRequest);
 
@@ -246,20 +252,28 @@ namespace Max.Web.PayApi.Controllers
         /// <param name="merchant"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        private bool MerchantVerify(BaseRequest model, out Merchant merchant, out string msg)
+        private bool OrderVerify(RequestData model, out PayOrder payOrder, out PayChannel payChannel, out string msg)
         {
 
             msg = "";
-            var merchant1 = this._merchantService.Get(c => c.MerchantNo == model.MerchantNo);
-            merchant = merchant1;
-            if (merchant1.IsNull())
+            payChannel = null;
+            payOrder = null;
+
+            var order = this._payOrderService.Get(c => c.OrderId == model.OrderId);
+            payOrder = order;
+
+            if (order.IsNull())
             {
-                msg = "商户不存在";
+                msg = "订单不存在";
                 return false;
             }
-            if (merchant1.Status != (int)Max.Models.Payment.Common.Enums.CommonStatus.正常)
+
+            var channel = this._payChannelService.Get(c => c.ChannelId == model.PayChannelId);
+            payChannel = channel;
+
+            if (channel.IsNull())
             {
-                msg = "商户不可用";
+                msg = "渠道不存在";
                 return false;
             }
 
