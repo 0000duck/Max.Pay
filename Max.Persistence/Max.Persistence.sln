@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.BUS.Message", "Max.BUS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.Presentation", "Max.Web.Presentation\Max.Web.Presentation.csproj", "{00CE16B3-754A-4984-8063-63DCD54140DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.OpenApi", "Max.Web.OpenApi\Max.Web.OpenApi.csproj", "{790771EF-B7AA-47A9-ADA1-C9F4CF94EF14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Max.Web.PayApi", "Max.Web.PayApi\Max.Web.PayApi.csproj", "{790771EF-B7AA-47A9-ADA1-C9F4CF94EF14}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 单元测试", "07 单元测试", "{3D157A19-F077-4FAE-B28E-BF58F87EDE80}"
 EndProject
