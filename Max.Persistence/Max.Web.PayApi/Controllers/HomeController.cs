@@ -22,6 +22,7 @@ using System.Diagnostics;
 using Max.Service.Payment;
 using Max.Models.Payment;
 using Max.Web.PayApi.Business.Request;
+using System.IO;
 
 namespace Max.Web.PayApi.Controllers
 {
@@ -51,6 +52,21 @@ namespace Max.Web.PayApi.Controllers
         [HttpPost]
         public BaseResponse Index([FromUri]RequestData model)
         {
+            var str = Request.Content.ReadAsStringAsync().Result;
+            var task = Request.Content.ReadAsStreamAsync();
+            var content = string.Empty;
+            using (System.IO.Stream sm = task.Result)
+            {
+                if (sm != null)
+                {
+                    sm.Seek(0, SeekOrigin.Begin);
+                    int len = (int)sm.Length;
+                    byte[] inputByts = new byte[len];
+                    sm.Read(inputByts, 0, len);
+                    sm.Close();
+                    content = Encoding.UTF8.GetString(inputByts);
+                }
+            }
             var watcher = new Stopwatch();
             watcher.Start();
 
@@ -162,7 +178,16 @@ namespace Max.Web.PayApi.Controllers
             return response;
         }
 
+        public BaseResponse Query()
+        {
+            return null;
+        }
 
+        public BaseResponse Notify()
+        {
+            var str = Request.Content.ReadAsStringAsync().Result;
+            return null;
+        }
 
 
         #region
