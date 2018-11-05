@@ -35,8 +35,11 @@ namespace Max.Web.ApiGateway.Common
             [Description(PayAction.Query)]
             订单查询 = 20001,
 
-            [Description(PayAction.Withholding)]
+            [Description(PayAction.Remit)]
             代扣 = 30001,
+
+            [Description(PayAction.RemitQuery)]
+            代扣查询 = 40001,
             #endregion
 
         }

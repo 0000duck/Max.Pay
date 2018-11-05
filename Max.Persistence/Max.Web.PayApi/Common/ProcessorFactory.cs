@@ -31,8 +31,11 @@ namespace Max.Web.PayApi.Common
 
         static ProcessorUtil()
         {
-            var types = Assembly.GetAssembly(typeof(IProcessor)).GetTypes()
-            .Where(t => t.IsSubclassOf(typeof(IProcessor)));
+            //    var types = Assembly.GetAssembly(typeof(IProcessor)).GetTypes()
+            //    .Where(t => t.IsSubclassOf(typeof(IProcessor)));
+            var types = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.GetInterfaces().Contains(typeof(IProcessor)))
+                .ToList();
             foreach (var type in types)
             {
                 var description = (DescriptionAttribute[])type.GetCustomAttributes(typeof(DescriptionAttribute), false);
@@ -50,7 +53,7 @@ namespace Max.Web.PayApi.Common
                 .Where(t => t.GetInterfaces().Contains(typeof(IProcessor)))
                 .ToList();
         }
-        
+
 
         public static string GetBizCode(Type type)
         {
@@ -74,5 +77,5 @@ namespace Max.Web.PayApi.Common
 
     }
 
-    
+
 }

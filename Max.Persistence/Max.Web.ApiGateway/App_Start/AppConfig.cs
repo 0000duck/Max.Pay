@@ -24,8 +24,21 @@ namespace Max.Web.ApiGateway.App_Start
 
     public static class PayAction
     {
+        /// <summary>
+        /// 支付
+        /// </summary>
         public const string Payment = "payment";
+        /// <summary>
+        /// 支付查询
+        /// </summary>
         public const string Query = "query";
-        public const string Withholding = "withholding";
+        /// <summary>
+        /// 代扣
+        /// </summary>
+        public const string Remit = "remit";
+        /// <summary>
+        /// 代扣查询
+        /// </summary>
+        public const string RemitQuery = "remit_query";
     }
 }

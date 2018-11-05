@@ -82,7 +82,7 @@ namespace Max.Web.PayApi.Controllers
             var urlEncodedRequestData = string.Empty;
             var parmUserData = string.Empty;
             var parmRequestData = string.Empty;
-            BaseRequest baseRequest = null;
+            BaseRequest baseRequest = new BaseRequest();
             PayOrder order = null;
             PayChannel payChannel = null;
             try
@@ -115,10 +115,12 @@ namespace Max.Web.PayApi.Controllers
                 //    return response;
                 //}
 
-                bizCode = payChannel.ChannelName;
+                baseRequest.Order = order;
+                baseRequest.PayChannel = payChannel;
+                bizCode = payChannel.ChannelCode;
                 if (bizCode.IsNullOrWhiteSpace())
                 {
-                    return BaseResponse.Create(ApiEnum.ResponseCode.无效交易类型, "无效交易类型", null, 0);
+                    return BaseResponse.Create(ApiEnum.ResponseCode.无效交易类型, "无效交易类型,ChannelCode为空", null, 0);
                 }
 
                 if (!ProcessorUtil.BizCodeValid(bizCode))

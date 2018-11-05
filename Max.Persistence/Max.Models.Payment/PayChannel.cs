@@ -16,6 +16,7 @@ namespace Max.Models.Payment
         /// </summary>
         [Key]
         [Required]
+        [CharacterLength(50)]
         [Display(Name="支付渠道ID")]
         public string ChannelId{ get; set; }
 
@@ -23,7 +24,6 @@ namespace Max.Models.Payment
         /// 支付渠道类型
         /// </summary>
         [Required]
-        [CharacterLength(50)]
         [Display(Name="支付渠道类型")]
         public int ChannelType{ get; set; }
 
@@ -141,6 +141,11 @@ namespace Max.Models.Payment
         [Required]
         [Display(Name="是否删除")]
         public int Isdelete{ get; set; }
+
+        [Required]
+        [CharacterLength(50)]
+        [Display(Name="ChannelCode")]
+        public string ChannelCode{ get; set; }
 
     }
 }
