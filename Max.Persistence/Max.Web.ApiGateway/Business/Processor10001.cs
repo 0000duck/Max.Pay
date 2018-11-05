@@ -105,7 +105,7 @@ namespace Max.Web.ApiGateway.Business
             order.OrderId = Guid.NewGuid().ToString();
             order.OrderNo = DateTime.Now.ToString("yyyyMMddHHmmssfff") + new Random().Next(1000, 9999);
             order.AgentNo = merchant.AgentNo;
-            order.ChannelId = payChannel.ChannelId.TryInt(0).Value;
+            order.ChannelId = payChannel.ChannelId;
             order.ChannelName = payChannel.ChannelName;
             order.ChannelType = payChannel.ChannelType;
             order.CreateTime = DateTime.Now;
