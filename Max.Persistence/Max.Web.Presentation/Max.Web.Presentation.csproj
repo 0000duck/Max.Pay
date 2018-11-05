@@ -194,8 +194,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AppConfig.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Business\Processor_HuiZhongPay.cs" />
+    <Compile Include="Business\Processor_JuBaoPay.cs" />
+    <Compile Include="Business\Request\Request10001.cs" />
+    <Compile Include="Business\Request\Request20001.cs" />
+    <Compile Include="Business\Response\Response10001.cs" />
+    <Compile Include="Business\Response\Response20001.cs" />
     <Compile Include="Common\APPUrl.cs" />
     <Compile Include="Common\AppVersionCompareUtil.cs" />
     <Compile Include="Common\Base64Utils.cs" />
@@ -220,12 +227,18 @@
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\WapAuthorizeHelper.cs" />
     <Compile Include="Helpers\YZMHelper.cs" />
+    <Compile Include="Infrastructure\ApiEnum.cs" />
     <Compile Include="Infrastructure\GlobalAuthorizeAttribute.cs" />
+    <Compile Include="Infrastructure\IProcessor.cs" />
+    <Compile Include="Infrastructure\IProcessorFactory.cs" />
+    <Compile Include="Infrastructure\ProcessorFactory.cs" />
     <Compile Include="Infrastructure\Razor\MvcGrid.cs" />
     <Compile Include="Infrastructure\Razor\Query.cs" />
     <Compile Include="Infrastructure\Razor\RazorExtensions.cs" />
     <Compile Include="Infrastructure\Razor\TreeModel.cs" />
     <Compile Include="Infrastructure\Utils.cs" />
+    <Compile Include="Models\BaseRequest.cs" />
+    <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,7 +279,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

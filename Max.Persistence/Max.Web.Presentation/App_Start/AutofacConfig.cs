@@ -21,6 +21,7 @@ using Max.Framework.MongoDb;
 using Max.Framework.NoSql;
 using Max.Framework.Memcache;
 using Max.Framework.ServiceBus;
+using Max.Web.Presentation.Infrastructure;
 
 namespace Max.Web.Presentation.App_Start
 {
@@ -55,7 +56,6 @@ namespace Max.Web.Presentation.App_Start
             builder.RegisterType<MongoProxy>().As<IMongoProxy>().SingleInstance();
             builder.RegisterType<Logger>().As<ILog>().SingleInstance();
             builder.RegisterType<ServiceBus>().As<IServiceBus>().SingleInstance();
-            //builder.RegisterType<HuaAnInsuranceSupplier>().AsSelf().SingleInstance();
             builder.RegisterType<ExcelClient>().As<IExcelClient>().InstancePerRequest();
 
             var assemblies = BuildManager.GetReferencedAssemblies()
@@ -71,6 +71,25 @@ namespace Max.Web.Presentation.App_Start
                 .Where(t => t.GetInterfaces().Contains(typeof(IService)))
                 .AsSelf()
                 .InstancePerLifetimeScope();
+
+            #region API Processor Register
+
+            builder.RegisterType<ProcessorFactory>().As<IProcessorFactory>().InstancePerRequest();
+
+            foreach (var type in ProcessorUtil.GetProcessors())
+            {
+                builder.RegisterType(type)
+                    .Named<IProcessor>(ProcessorUtil.GetBizCode(type))
+                    .InstancePerRequest();
+            }
+
+            builder.Register<Func<string, IProcessor>>(c =>
+            {
+                var ic = c.Resolve<IComponentContext>();
+                return name => ic.ResolveNamed<IProcessor>(name);
+            });
+
+            #endregion
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
