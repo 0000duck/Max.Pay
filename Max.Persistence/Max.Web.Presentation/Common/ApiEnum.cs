@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace Max.Web.Presentation.Infrastructure
+namespace Max.Web.Presentation.Common
 {
     public class ApiEnum
     {

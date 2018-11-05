@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Max.Web.Presentation.Models
+namespace Max.Web.Presentation.Common
 {
     public class BaseResponse
     {

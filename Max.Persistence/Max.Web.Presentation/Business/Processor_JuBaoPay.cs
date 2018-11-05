@@ -12,7 +12,7 @@ using System.Text;
 using Max.Models.Payment.Common;
 using Max.Framework.Utility;
 using Max.Web.Presentation.Infrastructure;
-using Max.Web.Presentation.Models;
+using Max.Web.Presentation.Common;
 using Max.Web.Presentation.Business.Response;
 
 namespace Max.Web.Presentation.Business
@@ -21,7 +21,7 @@ namespace Max.Web.Presentation.Business
     /// 支付请求处理
     /// </summary>
     [Description("jubaopay")]
-    public class Processor_JuBaoPay : IProcessor
+    public class Processor_JuBaoPay : BasePay
     {
         private static ILog log = LogManager.GetLogger(typeof(Processor_JuBaoPay));
 
@@ -31,7 +31,7 @@ namespace Max.Web.Presentation.Business
         private PayChannelService _payChannelService;
         private PayOrderService _payOrderService;
 
-        public bool IsPostForm { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
         public Processor_JuBaoPay(MerchantService merchantService,
              PayProductService payProductService,
@@ -45,6 +45,7 @@ namespace Max.Web.Presentation.Business
             this._merchantPayProductService = merchantPayProductService;
             this._payChannelService = payChannelService;
             this._payOrderService = payOrderService;
+            this.IsPostForm = true;
         }
 
 
@@ -72,7 +73,7 @@ namespace Max.Web.Presentation.Business
 
         }
 
-        public IDictionary<string, string> CreatePayRequest(PayOrder order, PayChannel channel)
+        private IDictionary<string, string> CreatePayRequest(PayOrder order, PayChannel channel)
         {
             var request = new Dictionary<string, string>();
 
@@ -83,7 +84,7 @@ namespace Max.Web.Presentation.Business
             request.Add("customerbilltime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             request.Add("ip", order.Ip);
             request.Add("devicetype", order.DeviceType);
-            request.Add("customeruser", order.MemberInfo.IsNullOrWhiteSpace()?"ok":"ok");
+            request.Add("customeruser", order.MemberInfo.IsNullOrWhiteSpace() ? "ok" : "ok");
             request.Add("notifyurl", order.NotifyUrl);
             //request.Add("returnurl", order.SuccessUrl);
 
@@ -153,9 +154,11 @@ namespace Max.Web.Presentation.Business
             return strPayType;
         }
 
-        public IDictionary<string, string> CreatePayRequest(BaseRequest request)
+
+
+        public override IDictionary<string, string> CreatePayRequest(BaseRequest request)
         {
-            throw new NotImplementedException();
+            return CreatePayRequest(request.Order, request.PayChannel);
         }
     }
 }

@@ -76,12 +76,6 @@ namespace Max.Web.Presentation.Controllers
             return builder.ToString();
         }
 
-        /// <summary>
-        /// 当前用户Id
-        /// </summary>
-        public string UserId
-        {
-            get { return WapAuthorizeHelper.GetCurrentUserId(); }
-        }
+      
     }
 }

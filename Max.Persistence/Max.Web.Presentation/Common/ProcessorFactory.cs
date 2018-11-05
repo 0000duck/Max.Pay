@@ -8,7 +8,7 @@ using Max.Framework;
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace Max.Web.Presentation.Infrastructure
+namespace Max.Web.Presentation.Common
 {
     public class ProcessorFactory : IProcessorFactory
     {
@@ -50,7 +50,7 @@ namespace Max.Web.Presentation.Infrastructure
         public static List<Type> GetProcessors()
         {
             return Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.GetInterfaces().Contains(typeof(IProcessor)))
+                .Where(t => t.GetInterfaces().Contains(typeof(IProcessor))&&t!=typeof(BasePay))
                 .ToList();
         }
 

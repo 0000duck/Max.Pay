@@ -1,105 +1,29 @@
 ﻿@{
     Layout = null;
-    var data = @ViewData["data"] as string;
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="/Content/Rule/js/hotcss.js"></script>
-    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- 启用 WebApp 全屏模式 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="full-screen" content="yes"> <!-- UC强制全屏 -->
-    <meta name="x5-fullscreen" content="true"> <!-- QQ强制全屏 -->
-    <meta name="format-detection" content="telephone=no" />
-    <meta content="email=no" name="format-detection" />
-    <link href="/Content/YQB/css/style.css" rel="stylesheet" />
-    <script src="~/Content/Rule/js/Chart.min.js"></script>
-    <script src="~/Scripts/jquery-1.12.0.min.js"></script>
-    <title>未登录-摇钱宝</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <title>支付跳转中...</title>
 </head>
-<body class="y-hasFtBar">
-    <div class="y-banner01">
-        <img src="/Content/Rule/images/i_y1y.png" alt="" class="y-icon-y1y">
-        <p class="mt15">每天摇一摇,即可享受0.1%~5%的余额加息</p>
+<body style="background:#fff;">
+    <div style="width:100%;text-align:center;" id="title">
+        <span style="color:#4800ff;font-size:14px;">页面执行中，请勿关闭或刷新页面...</span>
     </div>
-    <div class="y-sec01">
-        <div class="pure-g">
-            <div class="pure-u pure-u-3-5">
-                <p class="y-font01">灵活的存取方式</p>
-                <p>百元起投, 超低门槛<br>随存随取, T+1到账</p>
-            </div>
-            <div class="pure-u pure-u-2-5 tAc">
-                <img class="y-img-1" src="/Content/Rule/images/y_img_1.png" alt="">
-            </div>
-        </div>
-        <div class="pure-g">
-            <div class="pure-u pure-u-2-5 tAc">
-                <img src="/Content/Rule/images/y_img_2.png" alt="">
-            </div>
-            <div class="pure-u pure-u-3-5">
-                <p class="y-font01">有竞争力的收益率</p>
-                <p>年化收益率高达5.5%<br>超活期存款12倍</p>
-            </div>
-        </div>
-        <div class="pure-g">
-            <div class="pure-u pure-u-1-2 y-para01">
-                <p>最新年化收益率</p>
-                <p id="nearYeild" class="y-font01"></p>
-            </div>
-            <div class="pure-u pure-u-1-2 y-para01">
-                <p>万份收益(元)</p>
-                <p id="nearIncome" class="y-font01"></p>
-            </div>
-        </div>
-    </div><!--/y-sec01-->
-    <div class="y-sec02">
-        <div class="hd">近7日年化收益率走势(%) <i class="i-q"></i></div>
-        <div class="bd">
-            <canvas id="canvas"></canvas>
-        </div>
-    </div><!--/y-sec02-->
-
-    <script>
+    <form action="@ViewData["url"]" method="@(ViewData["method"]??"POST")">
+        @foreach (KeyValuePair<string, string> item in Model)
+        {
+            <input type="hidden" name="@item.Key" value="@item.Value" />
+        }
+    </form>
+    <script src="~/Scripts/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript">
         $(function () {
-            var randomScalingFactor = function () {
-                return Math.round(Math.random() * 100);
-            };
-
-            $.post("/Home/GetYieldData", {}, function (d) {
-                $("#nearIncome").text(d.TodayIncome.MillionIncome);
-                $("#nearYeild").text(d.TodayIncome.InterestRate + "%");
-                var ctx = document.getElementById("canvas").getContext("2d");
-                window.myLine = new Chart(ctx).Line({
-                    labels: d.LstDate,
-
-                    datasets: [
-                        {
-                            label: "My First dataset",
-                            fillColor: "rgba(255,236,226,0.5)",
-                            strokeColor: "rgba(240,180,70,1)",
-                            pointColor: "rgba(255,255,255,1)",
-                            pointStrokeColor: "#f0b446",
-                            pointHighlightFill: "#fff",
-                            pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: d.LstInterestRate
-                        }
-                    ]
-
-                }, {
-                    responsive: true,
-                    bezierCurve: false,
-                    pointDotRadius: 6,
-                    scaleFontSize: 22,
-                    scaleGridLineWidth: 1,
-                    scaleOverride: true,
-                    scaleSteps: d.ScaleSetting.Step,
-                    scaleStepWidth: d.ScaleSetting.Scale.toFixed(2),
-                    scaleStartValue: d.ScaleSetting.Start
-                });
-            });
-        });
-
+            $("#title").css("margin-top", $("window").height() * 0.5 + "px");
+            //$("form")[0].submit();
+        })
     </script>
 </body>
 </html>

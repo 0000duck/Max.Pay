@@ -1,5 +1,4 @@
-﻿
-using Max.Web.Presentation.Models;
+﻿using Max.Web.Presentation.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

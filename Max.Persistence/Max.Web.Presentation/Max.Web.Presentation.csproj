@@ -51,6 +51,9 @@
     <Reference Include="Dapper">
       <HintPath>..\Libs\Max.Framework.DAL.SqlServer\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="DnsClient">
+      <HintPath>..\Libs\Max.Framework.MongoDb\DnsClient.dll</HintPath>
+    </Reference>
     <Reference Include="Enyim.Caching">
       <HintPath>..\Libs\Max.Framework.Memcache\Enyim.Caching.dll</HintPath>
     </Reference>
@@ -109,6 +112,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Max.Framework.Redis\StackExchange.Redis.dll</HintPath>
     </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>..\Libs\Max.Framework.MongoDb\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -139,7 +145,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\Libs\ASP.NET MVC5\System.Web.WebPages.Deployment.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment.resources, Version=2.0.0.0, Culture=zh-Hans, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -171,9 +177,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Content\Styles\style.css" />
     <Content Include="Global.asax" />
-    <Content Include="H5\Rule\DepositRule.html" />
-    <Content Include="H5\Rule\TakeOutRule.html" />
-    <Content Include="H5\Rule\unlogin.html" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\jquery-1.12.0.min.js" />
     <Content Include="Scripts\jquery-tmpl\jquery.tmpl.min.js" />
@@ -203,19 +206,10 @@
     <Compile Include="Business\Request\Request20001.cs" />
     <Compile Include="Business\Response\Response10001.cs" />
     <Compile Include="Business\Response\Response20001.cs" />
-    <Compile Include="Common\APPUrl.cs" />
-    <Compile Include="Common\AppVersionCompareUtil.cs" />
-    <Compile Include="Common\Base64Utils.cs" />
-    <Compile Include="Common\CashLoanAccessAuthorizeAttribute.cs" />
-    <Compile Include="Common\CommonHelper.cs" />
-    <Compile Include="Common\CookieUtil.cs" />
-    <Compile Include="Common\CryptographyUtils.cs" />
-    <Compile Include="Common\ImagePath.cs" />
-    <Compile Include="Common\LoanCommon\PayErrorFormat.cs" />
-    <Compile Include="Common\ParametersHelper.cs" />
+    <Compile Include="Common\BaseRequest.cs" />
+    <Compile Include="Common\BaseResponse.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,20 +219,15 @@
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\DecimalExtensions.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
-    <Compile Include="Helpers\WapAuthorizeHelper.cs" />
     <Compile Include="Helpers\YZMHelper.cs" />
-    <Compile Include="Infrastructure\ApiEnum.cs" />
-    <Compile Include="Infrastructure\GlobalAuthorizeAttribute.cs" />
-    <Compile Include="Infrastructure\IProcessor.cs" />
-    <Compile Include="Infrastructure\IProcessorFactory.cs" />
-    <Compile Include="Infrastructure\ProcessorFactory.cs" />
+    <Compile Include="Common\ApiEnum.cs" />
+    <Compile Include="Common\IProcessor.cs" />
+    <Compile Include="Common\IProcessorFactory.cs" />
+    <Compile Include="Common\ProcessorFactory.cs" />
     <Compile Include="Infrastructure\Razor\MvcGrid.cs" />
     <Compile Include="Infrastructure\Razor\Query.cs" />
     <Compile Include="Infrastructure\Razor\RazorExtensions.cs" />
     <Compile Include="Infrastructure\Razor\TreeModel.cs" />
-    <Compile Include="Infrastructure\Utils.cs" />
-    <Compile Include="Models\BaseRequest.cs" />
-    <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -261,15 +250,6 @@
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Properties\PublishProfiles\Max.Web.Presentation.pubxml" />
     <None Include="Properties\PublishProfiles\web.config.pubxml" />
-    <Content Include="Views\Shared\Header.cshtml" />
-    <Content Include="Views\Shared\_CreditLayout.cshtml" />
-    <Content Include="Views\Home\Msg.cshtml" />
-    <Content Include="Views\Shared\_CarLayout.cshtml" />
-    <Content Include="Views\Home\SysNoticeMsg.cshtml" />
-    <Content Include="Views\Shared\_LoanLayout.cshtml" />
-    <Content Include="Views\Shared\_CarLoanLayout.cshtml" />
-    <Content Include="Views\Shared\_CarLayout_y.cshtml" />
-    <Content Include="Views\Home\MsgTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -279,7 +259,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Max.BUS.Message\Max.BUS.Message.csproj">

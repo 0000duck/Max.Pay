@@ -21,7 +21,7 @@ using Max.Framework.MongoDb;
 using Max.Framework.NoSql;
 using Max.Framework.Memcache;
 using Max.Framework.ServiceBus;
-using Max.Web.Presentation.Infrastructure;
+using Max.Web.Presentation.Common;
 
 namespace Max.Web.Presentation.App_Start
 {

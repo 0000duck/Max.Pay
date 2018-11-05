@@ -5,8 +5,7 @@ using Max.Framework.DAL;
 using System.Text;
 using Max.Service.Payment;
 using Max.Models.Payment;
-using Max.Web.Presentation.Models;
-using Max.Web.Presentation.Infrastructure;
+using Max.Web.Presentation.Common;
 
 namespace Max.Web.Presentation.Controllers
 {
@@ -33,6 +32,10 @@ namespace Max.Web.Presentation.Controllers
             PayOrder order = null;
             PayChannel payChannel = null;
 
+            if (orderId.IsNullOrWhiteSpace())
+            {
+                return Json(result.IsFailed("参数错误，orderid"));
+            }
             //订单校验
             if (!OrderVerify(orderId, out order, out payChannel, out errMsg))
             {
@@ -56,6 +59,7 @@ namespace Max.Web.Presentation.Controllers
             var payParams = processor.CreatePayRequest(baseRequest);
             if (processor.IsPostForm)
             {
+                ViewData["url"] = processor.PayUrl;
                 return View(payParams);
             }
 

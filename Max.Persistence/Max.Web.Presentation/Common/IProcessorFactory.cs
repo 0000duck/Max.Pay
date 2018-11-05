@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Max.Web.Presentation.Infrastructure
+namespace Max.Web.Presentation.Common
 {
     public interface IProcessorFactory
     {

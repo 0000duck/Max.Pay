@@ -7,8 +7,7 @@ using System.Web;
 using log4net;
 using Max.Service.Payment;
 using System.ComponentModel;
-using Max.Web.Presentation.Infrastructure;
-using Max.Web.Presentation.Models;
+using Max.Web.Presentation.Common;
 using Max.Models.Payment;
 
 namespace Max.Web.Presentation.Business
@@ -17,7 +16,7 @@ namespace Max.Web.Presentation.Business
     /// 订单查询
     /// </summary>
     [Description("huizhongpay")]
-    public class Processor_HuiZhongPay : IProcessor
+    public class Processor_HuiZhongPay : BasePay
     {
         private static ILog log = LogManager.GetLogger(typeof(Processor_HuiZhongPay));
         private PayOrderService _payOrderService;
@@ -26,26 +25,22 @@ namespace Max.Web.Presentation.Business
         {
             this._payOrderService = payOrderService;
             this._merchantService = merchantService;
+            this.IsPostForm = true;
+            this.RequestMethod = "POST";
         }
 
-        public bool IsPostForm { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+       
 
-        public IDictionary<string, string> CreatePayRequest(PayOrder order, PayChannel channel)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IDictionary<string, string> CreatePayRequest(BaseRequest request)
+        public override IDictionary<string, string> CreatePayRequest(BaseRequest request)
         {
             throw new NotImplementedException();
         }
 
         public BaseResponse Process(BaseRequest baseRequest)
         {
-
             return BaseResponse.Create(ApiEnum.ResponseCode.处理失败, "查无此订单");
-
-
+            
         }
 
 
