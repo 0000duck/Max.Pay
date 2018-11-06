@@ -14,7 +14,6 @@ namespace Max.Web.Presentation.Business.Response
 
         public string Message { get; set; }
 
-        public string Data { get; set; }
 
         /// <summary>
         /// 商户号
@@ -46,32 +45,28 @@ namespace Max.Web.Presentation.Business.Response
 
         public static PayResult IsSuccess()
         {
-            return Create(true, null, null);
+            return Create(true, null);
         }
-        public static PayResult IsSuccess(string data)
+
+        public static PayResult IsSuccess(string message)
         {
-            return Create(true, null, data);
-        }
-        public static PayResult IsSuccess(string message, string data)
-        {
-            return Create(true, message, data);
+            return Create(true, message);
         }
         public static PayResult IsFailed()
         {
-            return Create(false, null, null);
+            return Create(false, null);
         }
-        public static PayResult IsFailed(string message, string data = null)
+        public static PayResult IsFailed(string message)
         {
-            return Create(false, message, data);
+            return Create(false, message);
         }
 
-        public static PayResult Create(bool isSuccess, string message, string data)
+        private static PayResult Create(bool isSuccess, string message)
         {
             return new PayResult
             {
                 Success = isSuccess,
-                Message = message,
-                Data = data
+                Message = message
             };
         }
     }

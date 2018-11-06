@@ -53,6 +53,8 @@ namespace Max.Web.Management.Controllers
             model.MerchantPayServiceId = Guid.NewGuid().ToString();
             model.CreateBy = CurrentSysUser.UserName;
             model.CreateTime = DateTime.Now;
+            model.MerchantFeeRate = model.MerchantFeeRate / 100;
+            model.AgentFeeRate = model.AgentFeeRate / 100;
             return Json(this._mpService.Add(model));
         }
 
@@ -63,7 +65,8 @@ namespace Max.Web.Management.Controllers
             return Json(this._mpService.Update(c => c.ServiceId == model.ServiceId, c => new MerchantPayService()
             {
                 PayChannelId = model.PayChannelId,
-                AgentFeeRate = model.AgentFeeRate,
+                AgentFeeRate = model.AgentFeeRate/100,
+                MerchantFeeRate=model.MerchantFeeRate/100,
                 Remark = model.Remark,
                 Status = model.Status,
                 UpdateBy = CurrentSysUser.UserName,
@@ -84,7 +87,7 @@ namespace Max.Web.Management.Controllers
 
         public List<SelectListItem> GetPayChannelDropdownList(int channelType = 0, string channelId = "")
         {
-            var payChannels = this._payChannelService.GetList(m => m.Status == (int)Enums.CommonStatus.正常 && m.ChannelType == channelType);
+            var payChannels = this._payChannelService.GetList(m => m.Status == (int)Enums.CommonStatus.正常 &&m.Isdelete==(int)Enums.IsDelete.否 && m.ChannelType == channelType);
             List<SelectListItem> listItem = new List<SelectListItem>() { new SelectListItem() { Text = "-- 全部 --", Value = "" } };
             if (payChannels != null && payChannels.Count() > 0)
             {
@@ -110,7 +113,7 @@ namespace Max.Web.Management.Controllers
 
         public List<SelectListItem> GetPayProductDropdownList(int channelType = 0, string channelId = "")
         {
-            var payProducts = this._payProductService.GetList(m => m.Status == (int)Enums.CommonStatus.正常 && m.ServiceType == channelType);
+            var payProducts = this._payProductService.GetList(m => m.Status == (int)Enums.CommonStatus.正常 &&m.Isdelete==(int)Enums.IsDelete.否 && m.ServiceType == channelType);
             List<SelectListItem> listItem = new List<SelectListItem>() { new SelectListItem() { Text = "-- 全部 --", Value = "" } };
             if (payProducts != null && payProducts.Count() > 0)
             {

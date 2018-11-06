@@ -88,7 +88,7 @@ namespace Max.Web.ApiGateway.Business
                     MerchantOrderNO = request.MerchantOrderNo,
                     OrderNO = order.OrderNo,
                     Amount = order.OrderAmount,
-                    PayUrl = "http://max.pay.com?orderid={0}".Fmt(order.OrderId)
+                    PayUrl = "http://localhost:2162?orderid={0}".Fmt(order.OrderId)
                 });
 
             }
@@ -114,7 +114,7 @@ namespace Max.Web.ApiGateway.Business
             order.FeeMode = payChannel.SettleMode.ToString();
             order.SettleMode = payChannel.SettleMode.ToStr();
             order.Ip = request.Ip;
-            order.MemberInfo = "";
+            order.MemberInfo = "test";
             order.MerchantId = merchant.MerchantId;
             order.MerchantOrderNo = request.MerchantOrderNo;
             order.MerchantOrderTime = request.MerchantOrderTime.TryDateTime(DateTime.Now).Value;

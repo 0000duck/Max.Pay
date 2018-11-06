@@ -37,7 +37,7 @@ namespace Max.Web.Presentation.Business.Response
             return Create(false, message, data);
         }
 
-        public static PayResponse Create(bool isSuccess, string message, string data)
+        private static PayResponse Create(bool isSuccess, string message, string data)
         {
             return new PayResponse
             {

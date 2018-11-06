@@ -78,6 +78,7 @@ namespace Max.Web.Management.Controllers
             model.ChannelId = Guid.NewGuid().ToString();
             model.CreateBy = CurrentSysUser.UserName;
             model.CreateTime = DateTime.Now;
+            model.FeeRate = model.FeeRate / 100;
             return Json(this._payChannelService.Add(model));
         }
 
@@ -93,7 +94,7 @@ namespace Max.Web.Management.Controllers
                 MinOrderAmount = model.MinOrderAmount,
                 MaxOrderAmount = model.MaxOrderAmount,
                 PaySite = model.PaySite,
-                FeeRate = model.FeeRate,
+                FeeRate = model.FeeRate/100,
                 Status = model.Status,
                 UpdateBy = CurrentSysUser.UserName,
                 UpdateTime = DateTime.Now

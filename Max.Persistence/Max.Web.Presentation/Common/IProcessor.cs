@@ -1,8 +1,11 @@
-﻿using Max.Web.Presentation.Business.Response;
+﻿using Max.Framework.Utility;
+using Max.Models.Payment;
+using Max.Web.Presentation.Business.Response;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Max.Web.Presentation.Common
@@ -24,7 +27,7 @@ namespace Max.Web.Presentation.Common
         /// <returns></returns>
         PayResponse Process(IDictionary<string, string> dicParams);
 
-        PayResult Notify(IDictionary<string, string> dicParams);
+        PayResult Notify(IDictionary<string, string> dicParams, PayChannel channel);
         PayResult Check(BaseRequest request);
 
         IDictionary<string, string> CreatePayRequest(BaseRequest request);
@@ -46,13 +49,30 @@ namespace Max.Web.Presentation.Common
             return PayResponse.IsSuccess();
         }
 
-        public virtual PayResult Notify(IDictionary<string, string> dicParams)
+        public virtual PayResult Notify(IDictionary<string, string> dicParams, PayChannel channel)
         {
-            return PayResult.IsSuccess(null);
+            return PayResult.IsSuccess();
         }
         public virtual PayResult Check(BaseRequest request)
         {
-            return PayResult.IsSuccess(null);
+            return PayResult.IsSuccess();
+        }
+
+
+        public string HttpRequest(IDictionary<string, string> dicParams, string responseEncoding = "UTF-8")
+        {
+            var responseStr = "";
+            HttpWebHelper http = new HttpWebHelper();
+            if (RequestMethod.ToUpper() == "GET")
+            {
+                var _payUrl = HttpWebHelper.CreateParameter(dicParams);
+                responseStr = http.Get(_payUrl, Encoding.GetEncoding(responseEncoding));
+            }
+            else
+            {
+                responseStr = http.Post(PayUrl, dicParams, Encoding.GetEncoding(responseEncoding), Encoding.GetEncoding(responseEncoding));
+            }
+            return responseStr;
         }
     }
 

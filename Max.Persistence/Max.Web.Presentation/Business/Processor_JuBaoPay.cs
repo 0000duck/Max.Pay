@@ -45,6 +45,8 @@ namespace Max.Web.Presentation.Business
             this._payChannelService = payChannelService;
             this._payOrderService = payOrderService;
             this.IsPostForm = true;
+            this.PayUrl = "http://gateway.jbpay.net/api/gateway";
+            this.RequestMethod = "POST";
         }
         public override IDictionary<string, string> CreatePayRequest(BaseRequest request)
         {
@@ -55,8 +57,10 @@ namespace Max.Web.Presentation.Business
         {
             try
             {
-                HttpWebHelper http = new Framework.Utility.HttpWebHelper();
-                var responseStr = http.Post("http://gateway.jbpay.net/api/gateway", dicParams, Encoding.UTF8, Encoding.UTF8);
+                //HttpWebHelper http = new Framework.Utility.HttpWebHelper();
+                //var responseStr = http.Post("http://gateway.jbpay.net/api/gateway", dicParams, Encoding.UTF8, Encoding.UTF8);
+
+                var responseStr = base.HttpRequest(dicParams);
 
                 return PayResponse.IsSuccess(responseStr);
             }
@@ -67,9 +71,22 @@ namespace Max.Web.Presentation.Business
 
         }
 
-        public override PayResult Notify(IDictionary<string, string> dicParams)
+        public override PayResult Notify(IDictionary<string, string> dicParams, PayChannel channel)
         {
-            return PayResult.IsSuccess();
+            var payResult = PayResult.IsFailed();
+            if (dicParams["paystatus"].ToUpper() == "SUCCESS")
+            {
+                payResult.Success = true;
+                payResult.MerchantOrderNo = dicParams["customerbillno"];
+                payResult.OrderAmount = dicParams["preorderamount"].TryDecimal(0).Value;
+                payResult.OrderNo = dicParams["orderno"];
+                payResult.IsVerify = Verify(dicParams, channel);
+            }
+            else
+            {
+                payResult.Success = false;
+            }
+            return payResult;
         }
 
         private IDictionary<string, string> CreatePayRequest(PayOrder order, PayChannel channel)
@@ -153,8 +170,30 @@ namespace Max.Web.Presentation.Business
             return strPayType;
         }
 
+        private bool Verify(IDictionary<string, string> parameters, PayChannel channel)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+
+                parameters = parameters.OrderBy(c => c.Key).ToDictionary(p => p.Key, o => o.Value);
+                foreach (var item in parameters)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Value) && item.Key != "sign")
+                    {
+                        sb.AppendFormat("{0}={1}&", item.Key, item.Value);
+                    }
+                }
+                string signStr = sb.AppendFormat("key={0}", channel.MerchantKey).ToString();
+
+                return signStr.EncToMD5() == parameters["sign"];
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
 
-        
     }
 }

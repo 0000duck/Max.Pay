@@ -57,13 +57,17 @@ namespace Max.Web.Presentation.Controllers
             }
             var processor = this.factory.Create(bizCode);
 
+            //构建请求参数
             var payParams = processor.CreatePayRequest(baseRequest);
+            //如果是浏览器表单提交
             if (processor.IsPostForm)
             {
                 ViewData["url"] = processor.PayUrl;
+                ViewData["method"] = processor.RequestMethod;
                 return View(payParams);
             }
 
+            //异步请求
             PayResponse payResponse = processor.Process(payParams);
             if (!payResponse.Success)
             {
@@ -80,7 +84,7 @@ namespace Max.Web.Presentation.Controllers
                 case PayModelEnum.二维码生成:
                     break;
                 case PayModelEnum.HTML输出:
-                    return Content(payResponse.Data,"text/html");
+                    return Content(payResponse.Data, "text/html");
                 default:
                     break;
             }

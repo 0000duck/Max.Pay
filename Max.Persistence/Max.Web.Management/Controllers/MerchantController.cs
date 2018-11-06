@@ -64,10 +64,10 @@ namespace Max.Web.Management.Controllers
         public ActionResult Details(string merchantId)
         {
             MerchantDetailsModel model = new MerchantDetailsModel();
-            model.Merchant = this._merchantService.Get(c=>c.MerchantId==merchantId);
-            model.MerchantBankList = this._merchantBankService.GetList(c=>c.MerchantId==merchantId);
-            model.MerchantPayProductList = this._vMerchantPayService.GetList(c=>c.MerchantId==merchantId);
-            model.PayProductList = this._payProductService.GetList(c=>c.Isdelete==(int)Enums.IsDelete.否);
+            model.Merchant = this._merchantService.Get(c => c.MerchantId == merchantId);
+            model.MerchantBankList = this._merchantBankService.GetList(c => c.MerchantId == merchantId);
+            model.MerchantPayProductList = this._vMerchantPayService.GetList(c => c.MerchantId == merchantId);
+            model.PayProductList = this._payProductService.GetList(c => c.Isdelete == (int)Enums.IsDelete.否);
             return View(model);
         }
 
@@ -86,7 +86,7 @@ namespace Max.Web.Management.Controllers
         public ActionResult AddForAjax(Merchant model)
         {
             model.MerchantId = Guid.NewGuid().ToString();
-            model.MerchantNo = "10086";
+            model.MerchantNo = DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 9999);
             model.Md5Key = Guid.NewGuid().ToString("N");
             model.CreateBy = CurrentSysUser.UserName;
             model.CreateTime = DateTime.Now;

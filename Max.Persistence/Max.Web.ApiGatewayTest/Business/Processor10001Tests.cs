@@ -38,6 +38,7 @@ namespace Max.Web.ApiGateway.Business.Tests
 
             dic = dic.OrderBy(c => c.Key).ToDictionary(c => c.Key, o => o.Value);
             StringBuilder sb = new StringBuilder();
+            StringBuilder payurl = new StringBuilder();
             foreach (var item in dic)
             {
                 if (!item.Value.IsNullOrWhiteSpace())
@@ -45,8 +46,10 @@ namespace Max.Web.ApiGateway.Business.Tests
                     sb.AppendFormat("{0}={1}&", item.Key, item.Value);
                 }
             }
-            string signStr = sb.AppendFormat("key={0}", "16cc36db2722437597c178a72f26ac83").ToString();
+            payurl = sb;
+            string signStr = sb.AppendFormat("key={0}", "3fbe1062bc9d4d23b06de8a95c444006").ToString();
             dic.Add("Sign", signStr.EncToMD5());
+            payurl.AppendFormat("Sign={0}", signStr.EncToMD5());
             string resultStr = HttpWebHelper.Helper.Post(url, dic, Encoding.UTF8, Encoding.UTF8);
             BaseResponse responseModel = JsonUtil.FromJson<BaseResponse>(resultStr);
 
