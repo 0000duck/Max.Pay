@@ -11,7 +11,6 @@ using System.ComponentModel;
 using System.Text;
 using Max.Models.Payment.Common;
 using Max.Framework.Utility;
-using Max.Web.Presentation.Infrastructure;
 using Max.Web.Presentation.Common;
 using Max.Web.Presentation.Business.Response;
 
@@ -47,30 +46,30 @@ namespace Max.Web.Presentation.Business
             this._payOrderService = payOrderService;
             this.IsPostForm = true;
         }
-
-
-        public BaseResponse Process(BaseRequest baseRequest)
+        public override IDictionary<string, string> CreatePayRequest(BaseRequest request)
         {
+            return CreatePayRequest(request.Order, request.PayChannel);
+        }
 
+        public override PayResponse Process(IDictionary<string, string> dicParams)
+        {
             try
             {
-                var dicRequest = CreatePayRequest(baseRequest.Order, baseRequest.PayChannel);
-
                 HttpWebHelper http = new Framework.Utility.HttpWebHelper();
-                var responseStr = http.Post("http://gateway.jbpay.net/api/gateway", dicRequest, Encoding.UTF8, Encoding.UTF8);
+                var responseStr = http.Post("http://gateway.jbpay.net/api/gateway", dicParams, Encoding.UTF8, Encoding.UTF8);
 
-                return BaseResponse.Create(ApiEnum.ResponseCode.处理成功, new Response10001
-                {
-                    MerchantOrderNO = baseRequest.Order.OrderId,
-                    PayUrl = responseStr
-                });
-
+                return PayResponse.IsSuccess(responseStr);
             }
             catch (Exception ex)
             {
-                return BaseResponse.Create(ApiEnum.ResponseCode.处理失败, ex.ToJson(), null, 0);
+                return PayResponse.IsFailed(ex.Message);
             }
 
+        }
+
+        public override PayResult Notify(IDictionary<string, string> dicParams)
+        {
+            return PayResult.IsSuccess();
         }
 
         private IDictionary<string, string> CreatePayRequest(PayOrder order, PayChannel channel)
@@ -156,9 +155,6 @@ namespace Max.Web.Presentation.Business
 
 
 
-        public override IDictionary<string, string> CreatePayRequest(BaseRequest request)
-        {
-            return CreatePayRequest(request.Order, request.PayChannel);
-        }
+        
     }
 }

@@ -202,10 +202,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Business\Processor_HuiZhongPay.cs" />
     <Compile Include="Business\Processor_JuBaoPay.cs" />
-    <Compile Include="Business\Request\Request10001.cs" />
-    <Compile Include="Business\Request\Request20001.cs" />
-    <Compile Include="Business\Response\Response10001.cs" />
-    <Compile Include="Business\Response\Response20001.cs" />
+    <Compile Include="Business\Response\PayResult.cs" />
+    <Compile Include="Business\Response\PayResponse.cs" />
     <Compile Include="Common\BaseRequest.cs" />
     <Compile Include="Common\BaseResponse.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -259,6 +257,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Business\Request\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Shared\" />

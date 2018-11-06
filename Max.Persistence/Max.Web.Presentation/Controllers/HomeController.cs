@@ -6,6 +6,7 @@ using System.Text;
 using Max.Service.Payment;
 using Max.Models.Payment;
 using Max.Web.Presentation.Common;
+using Max.Web.Presentation.Business.Response;
 
 namespace Max.Web.Presentation.Controllers
 {
@@ -63,7 +64,26 @@ namespace Max.Web.Presentation.Controllers
                 return View(payParams);
             }
 
-            response = processor.Process(baseRequest);
+            PayResponse payResponse = processor.Process(payParams);
+            if (!payResponse.Success)
+            {
+                return Json(result.IsFailed(payResponse.Message));
+            }
+            switch (processor.PayModel)
+            {
+                case PayModelEnum.无:
+                    break;
+                case PayModelEnum.URL跳转:
+                    return Redirect(payResponse.Data);
+                case PayModelEnum.扫码:
+                    break;
+                case PayModelEnum.二维码生成:
+                    break;
+                case PayModelEnum.HTML输出:
+                    return Content(payResponse.Data,"text/html");
+                default:
+                    break;
+            }
             return View();
         }
 

@@ -9,6 +9,7 @@ using Max.Service.Payment;
 using System.ComponentModel;
 using Max.Web.Presentation.Common;
 using Max.Models.Payment;
+using Max.Web.Presentation.Business.Response;
 
 namespace Max.Web.Presentation.Business
 {
@@ -37,9 +38,9 @@ namespace Max.Web.Presentation.Business
             throw new NotImplementedException();
         }
 
-        public BaseResponse Process(BaseRequest baseRequest)
+        public override PayResponse Process(IDictionary<string, string> dicParams)
         {
-            return BaseResponse.Create(ApiEnum.ResponseCode.处理失败, "查无此订单");
+            return PayResponse.IsSuccess();
             
         }
 
