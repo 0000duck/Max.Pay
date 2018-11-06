@@ -108,6 +108,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Max.Framework.ServiceBus\Max.Framework.ServiceBus.dll</HintPath>
     </Reference>
+    <Reference Include="QRCoder, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QRCode\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Max.Framework.Redis\StackExchange.Redis.dll</HintPath>
@@ -171,8 +175,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.3\lib\net40\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
     <Content Include="Error.html" />
     <Content Include="favicon.ico" />
     <Content Include="Content\Styles\style.css" />
@@ -214,6 +224,7 @@
     <Compile Include="Helpers\DesHelper.cs" />
     <Compile Include="Helpers\BaseHelper.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\QRCodeHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\DecimalExtensions.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
@@ -237,6 +248,11 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\137-Max.Web.Presentation.pubxml" />
     <None Include="Properties\PublishProfiles\config.pubxml" />
     <None Include="Properties\PublishProfiles\d.pubxml" />
@@ -248,6 +264,7 @@
     <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Properties\PublishProfiles\Max.Web.Presentation.pubxml" />
     <None Include="Properties\PublishProfiles\web.config.pubxml" />
+    <Content Include="Views\Home\QRCode.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

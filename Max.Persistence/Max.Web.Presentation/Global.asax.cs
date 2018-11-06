@@ -16,7 +16,7 @@ namespace Max.Web.Presentation
     public class MvcApplication : System.Web.HttpApplication
     {
         private static ILog log = LogManager.GetLogger(typeof(MvcApplication));
-
+        public Max.Framework.Log.ILog _log { get; set; }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -24,45 +24,47 @@ namespace Max.Web.Presentation
             AutofacConfig.Register();
         }
 
-        //protected void Application_Error(object sender, EventArgs e)
-        //{
-        //    Exception exception = Server.GetLastError();
+        protected void Application_Error(object sender, EventArgs e)
+        {
+         
+            Exception exception = Server.GetLastError();
+            log.Error(exception);
+            _log.WriteToFile(exception.ToString());
+            try
+            {
+                var httpError = exception as HttpException;
 
-        //    try
-        //    {
-        //        var httpError = exception as HttpException;
+                if (httpError != null)
+                {
+                    int httpCode = httpError.GetHttpCode();
 
-        //        if (httpError != null)
-        //        {
-        //            int httpCode = httpError.GetHttpCode();
+                    if (httpCode == 404)
+                    {
+                        Server.ClearError();
+                        return;
+                    }
+                }
 
-        //            if (httpCode == 404)
-        //            {
-        //                Server.ClearError();
-        //                return;
-        //            }
-        //        }
+                var serviceBus = AutofacDependencyResolver.Current.GetService(typeof(IServiceBus)) as IServiceBus;
+                //var msg = new H5ErrMessage
+                //{
+                //    UrlPath = HttpContext.Current.Request.RawUrl.Replace("?", "@*"),
+                //    ErrMsg = exception.Message,
+                //    ErrDetail = exception,
+                //    ErrTime = DateTime.Now
+                //};
 
-        //        var serviceBus = AutofacDependencyResolver.Current.GetService(typeof (IServiceBus)) as IServiceBus;
-        //        //var msg = new H5ErrMessage
-        //        //{
-        //        //    UrlPath = HttpContext.Current.Request.RawUrl.Replace("?", "@*"),
-        //        //    ErrMsg = exception.Message,
-        //        //    ErrDetail = exception,
-        //        //    ErrTime = DateTime.Now
-        //        //};
-
-        //        //serviceBus.Publish<IH5Message>(msg);
-        //        Server.ClearError();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error(ex.ToString(), ex);
-        //    }
-        //    finally
-        //    {
-        //        Response.Redirect("/Error.html?s=app&aspxerrorpath=" + HttpContext.Current.Request.RawUrl.Replace("?", "@*"));
-        //    }
-        //}
+                //serviceBus.Publish<IH5Message>(msg);
+                //Server.ClearError();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString(), ex);
+            }
+            finally
+            {
+                //Response.Redirect("/Error.html?s=app&aspxerrorpath=" + HttpContext.Current.Request.RawUrl.Replace("?", "@*"));
+            }
+        }
     }
 }

@@ -7,6 +7,8 @@ using Max.Service.Payment;
 using Max.Models.Payment;
 using Max.Web.Presentation.Common;
 using Max.Web.Presentation.Business.Response;
+using System.IO;
+using Max.Web.Presentation.Helpers;
 
 namespace Max.Web.Presentation.Controllers
 {
@@ -82,7 +84,7 @@ namespace Max.Web.Presentation.Controllers
                 case PayModelEnum.扫码:
                     break;
                 case PayModelEnum.二维码生成:
-                    break;
+                    return QRCode(payResponse.Data);
                 case PayModelEnum.HTML输出:
                     return Content(payResponse.Data, "text/html");
                 default:
@@ -91,6 +93,23 @@ namespace Max.Web.Presentation.Controllers
             return View();
         }
 
+
+        public ActionResult QRCode(string data)
+        {
+            ViewData["QRCODE"] = Url.Action("QRCodeGenera", new { data });
+            return View();
+
+        }
+        public ActionResult QRCodeGenera(string data)
+        {
+            var image = QRCodeHelper.QRCode(data);
+            MemoryStream ms = new MemoryStream();
+            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            ms.Position = 0;
+            return File(ms, "image/jpeg");
+        }
+
+        #region 私有方法
         /// <summary>
         /// 验证商户
         /// </summary>
@@ -125,5 +144,6 @@ namespace Max.Web.Presentation.Controllers
 
             return true;
         }
+        #endregion
     }
 }
